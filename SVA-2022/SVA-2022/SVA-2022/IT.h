@@ -6,7 +6,7 @@
 #define TI_NULLIDX		0xffffffff
 #define TI_STR_MAXSIZE	255
 namespace IT {
-	enum IDDATATYPE { INT = 1, STR = 2 };
+	enum IDDATATYPE { INT = 1, STR = 2,UNDEF=3 };
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4 };
 
 	struct Entry

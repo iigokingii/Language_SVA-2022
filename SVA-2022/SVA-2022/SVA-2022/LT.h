@@ -5,6 +5,7 @@
 #define MAX_SCOPE			10
 #define LEX_NUMB			't'				//integer
 #define LEX_STROKE			't'				//string
+#define LEX_TYPE			't'
 #define LEX_ID				'i'				//идентификатор
 #define LEX_LITERAL			'l'				//литерал
 #define LEX_MAIN			'm'
@@ -23,10 +24,10 @@
 #define LEX_STAR			'*'
 #define LEX_DIRSLASH		'/'
 #define LEX_EQUAL			'='
-//#define LEX_GREATER			'>'
-//#define LEX_SMALLER			'<'
-//#define LEX_GREATEROREQUAL	'}'
-//#define LEX_SMALLEROREQUAL	'{'
+#define LEX_GREATER			'>'
+#define LEX_SMALLER			'<'
+#define LEX_GREATEROREQUAL	'}'
+#define LEX_SMALLEROREQUAL	'{'
 
 
 namespace LT {				//таблица лексем

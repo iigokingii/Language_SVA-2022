@@ -28,25 +28,28 @@ int _tmain(int argc, TCHAR* argv[]) {
 			return 0;
 		}
 		cout << "Синтаксический анализ прошел успешно.\n";
-		/*cout << "Старт семантического анализа...\n";
-		if () {
+		cout << "Старт семантического анализа...\n";
+		bool SemanticOk = Semantic::semanticsCheck(tables,log);
+		if (!SemanticOk) {
 			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
 		}
-		cout << "Семантичесикй анализ завершен успешно.\n";*/
+		cout << "Семантичесикй анализ завершен успешно.\n";
 		cout << "Генерация польской записи...\n";
 		PN::PolishStart(tables);
-		cout << "Генерация польской записи завершена...\n";
 		LT::showTable(tables.lextable);
 		IT::showTable(tables.idtable);
-		cout << "Старт генерации кода..." << endl;
-		cout << "Генерация кода завершена.\n";
+		cout << "Генерация польской записи завершена...\n";
+
+
+		/*cout << "Старт генерации кода..." << endl;
+		cout << "Генерация кода завершена.\n";*/
 
 
 		Out::Close(out);
-		cout << in.text << endl;
+		/*cout << in.text << endl;
 		cout << "Всего символов: " << in.size << endl;
 		cout << "Всего строк: " << in.lines << endl;
-		cout << "Пропущено: " << in.ignor << endl;
+		cout << "Пропущено: " << in.ignor << endl;*/
 
 		Log::Close(log);
 	}

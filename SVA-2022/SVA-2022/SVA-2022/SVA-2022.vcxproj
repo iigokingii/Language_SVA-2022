@@ -151,6 +151,8 @@
     <ClCompile Include="Out.cpp" />
     <ClCompile Include="Parm.cpp" />
     <ClCompile Include="Polish.cpp" />
+    <ClCompile Include="SemAn.cpp" />
+    <ClCompile Include="SemAn.h" />
     <ClCompile Include="SVA-2022.cpp" />
     <ClCompile Include="Words.cpp" />
   </ItemGroup>

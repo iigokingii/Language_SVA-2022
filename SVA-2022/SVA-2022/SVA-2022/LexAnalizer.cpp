@@ -37,6 +37,8 @@ namespace Lex {
 		IT::IdTable idtable = IT::Create(in.size);
 		LT::Entry LtEntr;
 		IT::Entry ItEntr;
+		bool FindMain = false;
+		int countOfMain = 0;
 
 		char** words = new char* [MAX_NUMBER_OF_WORDS];
 		for (int i = 0; i < MAX_NUMBER_OF_WORDS; i++)
@@ -106,7 +108,9 @@ namespace Lex {
 			}
 			FST::FST fstMain(words[stroke], FST_MAIN);
 			if (FST::execute(fstMain)) {
-
+				countOfMain++;
+				if (countOfMain > 1)
+					throw ERROR_THROW_IN(308, sn, stroke);
 				LtEntr.lexema = LEX_MAIN;
 				LtEntr.sn = sn;
 				LtEntr.idxTI = LT_TI_NULLIDX;
@@ -114,6 +118,7 @@ namespace Lex {
 				NameOfFunc = (char*)"main";
 				buff = (char*)"main";
 				LT::Add(lextable, LtEntr);
+				FindMain = true;
 				continue;
 
 			}
@@ -215,6 +220,7 @@ namespace Lex {
 
 					LT::Add(lextable, LtEntr);
 					IT::Add(idtable, ItEntr);
+					ItEntr.iddatatype = IT::UNDEF;
 					LitNumber++;
 					continue;
 				}
@@ -251,7 +257,7 @@ namespace Lex {
 				LT::Add(lextable, LtEntr);
 				IT::Add(idtable, ItEntr);
 				NameOfFunc = words[stroke];
-
+				ItEntr.iddatatype = IT::UNDEF;
 				/*if (buff == NameOfFunc&&!Flag) {
 					buff = NameOfFunc;
 					NameOfFunc = words[stroke];
@@ -288,8 +294,10 @@ namespace Lex {
 					strcpy_s(ItEntr.value.vstr.str, "");
 					ItEntr.value.vstr.len = 0;
 				}
+
 				LT::Add(lextable, LtEntr);
 				IT::Add(idtable, ItEntr);
+				ItEntr.iddatatype = IT::UNDEF;
 				continue;
 			}
 			FST::FST FSTDecl(words[stroke - 2], FST_NEW);
@@ -331,6 +339,7 @@ namespace Lex {
 				}
 				LT::Add(lextable, LtEntr);
 				IT::Add(idtable, ItEntr);
+				ItEntr.iddatatype = IT::UNDEF;
 				continue;
 			}
 			FST::FST FSTEQ1(words[stroke + 1], FST_EQUAL);
@@ -372,6 +381,7 @@ namespace Lex {
 					strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 					ItEntr.value.vstr.len = strlen(words[stroke]);
 					IT::Add(idtable, ItEntr);									//TODO
+					ItEntr.iddatatype = IT::UNDEF;
 					LitNumber++;
 					continue;
 				}
@@ -394,6 +404,7 @@ namespace Lex {
 						strcpy(ItEntr.id, temporary);
 						LitNumber++;
 						IT::Add(idtable, ItEntr);
+						ItEntr.iddatatype = IT::UNDEF;
 						continue;
 					}
 					else {//z=x*(x+y); или = функция
@@ -515,9 +526,17 @@ namespace Lex {
 					}
 				}
 				throw ERROR_THROW_IN(163, sn+1, stroke+1);
-			}
-			
+			}	
 		}
+		if (!FindMain) 
+			ERROR_THROW(300);
+		for (int j = 0; j < idtable.size; j++)
+		{
+			if (idtable.table[j].iddatatype == IT::UNDEF && (idtable.table[j].idtype == IT::V || idtable.table[j].idtype == IT::P || idtable.table[j].idtype == IT::F)) {
+				throw ERROR_THROW_IN(307, lextable.table[idtable.table[j].idxfirstLE].sn, -1);
+			}
+		}
+		
 		LT::showTable(lextable);
 		LT::WriteTable(lextable,out);
 		IT::showTable(idtable);

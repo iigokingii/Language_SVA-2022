@@ -3,6 +3,7 @@ char** DivideTexT(char* source, int size) {
 	char** words = new char* [MAX_NUMBER_OF_WORDS];
 	int stroke = 0;
 	int column = 0;
+	int countApostr = 0;
 	In::IN letters;
 	for (int i = 0; i < MAX_NUMBER_OF_WORDS; i++)
 	{
@@ -13,12 +14,14 @@ char** DivideTexT(char* source, int size) {
 	{
 		if (source[i] == '\'') {
 			words[stroke][column++] = source[i++];
+			countApostr++;
 			while (source[i] != '\'')
 			{
 				words[stroke][column++] = source[i];
 				i++;
 			}
 			words[stroke][column++] = source[i];
+			countApostr++;
 			words[stroke++][column] = '\0';
 			column = 0;
 			continue;
@@ -46,6 +49,9 @@ char** DivideTexT(char* source, int size) {
 			}
 			flag = false;
 		}
+	}
+	if (countApostr % 2 == 1) {
+		throw ERROR_THROW(609);
 	}
 	words[stroke] = NULL;
 	return words;
