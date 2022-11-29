@@ -1,5 +1,5 @@
 #include"stdafx.h"
-
+#include"SemAn.h"
 int _tmain(int argc, TCHAR* argv[]) {
 	setlocale(LC_CTYPE, "ru");
 	Out::OUT out = Out::INITOUT;
@@ -19,8 +19,8 @@ int _tmain(int argc, TCHAR* argv[]) {
 		cout << "Лексический анализ завершен успешно.\n";
 		cout << "Старт синтаксического анализа...\n";
 		MFST::Mfst mfs();
-		MFST::Mfst mfst(tables.lextable, GRB::getGreibach(),parm.greibach);
-		bool checkSynt=mfst.start();
+		MFST::Mfst mfst(tables.lextable, GRB::getGreibach(), parm.greibach);
+		bool checkSynt = mfst.start();
 		mfst.savededucation();
 		mfst.printRules();
 		if (!checkSynt) {
@@ -29,7 +29,7 @@ int _tmain(int argc, TCHAR* argv[]) {
 		}
 		cout << "Синтаксический анализ прошел успешно.\n";
 		cout << "Старт семантического анализа...\n";
-		bool SemanticOk = Semantic::semanticsCheck(tables,log);
+		bool SemanticOk = Semantic::semanticsCheck(tables, log);
 		if (!SemanticOk) {
 			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
 		}
@@ -39,10 +39,9 @@ int _tmain(int argc, TCHAR* argv[]) {
 		LT::showTable(tables.lextable);
 		IT::showTable(tables.idtable);
 		cout << "Генерация польской записи завершена...\n";
-
-
-		/*cout << "Старт генерации кода..." << endl;
-		cout << "Генерация кода завершена.\n";*/
+		cout << "Старт генерации кода..." << endl;
+		//Generator::CodeGeneration(tables);
+		cout << "Генерация кода завершена.\n";
 
 
 		Out::Close(out);

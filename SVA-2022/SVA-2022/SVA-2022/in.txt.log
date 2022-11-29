@@ -2,7 +2,7 @@
 
 
 ------------ПРОТОКОЛ------------
- ----28.11.22 05:02:38----
+ ----29.11.22 05:28:37----
  
  ---- Параметры ---- 
 
@@ -11,15 +11,15 @@
 -log: in.txt.log
 
 ---- Исходные данные ----
-numb func fi(numb x,numb y)
+numb func fi(numb x, numb y)
 [
 new numb z;
-z=x*(x+y);
-return z;
-];
+z= x*(x+y);
+return z; 
+]; 
 stroke func fs (stroke a, stroke b)
 [
-new stroke с;
+new stroke c;
 new stroke func substr(stroke a, numb p, numb n);
 c = substr(a, 1,3)+ b;
 return c; 
@@ -46,7 +46,7 @@ print strlen(sc);
 return 0;
 ];
 
-Всего символов: 480
+Всего символов: 484
 
 Всего строк: 33
 

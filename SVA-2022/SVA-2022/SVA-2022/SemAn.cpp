@@ -1,5 +1,5 @@
 #include"stdafx.h"
-namespace Semantic{
+namespace Semantic {
 	bool semanticsCheck(Lex::Tables& tables, Log::LOG& log) {
 		bool sem_ok = true;
 		for (int i = 0; i < tables.lextable.size; i++)
@@ -9,28 +9,28 @@ namespace Semantic{
 					if (tables.lextable.table[i + 1].lexema != LEX_TYPE) {
 						sem_ok = false;
 						throw ERROR_THROW_IN(301, tables.lextable.table[i].sn, -1);
-						break;
 					}
+					break;
 				}
 				case LEX_TYPE: {
-					if (tables.lextable.table[i + 1].lexema == LEX_ID && tables.lextable.table[i - 1].lexema != LEX_NEW && tables.idtable.table[tables.lextable.table[i+1].idxTI].idtype != IT::P) {
+					if (tables.lextable.table[i + 1].lexema == LEX_ID && tables.lextable.table[i - 1].lexema != LEX_NEW && tables.idtable.table[tables.lextable.table[i + 1].idxTI].idtype != IT::P) {
 						sem_ok = false;
 						throw ERROR_THROW_IN(302, tables.lextable.table[i].sn, -1);
-						break;
 					}
+					break;
 				}
 				case LEX_ID: {
 					if (tables.lextable.table[i].lexema == LEX_FUNCTION) {
-						IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i-1].idxTI].iddatatype;
+						IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype;
 						int j = i;
 						while (tables.lextable.table[j].lexema != LEX_RETURN)
 							j++;
 						if (temp != tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype) {
 							sem_ok = false;
 							throw ERROR_THROW_IN(303, tables.lextable.table[i + 1].sn, -1);
-							break;
 						}
 					}
+					break;
 				}
 				case LEX_GREATER:
 				case LEX_SMALLER:
@@ -53,10 +53,10 @@ namespace Semantic{
 					}
 					break;
 				}
-				/*case LEX_EQUAL: {
-					IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i-1].idxTI].iddatatype;
-					int j = i+1;
-					while (tables.lextable.table[j].lexema!=LEX_SEMICOLON) {
+				case LEX_EQUAL: {
+					IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype;
+					int j = i + 1;
+					while (tables.lextable.table[j].lexema != LEX_SEMICOLON) {
 						if (tables.lextable.table[j].lexema == LEX_LEFTHESIS) {
 							while (tables.lextable.table[j].lexema != LEX_RIGHTHESIS)
 								j++;
@@ -70,7 +70,7 @@ namespace Semantic{
 						j++;
 					}
 					break;
-				}*/
+				}
 				case LEX_DIRSLASH: {
 					if (tables.idtable.table[tables.lextable.table[i].idxTI].value.vint == 0) {
 						sem_ok = false;
@@ -78,16 +78,8 @@ namespace Semantic{
 					}
 					break;
 				}
-
-
 			}
-
-
-
-
-
-
 		}
 		return sem_ok;
-	}	
+	}
 }

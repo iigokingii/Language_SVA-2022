@@ -238,12 +238,12 @@ namespace Lex {
 			FST::FST FSTS(words[stroke - 2], FST_STROKE);
 			FST::FST FSTF(words[stroke - 1], FST_FUNCTION);
 			if (stroke >= 2 && (FST::execute(FSTI) || FST::execute(FSTS)) && FST::execute(FSTF)) { //integer function fi
-				
+
 				int size = strlen(words[stroke]);
 				if (size + 1 > ID_MAXSIZE)
 					throw ERROR_THROW_IN(162, sn, stroke);
 
-				ItEntr.iddatatype = (CMP(words[stroke - 2], "string") ? IT::STR : IT::INT);
+				ItEntr.iddatatype = (CMP(words[stroke - 2], "stroke") ? IT::STR : IT::INT);
 				ItEntr.idtype = IT::F;
 				ItEntr.idxfirstLE = lextable.size;
 
@@ -251,7 +251,7 @@ namespace Lex {
 				LtEntr.sn = sn;
 				LtEntr.lexema = LEX_ID;
 
-				
+
 				strcpy(ItEntr.id, words[stroke]);
 				strcpy(ItEntr.scope, words[stroke]);
 				LT::Add(lextable, LtEntr);
@@ -270,7 +270,7 @@ namespace Lex {
 			FST::FST FSTC(words[stroke - 2], FST_COMMA);
 			FST::FST FSTLH(words[stroke - 2], FST_LEFTTHESIS);
 			if (stroke >= 2 && (FST::execute(FSTSt) || FST::execute(FSTIn)) && (FST::execute(FSTC) || FST::execute(FSTLH))) {//(integer x, integer y) || (string a, string b) 
-				ItEntr.iddatatype = (CMP(words[stroke - 1], "string") ? IT::STR : IT::INT);
+				ItEntr.iddatatype = (CMP(words[stroke - 1], "stroke") ? IT::STR : IT::INT);
 				ItEntr.idtype = IT::P;
 				ItEntr.idxfirstLE = lextable.size;
 
@@ -305,7 +305,7 @@ namespace Lex {
 			FST::FST FSTINT(words[stroke - 1], FST_NUMB);
 			FST::FST FSTFunc(words[stroke], FST_FUNCTION);
 			if (stroke >= 2 && FST::execute(FSTDecl) && (FST::execute(FSTSTR) || FST::execute(FSTINT)) && !FST::execute(FSTF)) {//declare integer x;
-				ItEntr.iddatatype = (CMP(words[stroke - 1], "string") ? IT::STR : IT::INT);
+				ItEntr.iddatatype = (CMP(words[stroke - 1], "stroke") ? IT::STR : IT::INT);
 				ItEntr.idxfirstLE = lextable.size;
 				LtEntr.lexema = LEX_ID;
 				LtEntr.idxTI = idtable.size;
@@ -391,7 +391,7 @@ namespace Lex {
 					if (FST::execute(FSN)) {
 						LtEntr.lexema = LEX_LITERAL;
 						LtEntr.sn = sn;
-						LtEntr.idxTI = TI_NULLIDX;    //jghjghghgh
+						LtEntr.idxTI = idtable.size;
 						LT::Add(lextable, LtEntr);
 						ItEntr.iddatatype = IT::INT;
 						ItEntr.idtype = IT::L;
@@ -525,10 +525,10 @@ namespace Lex {
 						continue;
 					}
 				}
-				throw ERROR_THROW_IN(163, sn+1, stroke+1);
-			}	
+				throw ERROR_THROW_IN(163, sn + 1, stroke + 1);
+			}
 		}
-		if (!FindMain) 
+		if (!FindMain)
 			ERROR_THROW(300);
 		for (int j = 0; j < idtable.size; j++)
 		{
@@ -536,11 +536,11 @@ namespace Lex {
 				throw ERROR_THROW_IN(307, lextable.table[idtable.table[j].idxfirstLE].sn, -1);
 			}
 		}
-		
+
 		LT::showTable(lextable);
-		LT::WriteTable(lextable,out);
+		LT::WriteTable(lextable, out);
 		IT::showTable(idtable);
-		IT::WriteTable(idtable,out);
+		IT::WriteTable(idtable, out);
 		tables.idtable = idtable;
 		tables.lextable = lextable;
 		return tables;
