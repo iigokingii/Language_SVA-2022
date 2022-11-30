@@ -6,7 +6,10 @@ namespace Lex {
 	char* NameOfFunc = NULL;
 	char* id = new char[TI_MAXSIZE];
 	bool Flag = false;
+	bool findFunc = false;
 	int LitNumber = 0;
+	int numberOfPar=0;
+	int posOfFunction;
 	bool CMP(char* str1, const char* str2) {
 		int i = 0;
 		while (str1[i] != '\0' && str2[i] != '\0') {
@@ -154,6 +157,9 @@ namespace Lex {
 			}
 			FST::FST fstLH(words[stroke], FST_LEFTTHESIS);
 			if (FST::execute(fstLH)) {
+				if (idtable.table[lextable.table[posOfFunction].idxTI].idtype == IT::F) {
+					findFunc = true;
+				}
 				LtEntr.priority = 1;
 				LtEntr.lexema = LEX_LEFTHESIS;
 				LtEntr.sn = sn;
@@ -164,6 +170,13 @@ namespace Lex {
 			}
 			FST::FST fstRH(words[stroke], FST_RIGHTTHESIS);
 			if (FST::execute(fstRH)) {
+				if (findFunc) {
+					idtable.table[lextable.table[posOfFunction].idxTI].numberOfParam = numberOfPar;
+					numberOfPar = 0;
+					findFunc = false;
+					posOfFunction = 0;
+				}
+					
 				LtEntr.priority = 1;
 				LtEntr.lexema = LEX_RIGHTHESIS;
 				LtEntr.sn = sn;
@@ -197,41 +210,43 @@ namespace Lex {
 				LT::Add(lextable, LtEntr);
 				continue;
 			}
+			if (stroke > 1) {
+				FST::FST fstpr(words[stroke - 1], FST_PRINT);
+				FST::FST fststrl(words[stroke - 2], FST_STRLEN);
+				if (FST::execute(fstpr) || FST::execute(fststrl)) {//print 'контрольный пример'; strlen(string p)
+					FST::FST fstLit(words[stroke], FST_STRLIT);
+					if (FST::execute(fstLit)) {
+						LtEntr.lexema = LEX_LITERAL;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = idtable.size;
 
-			FST::FST fstpr(words[stroke - 1], FST_PRINT);
-			FST::FST fststrl(words[stroke - 2], FST_STRLEN);
-			if (stroke >= 1 && (FST::execute(fstpr) || FST::execute(fststrl))) {//print 'контрольный пример'; strlen(string p)
-				FST::FST fstLit(words[stroke], FST_STRLIT);
-				if (FST::execute(fstLit)) {
-					LtEntr.lexema = LEX_LITERAL;
+						ItEntr.idtype = IT::L;
+						ItEntr.iddatatype = IT::STR;
+						ItEntr.idxfirstLE = lextable.size;
+						ItEntr.value.vstr.len = strlen(words[stroke]);
+						char temporary[10] = "LSTR";
+						char* temp = itoa(LitNumber, buff, 10);
+						strcat(temporary, temp);
+						strcpy(ItEntr.id, temporary);
+						strcpy_s(ItEntr.value.vstr.str, words[stroke]);
+						ItEntr.value.vstr.len = strlen(words[stroke]);
+
+						LT::Add(lextable, LtEntr);
+						IT::Add(idtable, ItEntr);
+						ItEntr.iddatatype = IT::UNDEF;
+						LitNumber++;
+						continue;
+					}
+					getid(stroke, id, words, 0);
+					int position = IT::IsId(idtable, id);
+					LtEntr.idxTI = position;
+					LtEntr.lexema = LEX_ID;
 					LtEntr.sn = sn;
-					LtEntr.idxTI = idtable.size;
-
-					ItEntr.idtype = IT::L;
-					ItEntr.iddatatype = IT::STR;
-					ItEntr.idxfirstLE = lextable.size;
-					ItEntr.value.vstr.len = strlen(words[stroke]);
-					char temporary[10] = "LSTR";
-					char* temp = itoa(LitNumber, buff, 10);
-					strcat(temporary, temp);
-					strcpy(ItEntr.id, temporary);
-					strcpy_s(ItEntr.value.vstr.str, words[stroke]);
-					ItEntr.value.vstr.len = strlen(words[stroke]);
-
 					LT::Add(lextable, LtEntr);
-					IT::Add(idtable, ItEntr);
-					ItEntr.iddatatype = IT::UNDEF;
-					LitNumber++;
 					continue;
 				}
-				getid(stroke, id, words, 0);
-				int position = IT::IsId(idtable, id);
-				LtEntr.idxTI = position;
-				LtEntr.lexema = LEX_ID;
-				LtEntr.sn = sn;
-				LT::Add(lextable, LtEntr);
-				continue;
 			}
+			
 
 
 			FST::FST FSTI(words[stroke - 2], FST_NUMB);
@@ -251,7 +266,7 @@ namespace Lex {
 				LtEntr.sn = sn;
 				LtEntr.lexema = LEX_ID;
 
-
+				posOfFunction = lextable.size;
 				strcpy(ItEntr.id, words[stroke]);
 				strcpy(ItEntr.scope, words[stroke]);
 				LT::Add(lextable, LtEntr);
@@ -273,12 +288,11 @@ namespace Lex {
 				ItEntr.iddatatype = (CMP(words[stroke - 1], "stroke") ? IT::STR : IT::INT);
 				ItEntr.idtype = IT::P;
 				ItEntr.idxfirstLE = lextable.size;
-
 				LtEntr.idxTI = idtable.size;
 				LtEntr.lexema = LEX_ID;
 				LtEntr.sn = sn;
-
-				int col = strlen(NameOfFunc) + strlen(words[stroke]);
+				numberOfPar++;
+				int col = /*strlen(NameOfFunc)*/ + strlen(words[stroke]);
 				if (col + 1 > ID_MAXSIZE) //область функции+ param + \0
 					throw ERROR_THROW(162);
 
@@ -311,7 +325,7 @@ namespace Lex {
 				LtEntr.idxTI = idtable.size;
 				LtEntr.sn = sn;
 
-				int col = strlen(NameOfFunc) + strlen(words[stroke]);
+				int col =/* strlen(NameOfFunc)*/ +strlen(words[stroke]);
 				if (col + 1 > ID_MAXSIZE) //область функции+ param + \0
 					throw ERROR_THROW(162);
 
@@ -416,7 +430,6 @@ namespace Lex {
 								LtEntr.lexema = LEX_ID;
 								LtEntr.sn = sn;
 								getid(stroke, id, words, 0);
-
 								int position = IT::IsId(idtable, (char*)"substr");			//хуйня переделывай
 								LtEntr.idxTI = position;
 								LT::Add(lextable, LtEntr);

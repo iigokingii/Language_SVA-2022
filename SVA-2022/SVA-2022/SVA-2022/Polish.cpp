@@ -151,13 +151,12 @@ namespace PN {
 				countOfLex--;
 			}
 		}
-		//for (int i = 0; i < position; i++)	// восстановление индексов первого вхождения в таблицу лексем у операторов из таблицы идентификаторов
-		//{
-		//	if (lex.table[i].lexema == LEX_PLUS || lex.table[i].lexema == LEX_MINUS || lex.table[i].lexema == LEX_STAR || lex.table[i].lexema == LEX_DIRSLASH||lex.table[i].lexema==LEX_LITERAL) {
-		//		table.idtable.table[lex.table[i].idxTI].idxfirstLE = i;
-		//	}
-		//
-		//}
+		for (int i = 0; i < position; i++)	// восстановление индексов первого вхождения в таблицу лексем у операторов из таблицы идентификаторов
+		{
+			if (lex.table[i].lexema == LEX_PLUS || lex.table[i].lexema == LEX_MINUS || lex.table[i].lexema == LEX_STAR || lex.table[i].lexema == LEX_DIRSLASH||lex.table[i].lexema==LEX_LITERAL) {
+				table.idtable.table[lex.table[i].idxTI].idxfirstLE = i;
+			}
+		}
 		for (int i = position + t; i < table.lextable.size; i++)
 		{
 			lex.table[position++] = lex.table[i];

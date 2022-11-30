@@ -1,7 +1,7 @@
 ﻿#include<iostream>
 extern "C" {
 
-	int _stdcall Strlen(char arr[]) {
+	int _stdcall Strlen(char arr[]) {//gtht
 		return strlen(arr);
 	}
 

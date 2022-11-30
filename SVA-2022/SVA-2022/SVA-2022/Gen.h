@@ -21,10 +21,18 @@
 
 #define CODE	".code\n"
 
+#define STR_SEPARATOR		"\n;------------------------------\n"
+#define FUNCTION_NAME(u)	"\n;----------- " + string(u) + " ------------\n"
+
+
 #define END		"push 0\n"\
 				"call ExitProcess\n"\
 				"main ENDP\n"\
 				"end main\n"
+
+#define LEXEMA(y)	tables.lextable.table[y].lexema
+
+#define IT_ENTRY(y) tables.idtable.table[tables.lextable.table[y].idxTI]
 
 namespace Generator {
 	void CodeGeneration(Lex::Tables& tables);

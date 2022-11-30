@@ -29,7 +29,7 @@
 	IN::S, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::T, IN::S, IN::S, IN::S, IN::S, IN::S, IN::F, IN::F, IN::S, \
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::F, IN::S, IN::F, IN::S, IN::F, IN::F, \
 	IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, \
-	IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::I,	IN::F, IN::F, IN::T, IN::F, IN::T, IN::F, IN::F,\
+	IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::I, IN::F, IN::F, IN::T, IN::F, IN::T, IN::F, IN::F,\
 	IN::F, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::S, IN::F, IN::S, IN::F, IN::F, \
 																													\

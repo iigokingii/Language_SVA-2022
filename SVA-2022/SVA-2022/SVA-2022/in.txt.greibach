@@ -1,0 +1,1333 @@
+Шаг : Правило             Входная лента                 Стек               
+0   : S->tfi(F)[NrE;];S   tfi(ti,ti)[nti;i=i*(i+i);     S$                  
+0   : SAVESTATE:          1
+0   :                     tfi(ti,ti)[nti;i=i*(i+i);     tfi(F)[NrE;];S$     
+1   :                     fi(ti,ti)[nti;i=i*(i+i);r     fi(F)[NrE;];S$      
+2   :                     i(ti,ti)[nti;i=i*(i+i);ri     i(F)[NrE;];S$       
+3   :                     (ti,ti)[nti;i=i*(i+i);ri;     (F)[NrE;];S$        
+4   :                     ti,ti)[nti;i=i*(i+i);ri;]     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+5   : F->ti               ti,ti)[nti;i=i*(i+i);ri;]     F)[NrE;];S$         
+5   : SAVESTATE:          2
+5   :                     ti,ti)[nti;i=i*(i+i);ri;]     ti)[NrE;];S$        
+6   :                     i,ti)[nti;i=i*(i+i);ri;];     i)[NrE;];S$         
+7   :                     ,ti)[nti;i=i*(i+i);ri;];t     )[NrE;];S$          
+8   : TS_NOK/NS_NORULECHAIN
+8   : RESTATE             
+8   :                     ti,ti)[nti;i=i*(i+i);ri;]     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+9   : F->ti,F             ti,ti)[nti;i=i*(i+i);ri;]     F)[NrE;];S$         
+9   : SAVESTATE:          2
+9   :                     ti,ti)[nti;i=i*(i+i);ri;]     ti,F)[NrE;];S$      
+10  :                     i,ti)[nti;i=i*(i+i);ri;];     i,F)[NrE;];S$       
+11  :                     ,ti)[nti;i=i*(i+i);ri;];t     ,F)[NrE;];S$        
+12  :                     ti)[nti;i=i*(i+i);ri;];tf     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+13  : F->ti               ti)[nti;i=i*(i+i);ri;];tf     F)[NrE;];S$         
+13  : SAVESTATE:          3
+13  :                     ti)[nti;i=i*(i+i);ri;];tf     ti)[NrE;];S$        
+14  :                     i)[nti;i=i*(i+i);ri;];tfi     i)[NrE;];S$         
+15  :                     )[nti;i=i*(i+i);ri;];tfi(     )[NrE;];S$          
+16  :                     [nti;i=i*(i+i);ri;];tfi(t     [NrE;];S$           
+17  :                     nti;i=i*(i+i);ri;];tfi(ti     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+18  : N->nti;             nti;i=i*(i+i);ri;];tfi(ti     NrE;];S$            
+18  : SAVESTATE:          4
+18  :                     nti;i=i*(i+i);ri;];tfi(ti     nti;rE;];S$         
+19  :                     ti;i=i*(i+i);ri;];tfi(ti,     ti;rE;];S$          
+20  :                     i;i=i*(i+i);ri;];tfi(ti,t     i;rE;];S$           
+21  :                     ;i=i*(i+i);ri;];tfi(ti,ti     ;rE;];S$            
+22  :                     i=i*(i+i);ri;];tfi(ti,ti)     rE;];S$             
+23  : TS_NOK/NS_NORULECHAIN
+23  : RESTATE             
+23  :                     nti;i=i*(i+i);ri;];tfi(ti     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+24  : N->nti;N            nti;i=i*(i+i);ri;];tfi(ti     NrE;];S$            
+24  : SAVESTATE:          4
+24  :                     nti;i=i*(i+i);ri;];tfi(ti     nti;NrE;];S$        
+25  :                     ti;i=i*(i+i);ri;];tfi(ti,     ti;NrE;];S$         
+26  :                     i;i=i*(i+i);ri;];tfi(ti,t     i;NrE;];S$          
+27  :                     ;i=i*(i+i);ri;];tfi(ti,ti     ;NrE;];S$           
+28  :                     i=i*(i+i);ri;];tfi(ti,ti)     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+29  : N->i=E;             i=i*(i+i);ri;];tfi(ti,ti)     NrE;];S$            
+29  : SAVESTATE:          5
+29  :                     i=i*(i+i);ri;];tfi(ti,ti)     i=E;rE;];S$         
+30  :                     =i*(i+i);ri;];tfi(ti,ti)[     =E;rE;];S$          
+31  :                     i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+32  : E->i                i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+32  : SAVESTATE:          6
+32  :                     i*(i+i);ri;];tfi(ti,ti)[n     i;rE;];S$           
+33  :                     *(i+i);ri;];tfi(ti,ti)[nt     ;rE;];S$            
+34  : TS_NOK/NS_NORULECHAIN
+34  : RESTATE             
+34  :                     i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+35  : E->i(W)             i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+35  : SAVESTATE:          6
+35  :                     i*(i+i);ri;];tfi(ti,ti)[n     i(W);rE;];S$        
+36  :                     *(i+i);ri;];tfi(ti,ti)[nt     (W);rE;];S$         
+37  : TS_NOK/NS_NORULECHAIN
+37  : RESTATE             
+37  :                     i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+38  : E->iM               i*(i+i);ri;];tfi(ti,ti)[n     E;rE;];S$           
+38  : SAVESTATE:          6
+38  :                     i*(i+i);ri;];tfi(ti,ti)[n     iM;rE;];S$          
+39  :                     *(i+i);ri;];tfi(ti,ti)[nt     M;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+40  : M->*E               *(i+i);ri;];tfi(ti,ti)[nt     M;rE;];S$           
+40  : SAVESTATE:          7
+40  :                     *(i+i);ri;];tfi(ti,ti)[nt     *E;rE;];S$          
+41  :                     (i+i);ri;];tfi(ti,ti)[nti     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+42  : E->(E)              (i+i);ri;];tfi(ti,ti)[nti     E;rE;];S$           
+42  : SAVESTATE:          8
+42  :                     (i+i);ri;];tfi(ti,ti)[nti     (E);rE;];S$         
+43  :                     i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+44  : E->i                i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+44  : SAVESTATE:          9
+44  :                     i+i);ri;];tfi(ti,ti)[nti;     i);rE;];S$          
+45  :                     +i);ri;];tfi(ti,ti)[nti;n     );rE;];S$           
+46  : TS_NOK/NS_NORULECHAIN
+46  : RESTATE             
+46  :                     i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+47  : E->i(W)             i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+47  : SAVESTATE:          9
+47  :                     i+i);ri;];tfi(ti,ti)[nti;     i(W));rE;];S$       
+48  :                     +i);ri;];tfi(ti,ti)[nti;n     (W));rE;];S$        
+49  : TS_NOK/NS_NORULECHAIN
+49  : RESTATE             
+49  :                     i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+50  : E->iM               i+i);ri;];tfi(ti,ti)[nti;     E);rE;];S$          
+50  : SAVESTATE:          9
+50  :                     i+i);ri;];tfi(ti,ti)[nti;     iM);rE;];S$         
+51  :                     +i);ri;];tfi(ti,ti)[nti;n     M);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+52  : M->+E               +i);ri;];tfi(ti,ti)[nti;n     M);rE;];S$          
+52  : SAVESTATE:          10
+52  :                     +i);ri;];tfi(ti,ti)[nti;n     +E);rE;];S$         
+53  :                     i);ri;];tfi(ti,ti)[nti;nt     E);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+54  : E->i                i);ri;];tfi(ti,ti)[nti;nt     E);rE;];S$          
+54  : SAVESTATE:          11
+54  :                     i);ri;];tfi(ti,ti)[nti;nt     i);rE;];S$          
+55  :                     );ri;];tfi(ti,ti)[nti;ntf     );rE;];S$           
+56  :                     ;ri;];tfi(ti,ti)[nti;ntfi     ;rE;];S$            
+57  :                     ri;];tfi(ti,ti)[nti;ntfi(     rE;];S$             
+58  :                     i;];tfi(ti,ti)[nti;ntfi(t     E;];S$              
+Шаг : Правило             Входная лента                 Стек               
+59  : E->i                i;];tfi(ti,ti)[nti;ntfi(t     E;];S$              
+59  : SAVESTATE:          12
+59  :                     i;];tfi(ti,ti)[nti;ntfi(t     i;];S$              
+60  :                     ;];tfi(ti,ti)[nti;ntfi(ti     ;];S$               
+61  :                     ];tfi(ti,ti)[nti;ntfi(ti,     ];S$                
+62  :                     ;tfi(ti,ti)[nti;ntfi(ti,t     ;S$                 
+63  :                     tfi(ti,ti)[nti;ntfi(ti,ti     S$                  
+Шаг : Правило             Входная лента                 Стек               
+64  : S->tfi(F)[NrE;];S   tfi(ti,ti)[nti;ntfi(ti,ti     S$                  
+64  : SAVESTATE:          13
+64  :                     tfi(ti,ti)[nti;ntfi(ti,ti     tfi(F)[NrE;];S$     
+65  :                     fi(ti,ti)[nti;ntfi(ti,ti,     fi(F)[NrE;];S$      
+66  :                     i(ti,ti)[nti;ntfi(ti,ti,t     i(F)[NrE;];S$       
+67  :                     (ti,ti)[nti;ntfi(ti,ti,ti     (F)[NrE;];S$        
+68  :                     ti,ti)[nti;ntfi(ti,ti,ti)     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+69  : F->ti               ti,ti)[nti;ntfi(ti,ti,ti)     F)[NrE;];S$         
+69  : SAVESTATE:          14
+69  :                     ti,ti)[nti;ntfi(ti,ti,ti)     ti)[NrE;];S$        
+70  :                     i,ti)[nti;ntfi(ti,ti,ti);     i)[NrE;];S$         
+71  :                     ,ti)[nti;ntfi(ti,ti,ti);i     )[NrE;];S$          
+72  : TS_NOK/NS_NORULECHAIN
+72  : RESTATE             
+72  :                     ti,ti)[nti;ntfi(ti,ti,ti)     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+73  : F->ti,F             ti,ti)[nti;ntfi(ti,ti,ti)     F)[NrE;];S$         
+73  : SAVESTATE:          14
+73  :                     ti,ti)[nti;ntfi(ti,ti,ti)     ti,F)[NrE;];S$      
+74  :                     i,ti)[nti;ntfi(ti,ti,ti);     i,F)[NrE;];S$       
+75  :                     ,ti)[nti;ntfi(ti,ti,ti);i     ,F)[NrE;];S$        
+76  :                     ti)[nti;ntfi(ti,ti,ti);i=     F)[NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+77  : F->ti               ti)[nti;ntfi(ti,ti,ti);i=     F)[NrE;];S$         
+77  : SAVESTATE:          15
+77  :                     ti)[nti;ntfi(ti,ti,ti);i=     ti)[NrE;];S$        
+78  :                     i)[nti;ntfi(ti,ti,ti);i=i     i)[NrE;];S$         
+79  :                     )[nti;ntfi(ti,ti,ti);i=i(     )[NrE;];S$          
+80  :                     [nti;ntfi(ti,ti,ti);i=i(i     [NrE;];S$           
+81  :                     nti;ntfi(ti,ti,ti);i=i(i,     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+82  : N->nti;             nti;ntfi(ti,ti,ti);i=i(i,     NrE;];S$            
+82  : SAVESTATE:          16
+82  :                     nti;ntfi(ti,ti,ti);i=i(i,     nti;rE;];S$         
+83  :                     ti;ntfi(ti,ti,ti);i=i(i,l     ti;rE;];S$          
+84  :                     i;ntfi(ti,ti,ti);i=i(i,l,     i;rE;];S$           
+85  :                     ;ntfi(ti,ti,ti);i=i(i,l,l     ;rE;];S$            
+86  :                     ntfi(ti,ti,ti);i=i(i,l,l)     rE;];S$             
+87  : TS_NOK/NS_NORULECHAIN
+87  : RESTATE             
+87  :                     nti;ntfi(ti,ti,ti);i=i(i,     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+88  : N->nti;N            nti;ntfi(ti,ti,ti);i=i(i,     NrE;];S$            
+88  : SAVESTATE:          16
+88  :                     nti;ntfi(ti,ti,ti);i=i(i,     nti;NrE;];S$        
+89  :                     ti;ntfi(ti,ti,ti);i=i(i,l     ti;NrE;];S$         
+90  :                     i;ntfi(ti,ti,ti);i=i(i,l,     i;NrE;];S$          
+91  :                     ;ntfi(ti,ti,ti);i=i(i,l,l     ;NrE;];S$           
+92  :                     ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+93  : N->nti;             ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+93  : SAVESTATE:          17
+93  :                     ntfi(ti,ti,ti);i=i(i,l,l)     nti;rE;];S$         
+94  :                     tfi(ti,ti,ti);i=i(i,l,l)+     ti;rE;];S$          
+95  :                     fi(ti,ti,ti);i=i(i,l,l)+i     i;rE;];S$           
+96  : TS_NOK/NS_NORULECHAIN
+96  : RESTATE             
+96  :                     ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+97  : N->nti;N            ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+97  : SAVESTATE:          17
+97  :                     ntfi(ti,ti,ti);i=i(i,l,l)     nti;NrE;];S$        
+98  :                     tfi(ti,ti,ti);i=i(i,l,l)+     ti;NrE;];S$         
+99  :                     fi(ti,ti,ti);i=i(i,l,l)+i     i;NrE;];S$          
+100 : TS_NOK/NS_NORULECHAIN
+100 : RESTATE             
+100 :                     ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+101 : N->ntfi(F);         ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+101 : SAVESTATE:          17
+101 :                     ntfi(ti,ti,ti);i=i(i,l,l)     ntfi(F);rE;];S$     
+102 :                     tfi(ti,ti,ti);i=i(i,l,l)+     tfi(F);rE;];S$      
+103 :                     fi(ti,ti,ti);i=i(i,l,l)+i     fi(F);rE;];S$       
+104 :                     i(ti,ti,ti);i=i(i,l,l)+i;     i(F);rE;];S$        
+105 :                     (ti,ti,ti);i=i(i,l,l)+i;r     (F);rE;];S$         
+106 :                     ti,ti,ti);i=i(i,l,l)+i;ri     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+107 : F->ti               ti,ti,ti);i=i(i,l,l)+i;ri     F);rE;];S$          
+107 : SAVESTATE:          18
+107 :                     ti,ti,ti);i=i(i,l,l)+i;ri     ti);rE;];S$         
+108 :                     i,ti,ti);i=i(i,l,l)+i;ri;     i);rE;];S$          
+109 :                     ,ti,ti);i=i(i,l,l)+i;ri;]     );rE;];S$           
+110 : TS_NOK/NS_NORULECHAIN
+110 : RESTATE             
+110 :                     ti,ti,ti);i=i(i,l,l)+i;ri     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+111 : F->ti,F             ti,ti,ti);i=i(i,l,l)+i;ri     F);rE;];S$          
+111 : SAVESTATE:          18
+111 :                     ti,ti,ti);i=i(i,l,l)+i;ri     ti,F);rE;];S$       
+112 :                     i,ti,ti);i=i(i,l,l)+i;ri;     i,F);rE;];S$        
+113 :                     ,ti,ti);i=i(i,l,l)+i;ri;]     ,F);rE;];S$         
+114 :                     ti,ti);i=i(i,l,l)+i;ri;];     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+115 : F->ti               ti,ti);i=i(i,l,l)+i;ri;];     F);rE;];S$          
+115 : SAVESTATE:          19
+115 :                     ti,ti);i=i(i,l,l)+i;ri;];     ti);rE;];S$         
+116 :                     i,ti);i=i(i,l,l)+i;ri;];m     i);rE;];S$          
+117 :                     ,ti);i=i(i,l,l)+i;ri;];m[     );rE;];S$           
+118 : TS_NOK/NS_NORULECHAIN
+118 : RESTATE             
+118 :                     ti,ti);i=i(i,l,l)+i;ri;];     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+119 : F->ti,F             ti,ti);i=i(i,l,l)+i;ri;];     F);rE;];S$          
+119 : SAVESTATE:          19
+119 :                     ti,ti);i=i(i,l,l)+i;ri;];     ti,F);rE;];S$       
+120 :                     i,ti);i=i(i,l,l)+i;ri;];m     i,F);rE;];S$        
+121 :                     ,ti);i=i(i,l,l)+i;ri;];m[     ,F);rE;];S$         
+122 :                     ti);i=i(i,l,l)+i;ri;];m[n     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+123 : F->ti               ti);i=i(i,l,l)+i;ri;];m[n     F);rE;];S$          
+123 : SAVESTATE:          20
+123 :                     ti);i=i(i,l,l)+i;ri;];m[n     ti);rE;];S$         
+124 :                     i);i=i(i,l,l)+i;ri;];m[nt     i);rE;];S$          
+125 :                     );i=i(i,l,l)+i;ri;];m[nti     );rE;];S$           
+126 :                     ;i=i(i,l,l)+i;ri;];m[nti;     ;rE;];S$            
+127 :                     i=i(i,l,l)+i;ri;];m[nti;n     rE;];S$             
+128 : TS_NOK/NS_NORULECHAIN
+128 : RESTATE             
+128 :                     ti);i=i(i,l,l)+i;ri;];m[n     F);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+129 : F->ti,F             ti);i=i(i,l,l)+i;ri;];m[n     F);rE;];S$          
+129 : SAVESTATE:          20
+129 :                     ti);i=i(i,l,l)+i;ri;];m[n     ti,F);rE;];S$       
+130 :                     i);i=i(i,l,l)+i;ri;];m[nt     i,F);rE;];S$        
+131 :                     );i=i(i,l,l)+i;ri;];m[nti     ,F);rE;];S$         
+132 : TS_NOK/NS_NORULECHAIN
+132 : RESTATE             
+132 :                     ti);i=i(i,l,l)+i;ri;];m[n     F);rE;];S$          
+133 : TNS_NORULECHAIN/NS_NORULE
+133 : RESTATE             
+133 :                     ti,ti);i=i(i,l,l)+i;ri;];     F);rE;];S$          
+134 : TNS_NORULECHAIN/NS_NORULE
+134 : RESTATE             
+134 :                     ti,ti,ti);i=i(i,l,l)+i;ri     F);rE;];S$          
+135 : TNS_NORULECHAIN/NS_NORULE
+135 : RESTATE             
+135 :                     ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+136 : N->ntfi(F);N        ntfi(ti,ti,ti);i=i(i,l,l)     NrE;];S$            
+136 : SAVESTATE:          17
+136 :                     ntfi(ti,ti,ti);i=i(i,l,l)     ntfi(F);NrE;];S$    
+137 :                     tfi(ti,ti,ti);i=i(i,l,l)+     tfi(F);NrE;];S$     
+138 :                     fi(ti,ti,ti);i=i(i,l,l)+i     fi(F);NrE;];S$      
+139 :                     i(ti,ti,ti);i=i(i,l,l)+i;     i(F);NrE;];S$       
+140 :                     (ti,ti,ti);i=i(i,l,l)+i;r     (F);NrE;];S$        
+141 :                     ti,ti,ti);i=i(i,l,l)+i;ri     F);NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+142 : F->ti               ti,ti,ti);i=i(i,l,l)+i;ri     F);NrE;];S$         
+142 : SAVESTATE:          18
+142 :                     ti,ti,ti);i=i(i,l,l)+i;ri     ti);NrE;];S$        
+143 :                     i,ti,ti);i=i(i,l,l)+i;ri;     i);NrE;];S$         
+144 :                     ,ti,ti);i=i(i,l,l)+i;ri;]     );NrE;];S$          
+145 : TS_NOK/NS_NORULECHAIN
+145 : RESTATE             
+145 :                     ti,ti,ti);i=i(i,l,l)+i;ri     F);NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+146 : F->ti,F             ti,ti,ti);i=i(i,l,l)+i;ri     F);NrE;];S$         
+146 : SAVESTATE:          18
+146 :                     ti,ti,ti);i=i(i,l,l)+i;ri     ti,F);NrE;];S$      
+147 :                     i,ti,ti);i=i(i,l,l)+i;ri;     i,F);NrE;];S$       
+148 :                     ,ti,ti);i=i(i,l,l)+i;ri;]     ,F);NrE;];S$        
+149 :                     ti,ti);i=i(i,l,l)+i;ri;];     F);NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+150 : F->ti               ti,ti);i=i(i,l,l)+i;ri;];     F);NrE;];S$         
+150 : SAVESTATE:          19
+150 :                     ti,ti);i=i(i,l,l)+i;ri;];     ti);NrE;];S$        
+151 :                     i,ti);i=i(i,l,l)+i;ri;];m     i);NrE;];S$         
+152 :                     ,ti);i=i(i,l,l)+i;ri;];m[     );NrE;];S$          
+153 : TS_NOK/NS_NORULECHAIN
+153 : RESTATE             
+153 :                     ti,ti);i=i(i,l,l)+i;ri;];     F);NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+154 : F->ti,F             ti,ti);i=i(i,l,l)+i;ri;];     F);NrE;];S$         
+154 : SAVESTATE:          19
+154 :                     ti,ti);i=i(i,l,l)+i;ri;];     ti,F);NrE;];S$      
+155 :                     i,ti);i=i(i,l,l)+i;ri;];m     i,F);NrE;];S$       
+156 :                     ,ti);i=i(i,l,l)+i;ri;];m[     ,F);NrE;];S$        
+157 :                     ti);i=i(i,l,l)+i;ri;];m[n     F);NrE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+158 : F->ti               ti);i=i(i,l,l)+i;ri;];m[n     F);NrE;];S$         
+158 : SAVESTATE:          20
+158 :                     ti);i=i(i,l,l)+i;ri;];m[n     ti);NrE;];S$        
+159 :                     i);i=i(i,l,l)+i;ri;];m[nt     i);NrE;];S$         
+160 :                     );i=i(i,l,l)+i;ri;];m[nti     );NrE;];S$          
+161 :                     ;i=i(i,l,l)+i;ri;];m[nti;     ;NrE;];S$           
+162 :                     i=i(i,l,l)+i;ri;];m[nti;n     NrE;];S$            
+Шаг : Правило             Входная лента                 Стек               
+163 : N->i=E;             i=i(i,l,l)+i;ri;];m[nti;n     NrE;];S$            
+163 : SAVESTATE:          21
+163 :                     i=i(i,l,l)+i;ri;];m[nti;n     i=E;rE;];S$         
+164 :                     =i(i,l,l)+i;ri;];m[nti;nt     =E;rE;];S$          
+165 :                     i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+166 : E->i                i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+166 : SAVESTATE:          22
+166 :                     i(i,l,l)+i;ri;];m[nti;nti     i;rE;];S$           
+167 :                     (i,l,l)+i;ri;];m[nti;nti;     ;rE;];S$            
+168 : TS_NOK/NS_NORULECHAIN
+168 : RESTATE             
+168 :                     i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+169 : E->i(W)             i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+169 : SAVESTATE:          22
+169 :                     i(i,l,l)+i;ri;];m[nti;nti     i(W);rE;];S$        
+170 :                     (i,l,l)+i;ri;];m[nti;nti;     (W);rE;];S$         
+171 :                     i,l,l)+i;ri;];m[nti;nti;n     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+172 : W->i                i,l,l)+i;ri;];m[nti;nti;n     W);rE;];S$          
+172 : SAVESTATE:          23
+172 :                     i,l,l)+i;ri;];m[nti;nti;n     i);rE;];S$          
+173 :                     ,l,l)+i;ri;];m[nti;nti;nt     );rE;];S$           
+174 : TS_NOK/NS_NORULECHAIN
+174 : RESTATE             
+174 :                     i,l,l)+i;ri;];m[nti;nti;n     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+175 : W->i,W              i,l,l)+i;ri;];m[nti;nti;n     W);rE;];S$          
+175 : SAVESTATE:          23
+175 :                     i,l,l)+i;ri;];m[nti;nti;n     i,W);rE;];S$        
+176 :                     ,l,l)+i;ri;];m[nti;nti;nt     ,W);rE;];S$         
+177 :                     l,l)+i;ri;];m[nti;nti;nti     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+178 : W->l                l,l)+i;ri;];m[nti;nti;nti     W);rE;];S$          
+178 : SAVESTATE:          24
+178 :                     l,l)+i;ri;];m[nti;nti;nti     l);rE;];S$          
+179 :                     ,l)+i;ri;];m[nti;nti;nti;     );rE;];S$           
+180 : TS_NOK/NS_NORULECHAIN
+180 : RESTATE             
+180 :                     l,l)+i;ri;];m[nti;nti;nti     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+181 : W->l,W              l,l)+i;ri;];m[nti;nti;nti     W);rE;];S$          
+181 : SAVESTATE:          24
+181 :                     l,l)+i;ri;];m[nti;nti;nti     l,W);rE;];S$        
+182 :                     ,l)+i;ri;];m[nti;nti;nti;     ,W);rE;];S$         
+183 :                     l)+i;ri;];m[nti;nti;nti;n     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+184 : W->l                l)+i;ri;];m[nti;nti;nti;n     W);rE;];S$          
+184 : SAVESTATE:          25
+184 :                     l)+i;ri;];m[nti;nti;nti;n     l);rE;];S$          
+185 :                     )+i;ri;];m[nti;nti;nti;nt     );rE;];S$           
+186 :                     +i;ri;];m[nti;nti;nti;nti     ;rE;];S$            
+187 : TS_NOK/NS_NORULECHAIN
+187 : RESTATE             
+187 :                     l)+i;ri;];m[nti;nti;nti;n     W);rE;];S$          
+Шаг : Правило             Входная лента                 Стек               
+188 : W->l,W              l)+i;ri;];m[nti;nti;nti;n     W);rE;];S$          
+188 : SAVESTATE:          25
+188 :                     l)+i;ri;];m[nti;nti;nti;n     l,W);rE;];S$        
+189 :                     )+i;ri;];m[nti;nti;nti;nt     ,W);rE;];S$         
+190 : TS_NOK/NS_NORULECHAIN
+190 : RESTATE             
+190 :                     l)+i;ri;];m[nti;nti;nti;n     W);rE;];S$          
+191 : TNS_NORULECHAIN/NS_NORULE
+191 : RESTATE             
+191 :                     l,l)+i;ri;];m[nti;nti;nti     W);rE;];S$          
+192 : TNS_NORULECHAIN/NS_NORULE
+192 : RESTATE             
+192 :                     i,l,l)+i;ri;];m[nti;nti;n     W);rE;];S$          
+193 : TNS_NORULECHAIN/NS_NORULE
+193 : RESTATE             
+193 :                     i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+194 : E->iM               i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+194 : SAVESTATE:          22
+194 :                     i(i,l,l)+i;ri;];m[nti;nti     iM;rE;];S$          
+195 :                     (i,l,l)+i;ri;];m[nti;nti;     M;rE;];S$           
+196 : TNS_NORULECHAIN/NS_NORULE
+196 : RESTATE             
+196 :                     i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+197 : E->i(W)M            i(i,l,l)+i;ri;];m[nti;nti     E;rE;];S$           
+197 : SAVESTATE:          22
+197 :                     i(i,l,l)+i;ri;];m[nti;nti     i(W)M;rE;];S$       
+198 :                     (i,l,l)+i;ri;];m[nti;nti;     (W)M;rE;];S$        
+199 :                     i,l,l)+i;ri;];m[nti;nti;n     W)M;rE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+200 : W->i                i,l,l)+i;ri;];m[nti;nti;n     W)M;rE;];S$         
+200 : SAVESTATE:          23
+200 :                     i,l,l)+i;ri;];m[nti;nti;n     i)M;rE;];S$         
+201 :                     ,l,l)+i;ri;];m[nti;nti;nt     )M;rE;];S$          
+202 : TS_NOK/NS_NORULECHAIN
+202 : RESTATE             
+202 :                     i,l,l)+i;ri;];m[nti;nti;n     W)M;rE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+203 : W->i,W              i,l,l)+i;ri;];m[nti;nti;n     W)M;rE;];S$         
+203 : SAVESTATE:          23
+203 :                     i,l,l)+i;ri;];m[nti;nti;n     i,W)M;rE;];S$       
+204 :                     ,l,l)+i;ri;];m[nti;nti;nt     ,W)M;rE;];S$        
+205 :                     l,l)+i;ri;];m[nti;nti;nti     W)M;rE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+206 : W->l                l,l)+i;ri;];m[nti;nti;nti     W)M;rE;];S$         
+206 : SAVESTATE:          24
+206 :                     l,l)+i;ri;];m[nti;nti;nti     l)M;rE;];S$         
+207 :                     ,l)+i;ri;];m[nti;nti;nti;     )M;rE;];S$          
+208 : TS_NOK/NS_NORULECHAIN
+208 : RESTATE             
+208 :                     l,l)+i;ri;];m[nti;nti;nti     W)M;rE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+209 : W->l,W              l,l)+i;ri;];m[nti;nti;nti     W)M;rE;];S$         
+209 : SAVESTATE:          24
+209 :                     l,l)+i;ri;];m[nti;nti;nti     l,W)M;rE;];S$       
+210 :                     ,l)+i;ri;];m[nti;nti;nti;     ,W)M;rE;];S$        
+211 :                     l)+i;ri;];m[nti;nti;nti;n     W)M;rE;];S$         
+Шаг : Правило             Входная лента                 Стек               
+212 : W->l                l)+i;ri;];m[nti;nti;nti;n     W)M;rE;];S$         
+212 : SAVESTATE:          25
+212 :                     l)+i;ri;];m[nti;nti;nti;n     l)M;rE;];S$         
+213 :                     )+i;ri;];m[nti;nti;nti;nt     )M;rE;];S$          
+214 :                     +i;ri;];m[nti;nti;nti;nti     M;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+215 : M->+E               +i;ri;];m[nti;nti;nti;nti     M;rE;];S$           
+215 : SAVESTATE:          26
+215 :                     +i;ri;];m[nti;nti;nti;nti     +E;rE;];S$          
+216 :                     i;ri;];m[nti;nti;nti;nti;     E;rE;];S$           
+Шаг : Правило             Входная лента                 Стек               
+217 : E->i                i;ri;];m[nti;nti;nti;nti;     E;rE;];S$           
+217 : SAVESTATE:          27
+217 :                     i;ri;];m[nti;nti;nti;nti;     i;rE;];S$           
+218 :                     ;ri;];m[nti;nti;nti;nti;n     ;rE;];S$            
+219 :                     ri;];m[nti;nti;nti;nti;nt     rE;];S$             
+220 :                     i;];m[nti;nti;nti;nti;nti     E;];S$              
+Шаг : Правило             Входная лента                 Стек               
+221 : E->i                i;];m[nti;nti;nti;nti;nti     E;];S$              
+221 : SAVESTATE:          28
+221 :                     i;];m[nti;nti;nti;nti;nti     i;];S$              
+222 :                     ;];m[nti;nti;nti;nti;nti;     ;];S$               
+223 :                     ];m[nti;nti;nti;nti;nti;n     ];S$                
+224 :                     ;m[nti;nti;nti;nti;nti;nt     ;S$                 
+225 :                     m[nti;nti;nti;nti;nti;nti     S$                  
+Шаг : Правило             Входная лента                 Стек               
+226 : S->m[NrE;];         m[nti;nti;nti;nti;nti;nti     S$                  
+226 : SAVESTATE:          29
+226 :                     m[nti;nti;nti;nti;nti;nti     m[NrE;];$           
+227 :                     [nti;nti;nti;nti;nti;nti;     [NrE;];$            
+228 :                     nti;nti;nti;nti;nti;nti;n     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+229 : N->nti;             nti;nti;nti;nti;nti;nti;n     NrE;];$             
+229 : SAVESTATE:          30
+229 :                     nti;nti;nti;nti;nti;nti;n     nti;rE;];$          
+230 :                     ti;nti;nti;nti;nti;nti;nt     ti;rE;];$           
+231 :                     i;nti;nti;nti;nti;nti;nti     i;rE;];$            
+232 :                     ;nti;nti;nti;nti;nti;nti(     ;rE;];$             
+233 :                     nti;nti;nti;nti;nti;nti(t     rE;];$              
+234 : TS_NOK/NS_NORULECHAIN
+234 : RESTATE             
+234 :                     nti;nti;nti;nti;nti;nti;n     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+235 : N->nti;N            nti;nti;nti;nti;nti;nti;n     NrE;];$             
+235 : SAVESTATE:          30
+235 :                     nti;nti;nti;nti;nti;nti;n     nti;NrE;];$         
+236 :                     ti;nti;nti;nti;nti;nti;nt     ti;NrE;];$          
+237 :                     i;nti;nti;nti;nti;nti;nti     i;NrE;];$           
+238 :                     ;nti;nti;nti;nti;nti;nti(     ;NrE;];$            
+239 :                     nti;nti;nti;nti;nti;nti(t     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+240 : N->nti;             nti;nti;nti;nti;nti;nti(t     NrE;];$             
+240 : SAVESTATE:          31
+240 :                     nti;nti;nti;nti;nti;nti(t     nti;rE;];$          
+241 :                     ti;nti;nti;nti;nti;nti(ti     ti;rE;];$           
+242 :                     i;nti;nti;nti;nti;nti(ti)     i;rE;];$            
+243 :                     ;nti;nti;nti;nti;nti(ti);     ;rE;];$             
+244 :                     nti;nti;nti;nti;nti(ti);i     rE;];$              
+245 : TS_NOK/NS_NORULECHAIN
+245 : RESTATE             
+245 :                     nti;nti;nti;nti;nti;nti(t     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+246 : N->nti;N            nti;nti;nti;nti;nti;nti(t     NrE;];$             
+246 : SAVESTATE:          31
+246 :                     nti;nti;nti;nti;nti;nti(t     nti;NrE;];$         
+247 :                     ti;nti;nti;nti;nti;nti(ti     ti;NrE;];$          
+248 :                     i;nti;nti;nti;nti;nti(ti)     i;NrE;];$           
+249 :                     ;nti;nti;nti;nti;nti(ti);     ;NrE;];$            
+250 :                     nti;nti;nti;nti;nti(ti);i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+251 : N->nti;             nti;nti;nti;nti;nti(ti);i     NrE;];$             
+251 : SAVESTATE:          32
+251 :                     nti;nti;nti;nti;nti(ti);i     nti;rE;];$          
+252 :                     ti;nti;nti;nti;nti(ti);i=     ti;rE;];$           
+253 :                     i;nti;nti;nti;nti(ti);i=l     i;rE;];$            
+254 :                     ;nti;nti;nti;nti(ti);i=l;     ;rE;];$             
+255 :                     nti;nti;nti;nti(ti);i=l;i     rE;];$              
+256 : TS_NOK/NS_NORULECHAIN
+256 : RESTATE             
+256 :                     nti;nti;nti;nti;nti(ti);i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+257 : N->nti;N            nti;nti;nti;nti;nti(ti);i     NrE;];$             
+257 : SAVESTATE:          32
+257 :                     nti;nti;nti;nti;nti(ti);i     nti;NrE;];$         
+258 :                     ti;nti;nti;nti;nti(ti);i=     ti;NrE;];$          
+259 :                     i;nti;nti;nti;nti(ti);i=l     i;NrE;];$           
+260 :                     ;nti;nti;nti;nti(ti);i=l;     ;NrE;];$            
+261 :                     nti;nti;nti;nti(ti);i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+262 : N->nti;             nti;nti;nti;nti(ti);i=l;i     NrE;];$             
+262 : SAVESTATE:          33
+262 :                     nti;nti;nti;nti(ti);i=l;i     nti;rE;];$          
+263 :                     ti;nti;nti;nti(ti);i=l;i=     ti;rE;];$           
+264 :                     i;nti;nti;nti(ti);i=l;i=l     i;rE;];$            
+265 :                     ;nti;nti;nti(ti);i=l;i=l;     ;rE;];$             
+266 :                     nti;nti;nti(ti);i=l;i=l;i     rE;];$              
+267 : TS_NOK/NS_NORULECHAIN
+267 : RESTATE             
+267 :                     nti;nti;nti;nti(ti);i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+268 : N->nti;N            nti;nti;nti;nti(ti);i=l;i     NrE;];$             
+268 : SAVESTATE:          33
+268 :                     nti;nti;nti;nti(ti);i=l;i     nti;NrE;];$         
+269 :                     ti;nti;nti;nti(ti);i=l;i=     ti;NrE;];$          
+270 :                     i;nti;nti;nti(ti);i=l;i=l     i;NrE;];$           
+271 :                     ;nti;nti;nti(ti);i=l;i=l;     ;NrE;];$            
+272 :                     nti;nti;nti(ti);i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+273 : N->nti;             nti;nti;nti(ti);i=l;i=l;i     NrE;];$             
+273 : SAVESTATE:          34
+273 :                     nti;nti;nti(ti);i=l;i=l;i     nti;rE;];$          
+274 :                     ti;nti;nti(ti);i=l;i=l;i=     ti;rE;];$           
+275 :                     i;nti;nti(ti);i=l;i=l;i=l     i;rE;];$            
+276 :                     ;nti;nti(ti);i=l;i=l;i=l;     ;rE;];$             
+277 :                     nti;nti(ti);i=l;i=l;i=l;i     rE;];$              
+278 : TS_NOK/NS_NORULECHAIN
+278 : RESTATE             
+278 :                     nti;nti;nti(ti);i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+279 : N->nti;N            nti;nti;nti(ti);i=l;i=l;i     NrE;];$             
+279 : SAVESTATE:          34
+279 :                     nti;nti;nti(ti);i=l;i=l;i     nti;NrE;];$         
+280 :                     ti;nti;nti(ti);i=l;i=l;i=     ti;NrE;];$          
+281 :                     i;nti;nti(ti);i=l;i=l;i=l     i;NrE;];$           
+282 :                     ;nti;nti(ti);i=l;i=l;i=l;     ;NrE;];$            
+283 :                     nti;nti(ti);i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+284 : N->nti;             nti;nti(ti);i=l;i=l;i=l;i     NrE;];$             
+284 : SAVESTATE:          35
+284 :                     nti;nti(ti);i=l;i=l;i=l;i     nti;rE;];$          
+285 :                     ti;nti(ti);i=l;i=l;i=l;i=     ti;rE;];$           
+286 :                     i;nti(ti);i=l;i=l;i=l;i=l     i;rE;];$            
+287 :                     ;nti(ti);i=l;i=l;i=l;i=l;     ;rE;];$             
+288 :                     nti(ti);i=l;i=l;i=l;i=l;i     rE;];$              
+289 : TS_NOK/NS_NORULECHAIN
+289 : RESTATE             
+289 :                     nti;nti(ti);i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+290 : N->nti;N            nti;nti(ti);i=l;i=l;i=l;i     NrE;];$             
+290 : SAVESTATE:          35
+290 :                     nti;nti(ti);i=l;i=l;i=l;i     nti;NrE;];$         
+291 :                     ti;nti(ti);i=l;i=l;i=l;i=     ti;NrE;];$          
+292 :                     i;nti(ti);i=l;i=l;i=l;i=l     i;NrE;];$           
+293 :                     ;nti(ti);i=l;i=l;i=l;i=l;     ;NrE;];$            
+294 :                     nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+295 : N->nti;             nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+295 : SAVESTATE:          36
+295 :                     nti(ti);i=l;i=l;i=l;i=l;i     nti;rE;];$          
+296 :                     ti(ti);i=l;i=l;i=l;i=l;i=     ti;rE;];$           
+297 :                     i(ti);i=l;i=l;i=l;i=l;i=i     i;rE;];$            
+298 :                     (ti);i=l;i=l;i=l;i=l;i=i(     ;rE;];$             
+299 : TS_NOK/NS_NORULECHAIN
+299 : RESTATE             
+299 :                     nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+300 : N->nti;N            nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+300 : SAVESTATE:          36
+300 :                     nti(ti);i=l;i=l;i=l;i=l;i     nti;NrE;];$         
+301 :                     ti(ti);i=l;i=l;i=l;i=l;i=     ti;NrE;];$          
+302 :                     i(ti);i=l;i=l;i=l;i=l;i=i     i;NrE;];$           
+303 :                     (ti);i=l;i=l;i=l;i=l;i=i(     ;NrE;];$            
+304 : TS_NOK/NS_NORULECHAIN
+304 : RESTATE             
+304 :                     nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+305 : N->ntfi(F);         nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+305 : SAVESTATE:          36
+305 :                     nti(ti);i=l;i=l;i=l;i=l;i     ntfi(F);rE;];$      
+306 :                     ti(ti);i=l;i=l;i=l;i=l;i=     tfi(F);rE;];$       
+307 :                     i(ti);i=l;i=l;i=l;i=l;i=i     fi(F);rE;];$        
+308 : TS_NOK/NS_NORULECHAIN
+308 : RESTATE             
+308 :                     nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+309 : N->ntfi(F);N        nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+309 : SAVESTATE:          36
+309 :                     nti(ti);i=l;i=l;i=l;i=l;i     ntfi(F);NrE;];$     
+310 :                     ti(ti);i=l;i=l;i=l;i=l;i=     tfi(F);NrE;];$      
+311 :                     i(ti);i=l;i=l;i=l;i=l;i=i     fi(F);NrE;];$       
+312 : TS_NOK/NS_NORULECHAIN
+312 : RESTATE             
+312 :                     nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+313 : N->nti(F);N         nti(ti);i=l;i=l;i=l;i=l;i     NrE;];$             
+313 : SAVESTATE:          36
+313 :                     nti(ti);i=l;i=l;i=l;i=l;i     nti(F);NrE;];$      
+314 :                     ti(ti);i=l;i=l;i=l;i=l;i=     ti(F);NrE;];$       
+315 :                     i(ti);i=l;i=l;i=l;i=l;i=i     i(F);NrE;];$        
+316 :                     (ti);i=l;i=l;i=l;i=l;i=i(     (F);NrE;];$         
+317 :                     ti);i=l;i=l;i=l;i=l;i=i(i     F);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+318 : F->ti               ti);i=l;i=l;i=l;i=l;i=i(i     F);NrE;];$          
+318 : SAVESTATE:          37
+318 :                     ti);i=l;i=l;i=l;i=l;i=i(i     ti);NrE;];$         
+319 :                     i);i=l;i=l;i=l;i=l;i=i(i,     i);NrE;];$          
+320 :                     );i=l;i=l;i=l;i=l;i=i(i,i     );NrE;];$           
+321 :                     ;i=l;i=l;i=l;i=l;i=i(i,i)     ;NrE;];$            
+322 :                     i=l;i=l;i=l;i=l;i=i(i,i);     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+323 : N->i=E;             i=l;i=l;i=l;i=l;i=i(i,i);     NrE;];$             
+323 : SAVESTATE:          38
+323 :                     i=l;i=l;i=l;i=l;i=i(i,i);     i=E;rE;];$          
+324 :                     =l;i=l;i=l;i=l;i=i(i,i);i     =E;rE;];$           
+325 :                     l;i=l;i=l;i=l;i=i(i,i);i=     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+326 : E->l                l;i=l;i=l;i=l;i=i(i,i);i=     E;rE;];$            
+326 : SAVESTATE:          39
+326 :                     l;i=l;i=l;i=l;i=i(i,i);i=     l;rE;];$            
+327 :                     ;i=l;i=l;i=l;i=i(i,i);i=i     ;rE;];$             
+328 :                     i=l;i=l;i=l;i=i(i,i);i=i(     rE;];$              
+329 : TS_NOK/NS_NORULECHAIN
+329 : RESTATE             
+329 :                     l;i=l;i=l;i=l;i=i(i,i);i=     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+330 : E->lM               l;i=l;i=l;i=l;i=i(i,i);i=     E;rE;];$            
+330 : SAVESTATE:          39
+330 :                     l;i=l;i=l;i=l;i=i(i,i);i=     lM;rE;];$           
+331 :                     ;i=l;i=l;i=l;i=i(i,i);i=i     M;rE;];$            
+332 : TNS_NORULECHAIN/NS_NORULE
+332 : RESTATE             
+332 :                     l;i=l;i=l;i=l;i=i(i,i);i=     E;rE;];$            
+333 : TNS_NORULECHAIN/NS_NORULE
+333 : RESTATE             
+333 :                     i=l;i=l;i=l;i=l;i=i(i,i);     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+334 : N->i=E;N            i=l;i=l;i=l;i=l;i=i(i,i);     NrE;];$             
+334 : SAVESTATE:          38
+334 :                     i=l;i=l;i=l;i=l;i=i(i,i);     i=E;NrE;];$         
+335 :                     =l;i=l;i=l;i=l;i=i(i,i);i     =E;NrE;];$          
+336 :                     l;i=l;i=l;i=l;i=i(i,i);i=     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+337 : E->l                l;i=l;i=l;i=l;i=i(i,i);i=     E;NrE;];$           
+337 : SAVESTATE:          39
+337 :                     l;i=l;i=l;i=l;i=i(i,i);i=     l;NrE;];$           
+338 :                     ;i=l;i=l;i=l;i=i(i,i);i=i     ;NrE;];$            
+339 :                     i=l;i=l;i=l;i=i(i,i);i=i(     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+340 : N->i=E;             i=l;i=l;i=l;i=i(i,i);i=i(     NrE;];$             
+340 : SAVESTATE:          40
+340 :                     i=l;i=l;i=l;i=i(i,i);i=i(     i=E;rE;];$          
+341 :                     =l;i=l;i=l;i=i(i,i);i=i(i     =E;rE;];$           
+342 :                     l;i=l;i=l;i=i(i,i);i=i(i,     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+343 : E->l                l;i=l;i=l;i=i(i,i);i=i(i,     E;rE;];$            
+343 : SAVESTATE:          41
+343 :                     l;i=l;i=l;i=i(i,i);i=i(i,     l;rE;];$            
+344 :                     ;i=l;i=l;i=i(i,i);i=i(i,i     ;rE;];$             
+345 :                     i=l;i=l;i=i(i,i);i=i(i,i)     rE;];$              
+346 : TS_NOK/NS_NORULECHAIN
+346 : RESTATE             
+346 :                     l;i=l;i=l;i=i(i,i);i=i(i,     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+347 : E->lM               l;i=l;i=l;i=i(i,i);i=i(i,     E;rE;];$            
+347 : SAVESTATE:          41
+347 :                     l;i=l;i=l;i=i(i,i);i=i(i,     lM;rE;];$           
+348 :                     ;i=l;i=l;i=i(i,i);i=i(i,i     M;rE;];$            
+349 : TNS_NORULECHAIN/NS_NORULE
+349 : RESTATE             
+349 :                     l;i=l;i=l;i=i(i,i);i=i(i,     E;rE;];$            
+350 : TNS_NORULECHAIN/NS_NORULE
+350 : RESTATE             
+350 :                     i=l;i=l;i=l;i=i(i,i);i=i(     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+351 : N->i=E;N            i=l;i=l;i=l;i=i(i,i);i=i(     NrE;];$             
+351 : SAVESTATE:          40
+351 :                     i=l;i=l;i=l;i=i(i,i);i=i(     i=E;NrE;];$         
+352 :                     =l;i=l;i=l;i=i(i,i);i=i(i     =E;NrE;];$          
+353 :                     l;i=l;i=l;i=i(i,i);i=i(i,     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+354 : E->l                l;i=l;i=l;i=i(i,i);i=i(i,     E;NrE;];$           
+354 : SAVESTATE:          41
+354 :                     l;i=l;i=l;i=i(i,i);i=i(i,     l;NrE;];$           
+355 :                     ;i=l;i=l;i=i(i,i);i=i(i,i     ;NrE;];$            
+356 :                     i=l;i=l;i=i(i,i);i=i(i,i)     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+357 : N->i=E;             i=l;i=l;i=i(i,i);i=i(i,i)     NrE;];$             
+357 : SAVESTATE:          42
+357 :                     i=l;i=l;i=i(i,i);i=i(i,i)     i=E;rE;];$          
+358 :                     =l;i=l;i=i(i,i);i=i(i,i);     =E;rE;];$           
+359 :                     l;i=l;i=i(i,i);i=i(i,i);p     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+360 : E->l                l;i=l;i=i(i,i);i=i(i,i);p     E;rE;];$            
+360 : SAVESTATE:          43
+360 :                     l;i=l;i=i(i,i);i=i(i,i);p     l;rE;];$            
+361 :                     ;i=l;i=i(i,i);i=i(i,i);pl     ;rE;];$             
+362 :                     i=l;i=i(i,i);i=i(i,i);pl;     rE;];$              
+363 : TS_NOK/NS_NORULECHAIN
+363 : RESTATE             
+363 :                     l;i=l;i=i(i,i);i=i(i,i);p     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+364 : E->lM               l;i=l;i=i(i,i);i=i(i,i);p     E;rE;];$            
+364 : SAVESTATE:          43
+364 :                     l;i=l;i=i(i,i);i=i(i,i);p     lM;rE;];$           
+365 :                     ;i=l;i=i(i,i);i=i(i,i);pl     M;rE;];$            
+366 : TNS_NORULECHAIN/NS_NORULE
+366 : RESTATE             
+366 :                     l;i=l;i=i(i,i);i=i(i,i);p     E;rE;];$            
+367 : TNS_NORULECHAIN/NS_NORULE
+367 : RESTATE             
+367 :                     i=l;i=l;i=i(i,i);i=i(i,i)     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+368 : N->i=E;N            i=l;i=l;i=i(i,i);i=i(i,i)     NrE;];$             
+368 : SAVESTATE:          42
+368 :                     i=l;i=l;i=i(i,i);i=i(i,i)     i=E;NrE;];$         
+369 :                     =l;i=l;i=i(i,i);i=i(i,i);     =E;NrE;];$          
+370 :                     l;i=l;i=i(i,i);i=i(i,i);p     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+371 : E->l                l;i=l;i=i(i,i);i=i(i,i);p     E;NrE;];$           
+371 : SAVESTATE:          43
+371 :                     l;i=l;i=i(i,i);i=i(i,i);p     l;NrE;];$           
+372 :                     ;i=l;i=i(i,i);i=i(i,i);pl     ;NrE;];$            
+373 :                     i=l;i=i(i,i);i=i(i,i);pl;     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+374 : N->i=E;             i=l;i=i(i,i);i=i(i,i);pl;     NrE;];$             
+374 : SAVESTATE:          44
+374 :                     i=l;i=i(i,i);i=i(i,i);pl;     i=E;rE;];$          
+375 :                     =l;i=i(i,i);i=i(i,i);pl;p     =E;rE;];$           
+376 :                     l;i=i(i,i);i=i(i,i);pl;pi     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+377 : E->l                l;i=i(i,i);i=i(i,i);pl;pi     E;rE;];$            
+377 : SAVESTATE:          45
+377 :                     l;i=i(i,i);i=i(i,i);pl;pi     l;rE;];$            
+378 :                     ;i=i(i,i);i=i(i,i);pl;pi;     ;rE;];$             
+379 :                     i=i(i,i);i=i(i,i);pl;pi;p     rE;];$              
+380 : TS_NOK/NS_NORULECHAIN
+380 : RESTATE             
+380 :                     l;i=i(i,i);i=i(i,i);pl;pi     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+381 : E->lM               l;i=i(i,i);i=i(i,i);pl;pi     E;rE;];$            
+381 : SAVESTATE:          45
+381 :                     l;i=i(i,i);i=i(i,i);pl;pi     lM;rE;];$           
+382 :                     ;i=i(i,i);i=i(i,i);pl;pi;     M;rE;];$            
+383 : TNS_NORULECHAIN/NS_NORULE
+383 : RESTATE             
+383 :                     l;i=i(i,i);i=i(i,i);pl;pi     E;rE;];$            
+384 : TNS_NORULECHAIN/NS_NORULE
+384 : RESTATE             
+384 :                     i=l;i=i(i,i);i=i(i,i);pl;     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+385 : N->i=E;N            i=l;i=i(i,i);i=i(i,i);pl;     NrE;];$             
+385 : SAVESTATE:          44
+385 :                     i=l;i=i(i,i);i=i(i,i);pl;     i=E;NrE;];$         
+386 :                     =l;i=i(i,i);i=i(i,i);pl;p     =E;NrE;];$          
+387 :                     l;i=i(i,i);i=i(i,i);pl;pi     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+388 : E->l                l;i=i(i,i);i=i(i,i);pl;pi     E;NrE;];$           
+388 : SAVESTATE:          45
+388 :                     l;i=i(i,i);i=i(i,i);pl;pi     l;NrE;];$           
+389 :                     ;i=i(i,i);i=i(i,i);pl;pi;     ;NrE;];$            
+390 :                     i=i(i,i);i=i(i,i);pl;pi;p     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+391 : N->i=E;             i=i(i,i);i=i(i,i);pl;pi;p     NrE;];$             
+391 : SAVESTATE:          46
+391 :                     i=i(i,i);i=i(i,i);pl;pi;p     i=E;rE;];$          
+392 :                     =i(i,i);i=i(i,i);pl;pi;pi     =E;rE;];$           
+393 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+394 : E->i                i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+394 : SAVESTATE:          47
+394 :                     i(i,i);i=i(i,i);pl;pi;pi;     i;rE;];$            
+395 :                     (i,i);i=i(i,i);pl;pi;pi;p     ;rE;];$             
+396 : TS_NOK/NS_NORULECHAIN
+396 : RESTATE             
+396 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+397 : E->i(W)             i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+397 : SAVESTATE:          47
+397 :                     i(i,i);i=i(i,i);pl;pi;pi;     i(W);rE;];$         
+398 :                     (i,i);i=i(i,i);pl;pi;pi;p     (W);rE;];$          
+399 :                     i,i);i=i(i,i);pl;pi;pi;pi     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+400 : W->i                i,i);i=i(i,i);pl;pi;pi;pi     W);rE;];$           
+400 : SAVESTATE:          48
+400 :                     i,i);i=i(i,i);pl;pi;pi;pi     i);rE;];$           
+401 :                     ,i);i=i(i,i);pl;pi;pi;pi(     );rE;];$            
+402 : TS_NOK/NS_NORULECHAIN
+402 : RESTATE             
+402 :                     i,i);i=i(i,i);pl;pi;pi;pi     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+403 : W->i,W              i,i);i=i(i,i);pl;pi;pi;pi     W);rE;];$           
+403 : SAVESTATE:          48
+403 :                     i,i);i=i(i,i);pl;pi;pi;pi     i,W);rE;];$         
+404 :                     ,i);i=i(i,i);pl;pi;pi;pi(     ,W);rE;];$          
+405 :                     i);i=i(i,i);pl;pi;pi;pi(i     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+406 : W->i                i);i=i(i,i);pl;pi;pi;pi(i     W);rE;];$           
+406 : SAVESTATE:          49
+406 :                     i);i=i(i,i);pl;pi;pi;pi(i     i);rE;];$           
+407 :                     );i=i(i,i);pl;pi;pi;pi(i)     );rE;];$            
+408 :                     ;i=i(i,i);pl;pi;pi;pi(i);     ;rE;];$             
+409 :                     i=i(i,i);pl;pi;pi;pi(i);r     rE;];$              
+410 : TS_NOK/NS_NORULECHAIN
+410 : RESTATE             
+410 :                     i);i=i(i,i);pl;pi;pi;pi(i     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+411 : W->i,W              i);i=i(i,i);pl;pi;pi;pi(i     W);rE;];$           
+411 : SAVESTATE:          49
+411 :                     i);i=i(i,i);pl;pi;pi;pi(i     i,W);rE;];$         
+412 :                     );i=i(i,i);pl;pi;pi;pi(i)     ,W);rE;];$          
+413 : TS_NOK/NS_NORULECHAIN
+413 : RESTATE             
+413 :                     i);i=i(i,i);pl;pi;pi;pi(i     W);rE;];$           
+414 : TNS_NORULECHAIN/NS_NORULE
+414 : RESTATE             
+414 :                     i,i);i=i(i,i);pl;pi;pi;pi     W);rE;];$           
+415 : TNS_NORULECHAIN/NS_NORULE
+415 : RESTATE             
+415 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+416 : E->iM               i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+416 : SAVESTATE:          47
+416 :                     i(i,i);i=i(i,i);pl;pi;pi;     iM;rE;];$           
+417 :                     (i,i);i=i(i,i);pl;pi;pi;p     M;rE;];$            
+418 : TNS_NORULECHAIN/NS_NORULE
+418 : RESTATE             
+418 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+419 : E->i(W)M            i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+419 : SAVESTATE:          47
+419 :                     i(i,i);i=i(i,i);pl;pi;pi;     i(W)M;rE;];$        
+420 :                     (i,i);i=i(i,i);pl;pi;pi;p     (W)M;rE;];$         
+421 :                     i,i);i=i(i,i);pl;pi;pi;pi     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+422 : W->i                i,i);i=i(i,i);pl;pi;pi;pi     W)M;rE;];$          
+422 : SAVESTATE:          48
+422 :                     i,i);i=i(i,i);pl;pi;pi;pi     i)M;rE;];$          
+423 :                     ,i);i=i(i,i);pl;pi;pi;pi(     )M;rE;];$           
+424 : TS_NOK/NS_NORULECHAIN
+424 : RESTATE             
+424 :                     i,i);i=i(i,i);pl;pi;pi;pi     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+425 : W->i,W              i,i);i=i(i,i);pl;pi;pi;pi     W)M;rE;];$          
+425 : SAVESTATE:          48
+425 :                     i,i);i=i(i,i);pl;pi;pi;pi     i,W)M;rE;];$        
+426 :                     ,i);i=i(i,i);pl;pi;pi;pi(     ,W)M;rE;];$         
+427 :                     i);i=i(i,i);pl;pi;pi;pi(i     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+428 : W->i                i);i=i(i,i);pl;pi;pi;pi(i     W)M;rE;];$          
+428 : SAVESTATE:          49
+428 :                     i);i=i(i,i);pl;pi;pi;pi(i     i)M;rE;];$          
+429 :                     );i=i(i,i);pl;pi;pi;pi(i)     )M;rE;];$           
+430 :                     ;i=i(i,i);pl;pi;pi;pi(i);     M;rE;];$            
+431 : TNS_NORULECHAIN/NS_NORULE
+431 : RESTATE             
+431 :                     i);i=i(i,i);pl;pi;pi;pi(i     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+432 : W->i,W              i);i=i(i,i);pl;pi;pi;pi(i     W)M;rE;];$          
+432 : SAVESTATE:          49
+432 :                     i);i=i(i,i);pl;pi;pi;pi(i     i,W)M;rE;];$        
+433 :                     );i=i(i,i);pl;pi;pi;pi(i)     ,W)M;rE;];$         
+434 : TS_NOK/NS_NORULECHAIN
+434 : RESTATE             
+434 :                     i);i=i(i,i);pl;pi;pi;pi(i     W)M;rE;];$          
+435 : TNS_NORULECHAIN/NS_NORULE
+435 : RESTATE             
+435 :                     i,i);i=i(i,i);pl;pi;pi;pi     W)M;rE;];$          
+436 : TNS_NORULECHAIN/NS_NORULE
+436 : RESTATE             
+436 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;rE;];$            
+437 : TNS_NORULECHAIN/NS_NORULE
+437 : RESTATE             
+437 :                     i=i(i,i);i=i(i,i);pl;pi;p     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+438 : N->i=E;N            i=i(i,i);i=i(i,i);pl;pi;p     NrE;];$             
+438 : SAVESTATE:          46
+438 :                     i=i(i,i);i=i(i,i);pl;pi;p     i=E;NrE;];$         
+439 :                     =i(i,i);i=i(i,i);pl;pi;pi     =E;NrE;];$          
+440 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+441 : E->i                i(i,i);i=i(i,i);pl;pi;pi;     E;NrE;];$           
+441 : SAVESTATE:          47
+441 :                     i(i,i);i=i(i,i);pl;pi;pi;     i;NrE;];$           
+442 :                     (i,i);i=i(i,i);pl;pi;pi;p     ;NrE;];$            
+443 : TS_NOK/NS_NORULECHAIN
+443 : RESTATE             
+443 :                     i(i,i);i=i(i,i);pl;pi;pi;     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+444 : E->i(W)             i(i,i);i=i(i,i);pl;pi;pi;     E;NrE;];$           
+444 : SAVESTATE:          47
+444 :                     i(i,i);i=i(i,i);pl;pi;pi;     i(W);NrE;];$        
+445 :                     (i,i);i=i(i,i);pl;pi;pi;p     (W);NrE;];$         
+446 :                     i,i);i=i(i,i);pl;pi;pi;pi     W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+447 : W->i                i,i);i=i(i,i);pl;pi;pi;pi     W);NrE;];$          
+447 : SAVESTATE:          48
+447 :                     i,i);i=i(i,i);pl;pi;pi;pi     i);NrE;];$          
+448 :                     ,i);i=i(i,i);pl;pi;pi;pi(     );NrE;];$           
+449 : TS_NOK/NS_NORULECHAIN
+449 : RESTATE             
+449 :                     i,i);i=i(i,i);pl;pi;pi;pi     W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+450 : W->i,W              i,i);i=i(i,i);pl;pi;pi;pi     W);NrE;];$          
+450 : SAVESTATE:          48
+450 :                     i,i);i=i(i,i);pl;pi;pi;pi     i,W);NrE;];$        
+451 :                     ,i);i=i(i,i);pl;pi;pi;pi(     ,W);NrE;];$         
+452 :                     i);i=i(i,i);pl;pi;pi;pi(i     W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+453 : W->i                i);i=i(i,i);pl;pi;pi;pi(i     W);NrE;];$          
+453 : SAVESTATE:          49
+453 :                     i);i=i(i,i);pl;pi;pi;pi(i     i);NrE;];$          
+454 :                     );i=i(i,i);pl;pi;pi;pi(i)     );NrE;];$           
+455 :                     ;i=i(i,i);pl;pi;pi;pi(i);     ;NrE;];$            
+456 :                     i=i(i,i);pl;pi;pi;pi(i);r     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+457 : N->i=E;             i=i(i,i);pl;pi;pi;pi(i);r     NrE;];$             
+457 : SAVESTATE:          50
+457 :                     i=i(i,i);pl;pi;pi;pi(i);r     i=E;rE;];$          
+458 :                     =i(i,i);pl;pi;pi;pi(i);rl     =E;rE;];$           
+459 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+460 : E->i                i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+460 : SAVESTATE:          51
+460 :                     i(i,i);pl;pi;pi;pi(i);rl;     i;rE;];$            
+461 :                     (i,i);pl;pi;pi;pi(i);rl;]     ;rE;];$             
+462 : TS_NOK/NS_NORULECHAIN
+462 : RESTATE             
+462 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+463 : E->i(W)             i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+463 : SAVESTATE:          51
+463 :                     i(i,i);pl;pi;pi;pi(i);rl;     i(W);rE;];$         
+464 :                     (i,i);pl;pi;pi;pi(i);rl;]     (W);rE;];$          
+465 :                     i,i);pl;pi;pi;pi(i);rl;];     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+466 : W->i                i,i);pl;pi;pi;pi(i);rl;];     W);rE;];$           
+466 : SAVESTATE:          52
+466 :                     i,i);pl;pi;pi;pi(i);rl;];     i);rE;];$           
+467 :                     ,i);pl;pi;pi;pi(i);rl;];      );rE;];$            
+468 : TS_NOK/NS_NORULECHAIN
+468 : RESTATE             
+468 :                     i,i);pl;pi;pi;pi(i);rl;];     W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+469 : W->i,W              i,i);pl;pi;pi;pi(i);rl;];     W);rE;];$           
+469 : SAVESTATE:          52
+469 :                     i,i);pl;pi;pi;pi(i);rl;];     i,W);rE;];$         
+470 :                     ,i);pl;pi;pi;pi(i);rl;];      ,W);rE;];$          
+471 :                     i);pl;pi;pi;pi(i);rl;];       W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+472 : W->i                i);pl;pi;pi;pi(i);rl;];       W);rE;];$           
+472 : SAVESTATE:          53
+472 :                     i);pl;pi;pi;pi(i);rl;];       i);rE;];$           
+473 :                     );pl;pi;pi;pi(i);rl;];        );rE;];$            
+474 :                     ;pl;pi;pi;pi(i);rl;];         ;rE;];$             
+475 :                     pl;pi;pi;pi(i);rl;];          rE;];$              
+476 : TS_NOK/NS_NORULECHAIN
+476 : RESTATE             
+476 :                     i);pl;pi;pi;pi(i);rl;];       W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+477 : W->i,W              i);pl;pi;pi;pi(i);rl;];       W);rE;];$           
+477 : SAVESTATE:          53
+477 :                     i);pl;pi;pi;pi(i);rl;];       i,W);rE;];$         
+478 :                     );pl;pi;pi;pi(i);rl;];        ,W);rE;];$          
+479 : TS_NOK/NS_NORULECHAIN
+479 : RESTATE             
+479 :                     i);pl;pi;pi;pi(i);rl;];       W);rE;];$           
+480 : TNS_NORULECHAIN/NS_NORULE
+480 : RESTATE             
+480 :                     i,i);pl;pi;pi;pi(i);rl;];     W);rE;];$           
+481 : TNS_NORULECHAIN/NS_NORULE
+481 : RESTATE             
+481 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+482 : E->iM               i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+482 : SAVESTATE:          51
+482 :                     i(i,i);pl;pi;pi;pi(i);rl;     iM;rE;];$           
+483 :                     (i,i);pl;pi;pi;pi(i);rl;]     M;rE;];$            
+484 : TNS_NORULECHAIN/NS_NORULE
+484 : RESTATE             
+484 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+485 : E->i(W)M            i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+485 : SAVESTATE:          51
+485 :                     i(i,i);pl;pi;pi;pi(i);rl;     i(W)M;rE;];$        
+486 :                     (i,i);pl;pi;pi;pi(i);rl;]     (W)M;rE;];$         
+487 :                     i,i);pl;pi;pi;pi(i);rl;];     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+488 : W->i                i,i);pl;pi;pi;pi(i);rl;];     W)M;rE;];$          
+488 : SAVESTATE:          52
+488 :                     i,i);pl;pi;pi;pi(i);rl;];     i)M;rE;];$          
+489 :                     ,i);pl;pi;pi;pi(i);rl;];      )M;rE;];$           
+490 : TS_NOK/NS_NORULECHAIN
+490 : RESTATE             
+490 :                     i,i);pl;pi;pi;pi(i);rl;];     W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+491 : W->i,W              i,i);pl;pi;pi;pi(i);rl;];     W)M;rE;];$          
+491 : SAVESTATE:          52
+491 :                     i,i);pl;pi;pi;pi(i);rl;];     i,W)M;rE;];$        
+492 :                     ,i);pl;pi;pi;pi(i);rl;];      ,W)M;rE;];$         
+493 :                     i);pl;pi;pi;pi(i);rl;];       W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+494 : W->i                i);pl;pi;pi;pi(i);rl;];       W)M;rE;];$          
+494 : SAVESTATE:          53
+494 :                     i);pl;pi;pi;pi(i);rl;];       i)M;rE;];$          
+495 :                     );pl;pi;pi;pi(i);rl;];        )M;rE;];$           
+496 :                     ;pl;pi;pi;pi(i);rl;];         M;rE;];$            
+497 : TNS_NORULECHAIN/NS_NORULE
+497 : RESTATE             
+497 :                     i);pl;pi;pi;pi(i);rl;];       W)M;rE;];$          
+Шаг : Правило             Входная лента                 Стек               
+498 : W->i,W              i);pl;pi;pi;pi(i);rl;];       W)M;rE;];$          
+498 : SAVESTATE:          53
+498 :                     i);pl;pi;pi;pi(i);rl;];       i,W)M;rE;];$        
+499 :                     );pl;pi;pi;pi(i);rl;];        ,W)M;rE;];$         
+500 : TS_NOK/NS_NORULECHAIN
+500 : RESTATE             
+500 :                     i);pl;pi;pi;pi(i);rl;];       W)M;rE;];$          
+501 : TNS_NORULECHAIN/NS_NORULE
+501 : RESTATE             
+501 :                     i,i);pl;pi;pi;pi(i);rl;];     W)M;rE;];$          
+502 : TNS_NORULECHAIN/NS_NORULE
+502 : RESTATE             
+502 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;rE;];$            
+503 : TNS_NORULECHAIN/NS_NORULE
+503 : RESTATE             
+503 :                     i=i(i,i);pl;pi;pi;pi(i);r     NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+504 : N->i=E;N            i=i(i,i);pl;pi;pi;pi(i);r     NrE;];$             
+504 : SAVESTATE:          50
+504 :                     i=i(i,i);pl;pi;pi;pi(i);r     i=E;NrE;];$         
+505 :                     =i(i,i);pl;pi;pi;pi(i);rl     =E;NrE;];$          
+506 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+507 : E->i                i(i,i);pl;pi;pi;pi(i);rl;     E;NrE;];$           
+507 : SAVESTATE:          51
+507 :                     i(i,i);pl;pi;pi;pi(i);rl;     i;NrE;];$           
+508 :                     (i,i);pl;pi;pi;pi(i);rl;]     ;NrE;];$            
+509 : TS_NOK/NS_NORULECHAIN
+509 : RESTATE             
+509 :                     i(i,i);pl;pi;pi;pi(i);rl;     E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+510 : E->i(W)             i(i,i);pl;pi;pi;pi(i);rl;     E;NrE;];$           
+510 : SAVESTATE:          51
+510 :                     i(i,i);pl;pi;pi;pi(i);rl;     i(W);NrE;];$        
+511 :                     (i,i);pl;pi;pi;pi(i);rl;]     (W);NrE;];$         
+512 :                     i,i);pl;pi;pi;pi(i);rl;];     W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+513 : W->i                i,i);pl;pi;pi;pi(i);rl;];     W);NrE;];$          
+513 : SAVESTATE:          52
+513 :                     i,i);pl;pi;pi;pi(i);rl;];     i);NrE;];$          
+514 :                     ,i);pl;pi;pi;pi(i);rl;];      );NrE;];$           
+515 : TS_NOK/NS_NORULECHAIN
+515 : RESTATE             
+515 :                     i,i);pl;pi;pi;pi(i);rl;];     W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+516 : W->i,W              i,i);pl;pi;pi;pi(i);rl;];     W);NrE;];$          
+516 : SAVESTATE:          52
+516 :                     i,i);pl;pi;pi;pi(i);rl;];     i,W);NrE;];$        
+517 :                     ,i);pl;pi;pi;pi(i);rl;];      ,W);NrE;];$         
+518 :                     i);pl;pi;pi;pi(i);rl;];       W);NrE;];$          
+Шаг : Правило             Входная лента                 Стек               
+519 : W->i                i);pl;pi;pi;pi(i);rl;];       W);NrE;];$          
+519 : SAVESTATE:          53
+519 :                     i);pl;pi;pi;pi(i);rl;];       i);NrE;];$          
+520 :                     );pl;pi;pi;pi(i);rl;];        );NrE;];$           
+521 :                     ;pl;pi;pi;pi(i);rl;];         ;NrE;];$            
+522 :                     pl;pi;pi;pi(i);rl;];          NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+523 : N->pE;              pl;pi;pi;pi(i);rl;];          NrE;];$             
+523 : SAVESTATE:          54
+523 :                     pl;pi;pi;pi(i);rl;];          pE;rE;];$           
+524 :                     l;pi;pi;pi(i);rl;];           E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+525 : E->l                l;pi;pi;pi(i);rl;];           E;rE;];$            
+525 : SAVESTATE:          55
+525 :                     l;pi;pi;pi(i);rl;];           l;rE;];$            
+526 :                     ;pi;pi;pi(i);rl;];            ;rE;];$             
+527 :                     pi;pi;pi(i);rl;];             rE;];$              
+528 : TS_NOK/NS_NORULECHAIN
+528 : RESTATE             
+528 :                     l;pi;pi;pi(i);rl;];           E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+529 : E->lM               l;pi;pi;pi(i);rl;];           E;rE;];$            
+529 : SAVESTATE:          55
+529 :                     l;pi;pi;pi(i);rl;];           lM;rE;];$           
+530 :                     ;pi;pi;pi(i);rl;];            M;rE;];$            
+531 : TNS_NORULECHAIN/NS_NORULE
+531 : RESTATE             
+531 :                     l;pi;pi;pi(i);rl;];           E;rE;];$            
+532 : TNS_NORULECHAIN/NS_NORULE
+532 : RESTATE             
+532 :                     pl;pi;pi;pi(i);rl;];          NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+533 : N->pE;N             pl;pi;pi;pi(i);rl;];          NrE;];$             
+533 : SAVESTATE:          54
+533 :                     pl;pi;pi;pi(i);rl;];          pE;NrE;];$          
+534 :                     l;pi;pi;pi(i);rl;];           E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+535 : E->l                l;pi;pi;pi(i);rl;];           E;NrE;];$           
+535 : SAVESTATE:          55
+535 :                     l;pi;pi;pi(i);rl;];           l;NrE;];$           
+536 :                     ;pi;pi;pi(i);rl;];            ;NrE;];$            
+537 :                     pi;pi;pi(i);rl;];             NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+538 : N->pE;              pi;pi;pi(i);rl;];             NrE;];$             
+538 : SAVESTATE:          56
+538 :                     pi;pi;pi(i);rl;];             pE;rE;];$           
+539 :                     i;pi;pi(i);rl;];              E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+540 : E->i                i;pi;pi(i);rl;];              E;rE;];$            
+540 : SAVESTATE:          57
+540 :                     i;pi;pi(i);rl;];              i;rE;];$            
+541 :                     ;pi;pi(i);rl;];               ;rE;];$             
+542 :                     pi;pi(i);rl;];                rE;];$              
+543 : TS_NOK/NS_NORULECHAIN
+543 : RESTATE             
+543 :                     i;pi;pi(i);rl;];              E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+544 : E->i(W)             i;pi;pi(i);rl;];              E;rE;];$            
+544 : SAVESTATE:          57
+544 :                     i;pi;pi(i);rl;];              i(W);rE;];$         
+545 :                     ;pi;pi(i);rl;];               (W);rE;];$          
+546 : TS_NOK/NS_NORULECHAIN
+546 : RESTATE             
+546 :                     i;pi;pi(i);rl;];              E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+547 : E->iM               i;pi;pi(i);rl;];              E;rE;];$            
+547 : SAVESTATE:          57
+547 :                     i;pi;pi(i);rl;];              iM;rE;];$           
+548 :                     ;pi;pi(i);rl;];               M;rE;];$            
+549 : TNS_NORULECHAIN/NS_NORULE
+549 : RESTATE             
+549 :                     i;pi;pi(i);rl;];              E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+550 : E->i(W)M            i;pi;pi(i);rl;];              E;rE;];$            
+550 : SAVESTATE:          57
+550 :                     i;pi;pi(i);rl;];              i(W)M;rE;];$        
+551 :                     ;pi;pi(i);rl;];               (W)M;rE;];$         
+552 : TS_NOK/NS_NORULECHAIN
+552 : RESTATE             
+552 :                     i;pi;pi(i);rl;];              E;rE;];$            
+553 : TNS_NORULECHAIN/NS_NORULE
+553 : RESTATE             
+553 :                     pi;pi;pi(i);rl;];             NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+554 : N->pE;N             pi;pi;pi(i);rl;];             NrE;];$             
+554 : SAVESTATE:          56
+554 :                     pi;pi;pi(i);rl;];             pE;NrE;];$          
+555 :                     i;pi;pi(i);rl;];              E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+556 : E->i                i;pi;pi(i);rl;];              E;NrE;];$           
+556 : SAVESTATE:          57
+556 :                     i;pi;pi(i);rl;];              i;NrE;];$           
+557 :                     ;pi;pi(i);rl;];               ;NrE;];$            
+558 :                     pi;pi(i);rl;];                NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+559 : N->pE;              pi;pi(i);rl;];                NrE;];$             
+559 : SAVESTATE:          58
+559 :                     pi;pi(i);rl;];                pE;rE;];$           
+560 :                     i;pi(i);rl;];                 E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+561 : E->i                i;pi(i);rl;];                 E;rE;];$            
+561 : SAVESTATE:          59
+561 :                     i;pi(i);rl;];                 i;rE;];$            
+562 :                     ;pi(i);rl;];                  ;rE;];$             
+563 :                     pi(i);rl;];                   rE;];$              
+564 : TS_NOK/NS_NORULECHAIN
+564 : RESTATE             
+564 :                     i;pi(i);rl;];                 E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+565 : E->i(W)             i;pi(i);rl;];                 E;rE;];$            
+565 : SAVESTATE:          59
+565 :                     i;pi(i);rl;];                 i(W);rE;];$         
+566 :                     ;pi(i);rl;];                  (W);rE;];$          
+567 : TS_NOK/NS_NORULECHAIN
+567 : RESTATE             
+567 :                     i;pi(i);rl;];                 E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+568 : E->iM               i;pi(i);rl;];                 E;rE;];$            
+568 : SAVESTATE:          59
+568 :                     i;pi(i);rl;];                 iM;rE;];$           
+569 :                     ;pi(i);rl;];                  M;rE;];$            
+570 : TNS_NORULECHAIN/NS_NORULE
+570 : RESTATE             
+570 :                     i;pi(i);rl;];                 E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+571 : E->i(W)M            i;pi(i);rl;];                 E;rE;];$            
+571 : SAVESTATE:          59
+571 :                     i;pi(i);rl;];                 i(W)M;rE;];$        
+572 :                     ;pi(i);rl;];                  (W)M;rE;];$         
+573 : TS_NOK/NS_NORULECHAIN
+573 : RESTATE             
+573 :                     i;pi(i);rl;];                 E;rE;];$            
+574 : TNS_NORULECHAIN/NS_NORULE
+574 : RESTATE             
+574 :                     pi;pi(i);rl;];                NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+575 : N->pE;N             pi;pi(i);rl;];                NrE;];$             
+575 : SAVESTATE:          58
+575 :                     pi;pi(i);rl;];                pE;NrE;];$          
+576 :                     i;pi(i);rl;];                 E;NrE;];$           
+Шаг : Правило             Входная лента                 Стек               
+577 : E->i                i;pi(i);rl;];                 E;NrE;];$           
+577 : SAVESTATE:          59
+577 :                     i;pi(i);rl;];                 i;NrE;];$           
+578 :                     ;pi(i);rl;];                  ;NrE;];$            
+579 :                     pi(i);rl;];                   NrE;];$             
+Шаг : Правило             Входная лента                 Стек               
+580 : N->pE;              pi(i);rl;];                   NrE;];$             
+580 : SAVESTATE:          60
+580 :                     pi(i);rl;];                   pE;rE;];$           
+581 :                     i(i);rl;];                    E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+582 : E->i                i(i);rl;];                    E;rE;];$            
+582 : SAVESTATE:          61
+582 :                     i(i);rl;];                    i;rE;];$            
+583 :                     (i);rl;];                     ;rE;];$             
+584 : TS_NOK/NS_NORULECHAIN
+584 : RESTATE             
+584 :                     i(i);rl;];                    E;rE;];$            
+Шаг : Правило             Входная лента                 Стек               
+585 : E->i(W)             i(i);rl;];                    E;rE;];$            
+585 : SAVESTATE:          61
+585 :                     i(i);rl;];                    i(W);rE;];$         
+586 :                     (i);rl;];                     (W);rE;];$          
+587 :                     i);rl;];                      W);rE;];$           
+Шаг : Правило             Входная лента                 Стек               
+588 : W->i                i);rl;];                      W);rE;];$           
+588 : SAVESTATE:          62
+588 :                     i);rl;];                      i);rE;];$           
+589 :                     );rl;];                       );rE;];$            
+590 :                     ;rl;];                        ;rE;];$             
+591 :                     rl;];                         rE;];$              
+592 :                     l;];                          E;];$               
+Шаг : Правило             Входная лента                 Стек               
+593 : E->l                l;];                          E;];$               
+593 : SAVESTATE:          63
+593 :                     l;];                          l;];$               
+594 :                     ;];                           ;];$                
+595 :                     ];                            ];$                 
+596 :                     ;                             ;$                  
+597 :                                                   $                   
+598 : LENTA_END           
+599 : ------>LENTA_END    
+166 всего строк, синтаксический анализ выполнен без ошибок
+0   : S->tfi(F)[NrE;];S   
+4   : F->ti,F             
+7   : F->ti               
+11  : N->nti;N            
+15  : N->i=E;             
+17  : E->iM               
+18  : M->*E               
+19  : E->(E)              
+20  : E->iM               
+21  : M->+E               
+22  : E->i                
+26  : E->i                
+30  : S->tfi(F)[NrE;];S   
+34  : F->ti,F             
+37  : F->ti               
+41  : N->nti;N            
+45  : N->ntfi(F);N        
+50  : F->ti,F             
+53  : F->ti,F             
+56  : F->ti               
+60  : N->i=E;             
+62  : E->i(W)M            
+64  : W->i,W              
+66  : W->l,W              
+68  : W->l                
+70  : M->+E               
+71  : E->i                
+74  : E->i                
+78  : S->m[NrE;];         
+80  : N->nti;N            
+84  : N->nti;N            
+88  : N->nti;N            
+92  : N->nti;N            
+96  : N->nti;N            
+100 : N->nti;N            
+104 : N->nti(F);N         
+108 : F->ti               
+112 : N->i=E;N            
+114 : E->l                
+116 : N->i=E;N            
+118 : E->l                
+120 : N->i=E;N            
+122 : E->l                
+124 : N->i=E;N            
+126 : E->l                
+128 : N->i=E;N            
+130 : E->i(W)             
+132 : W->i,W              
+134 : W->i                
+137 : N->i=E;N            
+139 : E->i(W)             
+141 : W->i,W              
+143 : W->i                
+146 : N->pE;N             
+147 : E->l                
+149 : N->pE;N             
+150 : E->i                
+152 : N->pE;N             
+153 : E->i                
+155 : N->pE;              
+156 : E->i(W)             
+158 : W->i                
+162 : E->l                

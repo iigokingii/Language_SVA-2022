@@ -11,12 +11,13 @@ namespace IT {
 
 	struct Entry
 	{
+
 		int			idxfirstLE;
 		char		id[ID_MAXSIZE];
 		IDDATATYPE	iddatatype;
 		IDTYPE		idtype;
-		char		scope[10];
-		int			countOfPair;
+		char		scope[10]="";
+		int			numberOfParam;
 		union {
 			int vint;
 			struct

@@ -18,7 +18,7 @@ namespace Parm
 		int log_len = wcslen(PARM_LOG);
 		int IT_len = wcslen(PARM_IT);
 		int LT_len = wcslen(PARM_LT);
-		int pars_len = wcslen(PARM_PARS);
+		int greibach_len = wcslen(PARM_GREIBACH);
 
 		for (int i = 1; i < argc; ++i)
 		{
@@ -47,9 +47,9 @@ namespace Parm
 			{
 				wcscpy_s(result.LT, argv[i] + LT_len);
 			}
-			else if (!wcsncmp(argv[i], PARM_PARS, pars_len))
+			else if (!wcsncmp(argv[i], PARM_GREIBACH, greibach_len))
 			{
-				wcscpy_s(result.greibach, argv[i] + pars_len);
+				wcscpy_s(result.greibach, argv[i] + greibach_len);
 			}
 		}
 

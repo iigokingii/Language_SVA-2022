@@ -176,6 +176,14 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="Words.h" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="in.txt.greibach" />
+    <None Include="in.txt.out" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="in.txt" />
+    <Text Include="in.txt.log" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

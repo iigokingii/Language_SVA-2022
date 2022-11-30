@@ -40,11 +40,12 @@ namespace IT {
 		{
 
 			cout << std::setfill('0') << std::setw(4) << std::right << j << " | ";
-			if (!Lex::CMP(idtable.table[i-1].scope ,idtable.table[i].scope))
+		/*	if (!Lex::CMP(idtable.table[i-1].scope ,idtable.table[i].scope))
 				cout << std::setfill(' ') << setw(10) << left << idtable.table[i].scope << " | ";
 			else {
 				cout << std::setfill(' ') << setw(13) << right << " | ";
-			}
+			}*/
+			cout << std::setfill(' ') << setw(10) << left << idtable.table[i].scope << " | ";
 			cout << std::setfill(' ') << std::setw(13) << std::left << idtable.table[i].id << " | ";
 
 			switch (idtable.table[i].iddatatype)
