@@ -41,7 +41,7 @@ namespace LT {
 			if (lextable.table[i].sn > lextable.table[i - 1].sn) {
 				cout << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
 			}
-			if (lextable.table[i].lexema == LEX_SEMICOLON || lextable.table[i + 1].sn > lextable.table[i].sn)
+			if (/*lextable.table[i].lexema == LEX_SEMICOLON ||*/ lextable.table[i + 1].sn > lextable.table[i].sn)
 			{
 				arr[j] = lextable.table[i].lexema;
 				flag = true;

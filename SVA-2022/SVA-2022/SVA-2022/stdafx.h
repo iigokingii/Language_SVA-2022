@@ -22,5 +22,4 @@
 #include"Greibach.h"
 #include"MFST.h"
 #include"Polish.h"
-//#include"SemAn.h"
 using namespace std;

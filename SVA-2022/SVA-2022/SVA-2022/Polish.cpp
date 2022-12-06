@@ -30,7 +30,7 @@ namespace PN {
 		int param = 0;
 		int hesises = 0;
 		int comma = 0;
-		for (i; lex.table[i - 1].lexema != LEX_SEMICOLON; i++, countOfLex++)
+		for (i; lex.table[i-1].lexema != LEX_SEMICOLON; i++, countOfLex++)
 		{
 			switch (lex.table[i].lexema)
 			{

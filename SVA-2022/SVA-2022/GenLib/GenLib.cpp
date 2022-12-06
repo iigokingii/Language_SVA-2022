@@ -15,11 +15,15 @@ extern "C" {
 		return i;
 	}
 
-	int _stdcall output(char* str) {
+	int _stdcall outstr(char* str) {
 		if (str == NULL)
 			std::cout << std::endl;
 		for (int i = 0; str[i] != '\0'; i++)
 			std::cout << str[i];
+		return 0;
+	}
+	int _stdcall outnumb(int numb) {
+		std::cout << numb;
 		return 0;
 	}
 }

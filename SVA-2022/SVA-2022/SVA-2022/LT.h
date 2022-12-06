@@ -28,6 +28,11 @@
 #define LEX_SMALLER			'<'
 #define LEX_GREATEROREQUAL	'}'
 #define LEX_SMALLEROREQUAL	'{'
+#define LEX_COLON			':'
+#define LEX_STATE			'?'
+#define LEX_CORRECTLY		'c'
+#define LEX_WRONG			'w'
+#define LEX_DOL				'$'
 
 
 namespace LT {				//таблица лексем

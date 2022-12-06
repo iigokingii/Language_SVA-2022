@@ -1,6 +1,50 @@
 #pragma once
 #include"stdafx.h"
 
+#define FST_COLON 2,	\
+	FST::NODE(1, FST::RELATION(':', 1)),\
+	FST::NODE()
+
+#define FST_STATE 6,		\
+	FST::NODE(1, FST::RELATION('s', 1)),\
+	FST::NODE(1, FST::RELATION('t', 2)),\
+	FST::NODE(1, FST::RELATION('a', 3)),\
+	FST::NODE(1, FST::RELATION('t', 4)),\
+	FST::NODE(1, FST::RELATION('e', 5)),\
+	FST::NODE()
+
+#define FST_GREATER 2,		\
+	FST::NODE(1, FST::RELATION('>', 1)),\
+	FST::NODE()
+
+#define FST_SMALLER 2,		\
+	FST::NODE(1, FST::RELATION('<', 1)),\
+	FST::NODE()
+
+#define FST_CORRECTLY 10,	\
+	FST::NODE(1, FST::RELATION('c', 1)),\
+	FST::NODE(1, FST::RELATION('o', 2)),\
+	FST::NODE(1, FST::RELATION('r', 3)),\
+	FST::NODE(1, FST::RELATION('r', 4)),\
+	FST::NODE(1, FST::RELATION('e', 5)),\
+	FST::NODE(1, FST::RELATION('c', 6)),\
+	FST::NODE(1, FST::RELATION('t', 7)),\
+	FST::NODE(1, FST::RELATION('l', 8)),\
+	FST::NODE(1, FST::RELATION('y', 9)),\
+	FST::NODE()
+
+#define FST_DOL 2 ,\
+	FST::NODE(1, FST::RELATION('$', 1)),\
+	FST::NODE()
+
+#define FST_WRONG 6,		\
+	FST::NODE(1, FST::RELATION('w', 1)),\
+	FST::NODE(1, FST::RELATION('r', 2)),\
+	FST::NODE(1, FST::RELATION('o', 3)),\
+	FST::NODE(1, FST::RELATION('n', 4)),\
+	FST::NODE(1, FST::RELATION('g', 5)),\
+	FST::NODE()
+
 //#define FST_DECLARE 8,\
 //	FST::NODE(1, FST::RELATION('d',1)),\
 //	FST::NODE(1, FST::RELATION('e',2)),\

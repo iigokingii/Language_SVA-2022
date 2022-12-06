@@ -5,14 +5,11 @@
 				".model flat, stdcall\n"\
 				"includelib libucrt.lib\n"\
 				"includelib kernel32.lib\n"\
-				"incudelib ../Debug/GenLib.lib\n"\
+				"includelib ../Debug/GenLib.lib\n"\
 				"ExitProcess		PROTO:DWORD\n"\
-				"SetConsoleTitleA	PROTO : DWORD\n"\
-				"GetStdHandle		PROTO : DWORD\n"\
-				"WriteConsoleA		PROTO : DWORD, : DWORD, : DWORD, : DWORD, : DWORD\n"
 
-#define EXTRN	"EXTRN Strlen proc\n"\
-				"EXTRN Rand proc\n"\
+#define EXTRN	"Strlen	PROTO : DWORD\n"\
+				"Rand	PROTO : DWORD\n"\
 				".stack 4096\n"
 
 #define CONST	".const\n"

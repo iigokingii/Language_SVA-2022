@@ -53,11 +53,194 @@ namespace Lex {
 			stroke++;
 			if (words[stroke] == NULL)
 				break;
+			
+			FST::FST fstState(words[stroke], FST_STATE);
+			if (FST::execute(fstState)) {
+				LtEntr.lexema = LEX_STATE;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				stroke++;
+				while (!CMP(words[stroke] ,"$")) {
+
+					FST::FST id(words[stroke], FST_ID);
+ 					if (FST::execute(id)) {
+						LtEntr.lexema = LEX_ID;
+						LtEntr.sn = sn;
+						char* temp = new char[TI_MAXSIZE];
+						getid(stroke, temp, words, 0);
+						int tmp = IT::IsId(idtable, temp);
+						//IT::Entry e = IT::GetEntry(tables.idtable, tmp);
+						LtEntr.idxTI = tmp;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+					FST::FST fstcol(words[stroke], FST_COLON);
+					if (FST::execute(fstcol)) {
+						LtEntr.lexema = LEX_COLON;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+					FST::FST fstG1(words[stroke], FST_GREATER);
+					if (FST::execute(fstG1)) {
+						LtEntr.lexema = LEX_GREATER;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = LT_TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+
+					FST::FST fstS1(words[stroke], FST_SMALLER);
+					if (FST::execute(fstS1)) {
+						LtEntr.lexema = LEX_SMALLER;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = LT_TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+				}
+			}
+			if (stroke >= 2) {
+				FST::FST fstD(words[stroke], FST_DOL);
+				if (FST::execute(fstD)) {
+					LtEntr.lexema = LEX_DOL;
+					LtEntr.sn = sn;
+					LtEntr.idxTI = LT_TI_NULLIDX;
+					LT::Add(lextable, LtEntr);
+					stroke++;
+					while (!CMP(words[stroke], "$")) {
+						FST::FST fstCor(words[stroke], FST_CORRECTLY);
+						if (FST::execute(fstCor)) {
+							LtEntr.lexema = LEX_CORRECTLY;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstWr(words[stroke], FST_WRONG);
+						if (FST::execute(fstWr)) {
+							LtEntr.lexema = LEX_WRONG;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST FSTcol(words[stroke], FST_COLON);
+						if (FST::execute(FSTcol)) {
+							LtEntr.lexema = LEX_COLON;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstLBrace(words[stroke], FST_LEFTBRACE);
+						if (FST::execute(fstLBrace)) {
+							LtEntr.lexema = LEX_LEFTBRACE;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstBrace(words[stroke], FST_BRACELET);
+						if (FST::execute(fstBrace)) {
+							LtEntr.lexema = LEX_BRACELET;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstEQ(words[stroke], FST_EQUAL);
+						if (FST::execute(fstEQ)) {
+							LtEntr.lexema = LEX_EQUAL;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstSe(words[stroke], FST_SEMICOLON);
+						if (FST::execute(fstSe)) {
+							LtEntr.lexema = LEX_SEMICOLON;
+							LtEntr.sn = sn;
+							LtEntr.idxTI = LT_TI_NULLIDX;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+						FST::FST fstLine(words[stroke], FST_NEWLINE);
+						if (FST::execute(fstLine)) {
+							sn++;
+							stroke++;
+							continue;
+						}
+						FST::FST id(words[stroke], FST_ID);
+						if (FST::execute(id)) {
+							LtEntr.lexema = LEX_ID;
+							LtEntr.sn = sn;
+							char* temp = new char[TI_MAXSIZE];
+							getid(stroke, temp, words, 0);
+							int tmp = IT::IsId(idtable, temp);
+							//IT::Entry e = IT::GetEntry(tables.idtable, tmp);
+							LtEntr.idxTI = tmp;
+							LT::Add(lextable, LtEntr);
+							stroke++;
+							continue;
+						}
+					}
+					LtEntr.lexema = LEX_DOL;
+					LtEntr.sn = sn;
+					LtEntr.idxTI = LT_TI_NULLIDX;
+					LT::Add(lextable, LtEntr);
+					continue;
+				}
+			}
+			
+
+
+
+			FST::FST fstG(words[stroke], FST_GREATER);
+			if(FST::execute(fstG)){
+				LtEntr.lexema = LEX_GREATER;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
+
+			FST::FST fstS(words[stroke], FST_SMALLER);
+			if(FST::execute(fstS)){
+				LtEntr.lexema = LEX_SMALLER;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
+
+			
+
 			FST::FST fstInt(words[stroke], FST_NUMB);
-			//cout << words[stroke];
 			if (FST::execute(fstInt)) {
 
 				LtEntr.lexema = LEX_NUMB;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
+			FST::FST fstCol(words[stroke], FST_COLON);
+			if (FST::execute(fstCol)) {
+				LtEntr.lexema = LEX_COLON;
 				LtEntr.sn = sn;
 				LtEntr.idxTI = LT_TI_NULLIDX;
 				LT::Add(lextable, LtEntr);
