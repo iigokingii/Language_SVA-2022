@@ -1,6 +1,7 @@
 ﻿#include<iostream>
-extern "C" {
 
+extern "C" {
+	
 	int _stdcall Strlen(char arr[]) {//gtht
 		return strlen(arr);
 	}
@@ -10,20 +11,24 @@ extern "C" {
 		return rand() % range;
 	}
 
-	int _stdcall input(int i) {
+	int _stdcall Input(int i) {
 		std::cin >> i;
 		return i;
 	}
 
-	int _stdcall outstr(char* str) {
+	int _stdcall Printstroke(char* str) {
+		setlocale(LC_CTYPE, "ru");
 		if (str == NULL)
-			std::cout << std::endl;
+			std::cout<< std::endl;
 		for (int i = 0; str[i] != '\0'; i++)
 			std::cout << str[i];
+		std::cout<< std::endl;
 		return 0;
 	}
-	int _stdcall outnumb(int numb) {
-		std::cout << numb;
+
+	int _stdcall PrintNumb(int numb) {
+		setlocale(LC_CTYPE, "ru");
+		std::cout << numb<<std::endl;
 		return 0;
 	}
 }

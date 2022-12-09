@@ -1,2 +1,4 @@
 ﻿  Gen.cpp
-  SVA-2022.vcxproj -> C:\Users\User\OneDrive\Рабочий стол\КПО\курсовой проект\SVA-2022\SVA-2022\Debug\SVA-2022.exe
+D:\courseProject\SVA-2022\SVA-2022\SVA-2022\Gen.cpp(90,50): warning C4805: ==: небезопасное смешение типа "IT::IDDATATYPE" и типа "bool" в операции
+D:\courseProject\SVA-2022\SVA-2022\SVA-2022\Gen.cpp(288,12): warning C4101: buff: неиспользованная локальная переменная
+  SVA-2022.vcxproj -> D:\courseProject\SVA-2022\SVA-2022\Debug\SVA-2022.exe

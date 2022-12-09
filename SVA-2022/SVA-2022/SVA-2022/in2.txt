@@ -1,0 +1,56 @@
+numb func max(numb n, numb m)
+[
+ new numb result;
+ state:n < m $
+ correctly:[result=n;]
+ wrong:[result=m;]
+ $
+ return result;
+];
+main
+[
+ new numb w = 23;
+ print 'После присвоения переменная равна :';
+ print w;
+ new symbol S = 'x';
+ new numb z;
+ new numb x;
+ new numb y;
+ x = 10;
+ y = 15;
+ new numb j;
+ j=x+y;
+ print 'j=x+y,j=';
+ print j;
+ j=x-y;
+ print 'j=x-y,j=';
+ print j;
+ j=x*y;
+ print 'j=x*y,j=';
+ print j;
+ j=10*2;
+ print '10*2=';
+ print j;
+ new numb p; 
+ z = max(x,y); 
+ new numb q;
+ print 'Результат вызова функции max:';
+ print z;
+ print 'text';
+ print 'текст';
+ return 0;
+];
+main
+[
+ new numb y=-15;
+ print y;
+ new numb x=10;
+ new numb j;
+ j=x-y;
+ print j;
+ j=x*y;
+ print j;
+ j=10*2;
+ print j;
+ return 0;
+];

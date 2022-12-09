@@ -6,6 +6,7 @@
 #define LEX_NUMB			't'				//integer
 #define LEX_STROKE			't'				//string
 #define LEX_TYPE			't'
+#define LEX_SYMBOL			't'
 #define LEX_ID				'i'				//идентификатор
 #define LEX_LITERAL			'l'				//литерал
 #define LEX_MAIN			'm'

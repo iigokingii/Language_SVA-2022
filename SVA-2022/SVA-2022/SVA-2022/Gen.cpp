@@ -12,18 +12,22 @@ void header(Lex::Tables& tables, vector<string>& v) {
 	for (int i = 0; i < tables.idtable.size; i++)
 	{
 		IT::Entry temp = tables.idtable.table[i];
-		string str = "\t\t" +string(temp.scope)+ string(temp.id);
+		string str = "\t\t" +/*string(temp.scope)+*/ string(temp.id);
 		if (tables.idtable.table[i].idtype == IT::IDTYPE::L) {
 			switch (temp.iddatatype)
 			{
-			case IT::IDDATATYPE::INT: {
-				str = str + " SDWORD " + to_string(temp.value.vint);
-				break;
-			}
-			case IT::IDDATATYPE::STR: {
-				str = str + " byte " + string(temp.value.vstr.str) + ", 0";
-				break;
-			}
+				case IT::IDDATATYPE::INT: {
+					str = str + " SDWORD " + to_string(temp.value.vint);
+					break;
+				}
+				case IT::IDDATATYPE::STR: {
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
+					break;
+				}
+				case IT::IDDATATYPE::CHAR: {
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
+					break;
+				}
 			}
 			vConst.push_back(str);
 		}
@@ -32,8 +36,9 @@ void header(Lex::Tables& tables, vector<string>& v) {
 			string str = "\t\t" + string(temp.scope)+string(temp.id);
 			switch (temp.iddatatype)
 			{
-			case IT::IDDATATYPE::INT: str = str + " sdword 0";  break;				//Если целочисл
-			case IT::IDDATATYPE::STR: str = str + " dword ?";  break;				//Если строка
+				case IT::IDDATATYPE::INT: str = str + " sdword 0";  break;				//Если целочисл
+				case IT::IDDATATYPE::STR: str = str + " dword ?";  break;				//Если строка
+				case IT::IDDATATYPE::CHAR:str = str + " dword ?"; break;				//Если символ
 			}
 			vData.push_back(str);
 		}
@@ -62,7 +67,7 @@ string headerOfFunc(Lex::Tables&tables,int i ,string name,int param) {
 	int number = e.numberOfParam;
 	int j = i + 3;	//tfi(ti,ti) для того чтобы начать с і;
 	while (number > 0) {
-		temp = temp + string(IT_ENTRY(j).id) + string(IT_ENTRY(j).scope)+(IT_ENTRY(j).iddatatype == IT::INT ? " : sdword, " : " : dword, ");
+		temp = temp + string(IT_ENTRY(j).scope) + string(IT_ENTRY(j).id) +(IT_ENTRY(j).iddatatype == IT::INT ? " : sdword, " : " : dword, ");
 		number--;
 		j += 3;
 	}
@@ -75,14 +80,20 @@ string headerOfFunc(Lex::Tables&tables,int i ,string name,int param) {
 
 string callFunc(Lex::Tables& tables, int pos) {	//Подготовка и вызов функции
 	string str="";
-	IT::Entry e = IT_ENTRY(pos);
+	IT::Entry e = IT_ENTRY(pos+3);
 	stack<IT::Entry> st;
-	for (int j = pos + 1; LEXEMA(j) != LEX_RIGHTHESIS; j++) {
+	for (int j = pos; LEXEMA(j) != '@'; j++) {
 		if (LEXEMA(j) == LEX_ID || LEXEMA(j) == LEX_LITERAL)
 			st.push(IT_ENTRY(j));
 	}
 	while (!st.empty()) {
-		str = st.top().iddatatype == IT::IDDATATYPE::STR && st.top().idtype == IT::L ? str + "push offset " + st.top().id + "\n" : str + "push " + st.top().id + "\n";//заполнение строки литералами
+		if (st.top().iddatatype == (IT::IDDATATYPE::STR||IT::IDDATATYPE::CHAR)&& st.top().idtype == IT::L) {
+			str = str + "push offset " /*+st.top().scope*/+st.top().id + "\n";
+		}
+		 else {
+			str= str + "push " +st.top().scope+ st.top().id + "\n";//заполнение строки литералами
+		 }
+		 
 		st.pop();
 	}
 	str = str + "call " + string(e.id) + IN_COD_ENDL;
@@ -149,7 +160,10 @@ string generateEqual(Lex::Tables&tables,int pos) {
 			{
 				switch (LEXEMA(j))
 				{
-					case LEX_LITERAL:
+					case LEX_LITERAL: {
+						str = str + "push " /*+ IT_ENTRY(j).scope */+ IT_ENTRY(j).id + "\n";
+						break;
+					}
 					case LEX_ID: {
 						if (IT_ENTRY(j).iddatatype == IT::F) {
 							str = str + callFunc(tables, j);
@@ -159,7 +173,7 @@ string generateEqual(Lex::Tables&tables,int pos) {
 							break;
 						}
 						else {
-							str = str + "push " + IT_ENTRY(j).id + "\n";
+							str = str + "push " +IT_ENTRY(j).scope+IT_ENTRY(j).id + "\n";
 						}
 						break;
 					}
@@ -183,11 +197,26 @@ string generateEqual(Lex::Tables&tables,int pos) {
 				str = str + "mov " + e.scope + e.id + ", eax";
 			}
 			else if (LEXEMA(pos + 1) == LEX_LITERAL) {		//литерал
-				str = str + "mov " + e.scope + e.id + ", offset " + e1.scope + e1.id;
+				str = str + "mov " /*+ e.scope*/ + e.id + ", offset " + e1.scope + e1.id;
 			}
 			else {	//идентификатор
 				str = str + "mov ecx, " + e1.scope + e1.id + "\nmov " + e.scope + e.id + ", ecx";
 			}
+			break;
+		}
+		case IT::CHAR: {
+			IT::Entry e1 = IT_ENTRY(pos + 1);//первый правый операнд 
+			if (LEXEMA(pos + 1) == LEX_ID && e1.idtype == IT::F) {	//вызов функции
+				str = str + callFunc(tables, pos + 1);
+				str = str + "mov " + e.scope + e.id + ", eax";
+			}
+			else if (LEXEMA(pos + 1) == LEX_LITERAL) {		//литерал
+				str = str + "mov " + e.scope + e.id + ", offset " +/*e1.scope*/ + e1.id;
+			}
+			else {	//идентификатор
+				str = str + "mov ecx, " + e1.scope + e1.id + "\nmov " + e.scope + e.id + ", ecx";
+			}
+			break;
 		}
 	}
 	return str;
@@ -195,19 +224,23 @@ string generateEqual(Lex::Tables&tables,int pos) {
 
 namespace Generator {
 	void CodeGeneration(Lex::Tables& tables) {
-		ofstream asmFile("C:\\Users\\User\\OneDrive\\Рабочий стол\\КПО\\курсовой проект\\SVA-2022\\SVA-2022\\Generated\\Generated.asm");
+		ofstream asmFile("D:\\courseProject\\SVA-2022\\SVA-2022\\Generated\\Generated.asm");
 		vector<string> v;
 		header(tables, v);
 		string cyclecode;
 		string buff="";	//буфер для строк
 		string buffForFuncName="";	//буфер для имени функции
 		int numberOfParam;
+		bool findmain = false;
 		for (int i = 0; i < tables.lextable.size; i++) {
 			switch (LEXEMA(i))
 			{
 				case LEX_MAIN:{
 					buff = buff + FUNCTION_NAME("MAIN") + "main PROC";
-					break;
+					buffForFuncName = "main";
+					numberOfParam = 0;
+					findmain = true;
+					break;	
 				}
 				case LEX_FUNCTION:
 				{
@@ -220,9 +253,6 @@ namespace Generator {
 					buff = genStateCode(tables, i, cyclecode);
 					break;
 				}
-				/*case '@': {
-
-				}*/
 				case LEX_CORRECTLY: {
 					buff = buff + "right" + to_string(counterOfStates) + ":";
 					break;
@@ -231,14 +261,21 @@ namespace Generator {
 					buff = buff + "wrong" + to_string(counterOfStates) + ":";
 					break;
 				}
-				/*case LEX_BRACELET: {
-
-				}*/
-				case LEX_RETURN: {
-					buff = footerOfFunc(tables, i, buffForFuncName, numberOfParam);
+				case LEX_BRACELET: {
+					if (LEXEMA(i + 1) == LEX_CORRECTLY || LEXEMA(i + 1) == LEX_WRONG)
+						buff = buff + "jmp next" + to_string(counterOfStates);
 					break;
 				}
-				
+				case LEX_RETURN: {
+					if (!findmain) {
+						buff = footerOfFunc(tables, i, buffForFuncName, numberOfParam);
+						break;
+					}
+					else {
+						buff = buff + STR_SEPARATOR;
+						break;
+					}
+				}
 				case LEX_EQUAL: {
 					buff = generateEqual(tables, i);
 					while (LEXEMA(++i) != LEX_SEMICOLON);
@@ -246,22 +283,48 @@ namespace Generator {
 				}
 				case LEX_PRINT: {
 					IT::Entry e = IT_ENTRY(i + 1);
+					if (findmain) {
+						char* t = (char*)data(buffForFuncName);   //string->char
+						char buff[10];
+						for (int j = 0; j < tables.idtable.size;j++) {
+							if (Lex::CMP(IT_ENTRY_IN_TABLE(j).scope, t) && Lex::CMP(e.id, IT_ENTRY_IN_TABLE(j).id)) {
+								e = IT_ENTRY_IN_TABLE(j);
+								break;
+							}
+						}
+					}
 					switch (e.iddatatype)
 					{
-						case IT::IDDATATYPE::INT:
-							buff = buff + "\npush " + e.id + "\ncall outnumb\n";
+						case IT::IDDATATYPE::INT: {
+							buff = buff + "\npush " + e.scope + e.id + "\ncall PrintNumb\n";
 							break;
-						case IT::IDDATATYPE::STR:
-							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " + e.id + "\ncall outstr\n";
-							else  buff = buff + "\npush " + e.id + "\ncall outstr\n";
+							}
+							
+						case IT::IDDATATYPE::STR: {
+							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " /*+ e.scope*/ + e.id + "\ncall PrintStroke\n";
+							else  buff = buff + "\npush " + e.scope + e.id + "\ncall PrintStroke\n";
 							break;
+							}
+						case IT::IDDATATYPE::CHAR: {
+							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " /*+ e.scope*/ + e.id + "\ncall PrintStroke\n";
+							else  buff = buff + "\npush " + e.scope + e.id + "\ncall PrintStroke\n";
+							break;
+						}
 					}
 					buff = buff + "\n";
 					break;
 				}
+				case LEX_DOL: {
+					if (LEXEMA(i - 1) == LEX_BRACELET) {
+						buff += "next" + to_string(counterOfStates)+":";
+					}
+				}
 				case LEX_ID: {
-					if (LEXEMA(i + 1) == LEX_LEFTHESIS && LEXEMA(i - 1) != LEX_FUNCTION)//вызов функции
-						buff = callFunc(tables, i);
+					if (LEXEMA(i + 4) == '@' && tables.idtable.table[tables.lextable.table[i + 4].idxTI].idtype == IT::F) {   //вызов функции i = ii@2;
+						buff = callFunc(tables, i + 2); //первый параметр
+						buff = buff + "\nmov " + IT_ENTRY(i).scope + IT_ENTRY(i).id + ",eax\n";
+						while (LEXEMA(++i) != LEX_SEMICOLON);
+					}
 					break;
 				}
 			}

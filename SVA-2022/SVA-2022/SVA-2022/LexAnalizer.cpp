@@ -17,7 +17,7 @@ namespace Lex {
 				return false;
 			}
 			i++;
-			if (str1[i] == '\0' && str2[i] != '\0' || str2[i] == '\0' && str2[i] != '\0') {
+			if (str1[i] == '\0' && str2[i] != '\0' || str2[i] == '\0' && str1[i] != '\0') {
 				return false;
 			}
 
@@ -205,10 +205,6 @@ namespace Lex {
 					continue;
 				}
 			}
-			
-
-
-
 			FST::FST fstG(words[stroke], FST_GREATER);
 			if(FST::execute(fstG)){
 				LtEntr.lexema = LEX_GREATER;
@@ -226,7 +222,14 @@ namespace Lex {
 				LT::Add(lextable, LtEntr);
 				continue;
 			}
-
+			FST::FST fstSym(words[stroke], FST_SYMBOL);
+			if (FST::execute(fstSym)) {
+				LtEntr.lexema = LEX_SYMBOL;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
 			
 
 			FST::FST fstInt(words[stroke], FST_NUMB);
@@ -407,13 +410,20 @@ namespace Lex {
 						ItEntr.iddatatype = IT::STR;
 						ItEntr.idxfirstLE = lextable.size;
 						ItEntr.value.vstr.len = strlen(words[stroke]);
-						char temporary[10] = "LSTR";
-						char* temp = itoa(LitNumber, buff, 10);
-						strcat(temporary, temp);
-						strcpy(ItEntr.id, temporary);
+						/*char temporary[10] = "LSTR";
+						char t[10];
+						itoa(LitNumber, t, 10);
+						strcat(temporary, t);
+						strcpy(ItEntr.id, temporary);*/
+						
+						/*strcpy(lit, (char*)LitNumber);*/
+						char t[10];
+						char lit[10] = "L";
+						strcat(lit, itoa(LitNumber, t, 10));
+						strcpy(ItEntr.id, lit);
+
 						strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 						ItEntr.value.vstr.len = strlen(words[stroke]);
-
 						LT::Add(lextable, LtEntr);
 						IT::Add(idtable, ItEntr);
 						ItEntr.iddatatype = IT::UNDEF;
@@ -500,14 +510,23 @@ namespace Lex {
 			FST::FST FSTDecl(words[stroke - 2], FST_NEW);
 			FST::FST FSTSTR(words[stroke - 1], FST_STROKE);
 			FST::FST FSTINT(words[stroke - 1], FST_NUMB);
+			FST::FST FSTSYMB(words[stroke - 1], FST_SYMBOL);
 			FST::FST FSTFunc(words[stroke], FST_FUNCTION);
-			if (stroke >= 2 && FST::execute(FSTDecl) && (FST::execute(FSTSTR) || FST::execute(FSTINT)) && !FST::execute(FSTF)) {//declare integer x;
+			if (stroke >= 2 && FST::execute(FSTDecl) && (FST::execute(FSTSTR) || FST::execute(FSTINT) || FST::execute(FSTSYMB)) && !FST::execute(FSTFunc)) {//declare integer x;
 				ItEntr.iddatatype = (CMP(words[stroke - 1], "stroke") ? IT::STR : IT::INT);
+				if (CMP(words[stroke - 1], "stroke")) {
+					ItEntr.iddatatype = IT::STR;
+				}
+				else if (CMP(words[stroke - 1], "numb")) {
+					ItEntr.iddatatype = IT::INT;
+				}
+				else if (CMP(words[stroke - 1], "symbol")) {
+					ItEntr.iddatatype = IT::CHAR;
+				}
 				ItEntr.idxfirstLE = lextable.size;
 				LtEntr.lexema = LEX_ID;
 				LtEntr.idxTI = idtable.size;
 				LtEntr.sn = sn;
-
 				int col =/* strlen(NameOfFunc)*/ +strlen(words[stroke]);
 				if (col + 1 > ID_MAXSIZE) //область функции+ param + \0
 					throw ERROR_THROW(162);
@@ -529,7 +548,6 @@ namespace Lex {
 					NameOfFunc = words[stroke];
 					LtEntr.lexema = LEX_ID;
 					ItEntr.idtype = IT::F;
-
 				}
 				else {
 					ItEntr.idtype = IT::V;
@@ -537,6 +555,79 @@ namespace Lex {
 				LT::Add(lextable, LtEntr);
 				IT::Add(idtable, ItEntr);
 				ItEntr.iddatatype = IT::UNDEF;
+				FST::FST fstEQ(words[++stroke], FST_EQUAL);
+				if (FST::execute(fstEQ)) {
+					LtEntr.idxTI = TI_NULLIDX;
+					LtEntr.lexema = LEX_EQUAL;
+					LtEntr.priority = 0;
+					LtEntr.sn = sn;
+					LT::Add(lextable, LtEntr);
+					FST::FST LSR(words[stroke + 1], FST_STRLIT);
+					FST::FST LIT(words[stroke + 1], FST_INTLIT);
+					FST::FST LCHR(words[stroke + 1], FST_SYMBOL);
+					if (FST::execute(LSR) || FST::execute(LIT)||FST::execute(LCHR)) {
+						stroke++;
+						char tem[99]="-";
+						bool minus = false;
+						if (words[stroke][0] == '-') {
+							stroke++;
+							char buff[99];
+							strcpy_s(buff, words[stroke]);
+							strcat_s(tem, buff);
+							minus = true;
+						}
+						LtEntr.lexema = LEX_LITERAL;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = idtable.size;
+						LT::Add(lextable, LtEntr);
+						int symbols = strlen(words[stroke]);
+						if (symbols > TI_STR_MAXSIZE)
+							throw ERROR_THROW_IN(164, sn + 1, stroke + 1);				//добавить исключени
+
+						ItEntr.idtype = IT::L;
+						if (words[stroke][0] == '\'') {
+							if (ItEntr.iddatatype = IT::STR) {
+								strcpy_s(ItEntr.value.vstr.str, words[stroke]);
+								ItEntr.value.vstr.len = strlen(words[stroke]);
+							}
+							
+						}
+						if (words[stroke][0] == '\"') {
+							if (ItEntr.iddatatype = IT::CHAR) {
+								if (strlen(words[stroke]) - 2 > 1) {
+									throw ERROR_THROW_IN(310, sn + 1, stroke + 1);
+								}
+								strcpy_s(ItEntr.value.vstr.str, words[stroke]);
+								ItEntr.value.vstr.len = strlen(words[stroke]);
+							}
+						}
+						else {
+							ItEntr.iddatatype = IT::INT;
+							if(!minus)
+								ItEntr.value.vint = stoi(words[stroke]);
+							else
+								ItEntr.value.vint = stoi(tem);
+						}	
+							
+						ItEntr.idxfirstLE = lextable.size;
+
+						char t[10];
+						char lit[10] = "L";
+						strcat(lit, itoa(LitNumber, t, 10));
+						strcpy(ItEntr.id, lit);
+						
+						IT::Add(idtable, ItEntr);									//TODO
+						ItEntr.iddatatype = IT::UNDEF;
+						LitNumber++;
+						stroke++;
+					}
+					
+				}
+				LtEntr.lexema = LEX_SEMICOLON;
+				LtEntr.idxTI = TI_NULLIDX;
+				LtEntr.priority = 0;
+				LtEntr.sn = sn;
+				LT::Add(lextable, LtEntr);
 				continue;
 			}
 			FST::FST FSTEQ1(words[stroke + 1], FST_EQUAL);
@@ -558,7 +649,8 @@ namespace Lex {
 
 				//строка?
 				FST::FST FSTSL(words[stroke], FST_STRLIT);
-				if (FST::execute(FSTSL)) {
+ 				FST::FST FSTsymb(words[stroke], FST_SYMBLIT);
+				if (FST::execute(FSTSL)||FST::execute(FSTsymb)) {
 					LtEntr.lexema = LEX_LITERAL;
 					LtEntr.sn = sn;
 					LtEntr.idxTI = idtable.size;
@@ -568,13 +660,25 @@ namespace Lex {
 						throw ERROR_THROW_IN(164, sn + 1, stroke + 1);				//добавить исключение 
 
 					ItEntr.idtype = IT::L;
-					ItEntr.iddatatype = IT::STR;
+					if (words[stroke][0] == '\'')
+						ItEntr.iddatatype = IT::STR;
+					else {
+						if (strlen(words[stroke])-2 > 1)
+							throw ERROR_THROW_IN(310, sn + 1, stroke + 1);
+						ItEntr.iddatatype = IT::CHAR;
+					}
+						
+
 					ItEntr.idxfirstLE = lextable.size;
 					ItEntr.value.vstr.len = strlen(words[stroke]);
-					char temporary[10] = "LSTR";
+					/*char temporary[10] = "LSTR";
 					char* temp = itoa(LitNumber, buff, 10);
 					strcat(temporary, temp);
-					strcpy(ItEntr.id, temporary);
+					strcpy(ItEntr.id, temporary);*/
+					char t[10];
+					char lit[10] = "L";
+					strcat(lit, itoa(LitNumber, t, 10));
+					strcpy(ItEntr.id, lit);
 					strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 					ItEntr.value.vstr.len = strlen(words[stroke]);
 					IT::Add(idtable, ItEntr);									//TODO
@@ -586,7 +690,77 @@ namespace Lex {
 				else {
 					FST::FST FSN(words[stroke], FST_INTLIT);
 					if (FST::execute(FSN)) {
-						LtEntr.lexema = LEX_LITERAL;
+						while (!CMP(words[stroke],";")) {
+							FST::FST FSTPl1(words[stroke], FST_PLUS);
+							if (FST::execute(FSTPl1)) {
+								LtEntr.priority = 2;
+								LtEntr.lexema = LEX_PLUS;
+								LtEntr.sn = sn;
+								LtEntr.idxTI = LT_TI_NULLIDX;
+								LT::Add(lextable, LtEntr);
+								stroke++;
+								continue;
+							}
+							FST::FST FSTMin1(words[stroke], FST_MINUS);
+							if (FST::execute(FSTMin1)) {
+								LtEntr.priority = 2;
+								LtEntr.lexema = LEX_MINUS;
+								LtEntr.sn = sn;
+								LtEntr.idxTI = LT_TI_NULLIDX;
+								LT::Add(lextable, LtEntr);
+								stroke++;
+								continue;
+							}
+							FST::FST FSTSt1(words[stroke], FST_STAR);
+							if (FST::execute(FSTSt1)) {
+								LtEntr.priority = 3;
+								LtEntr.lexema = LEX_STAR;
+								LtEntr.sn = sn;
+								LtEntr.idxTI = LT_TI_NULLIDX;
+								LT::Add(lextable, LtEntr);
+								stroke++;
+								continue;
+							}
+							FST::FST FSTDS1(words[stroke], FST_DIRSLASH);
+							if (FST::execute(FSTDS1)) {
+								LtEntr.priority = 3;
+								LtEntr.lexema = LEX_DIRSLASH;
+								LtEntr.sn = sn;
+								LtEntr.idxTI = TI_NULLIDX;
+								LT::Add(lextable, LtEntr);
+								stroke++;
+								continue;
+							}
+							FST::FST FSN1(words[stroke], FST_INTLIT);
+							if (FST::execute(FSN1)) {
+								LtEntr.lexema = LEX_LITERAL;
+								LtEntr.sn = sn;
+								LtEntr.idxTI = idtable.size;
+								LT::Add(lextable, LtEntr);
+								ItEntr.iddatatype = IT::INT;
+								ItEntr.idtype = IT::L;
+								ItEntr.value.vint = stoi(words[stroke]);
+								ItEntr.idxfirstLE = lextable.size;
+								char t[10];
+								char lit[10] = "L";
+								strcat(lit, itoa(LitNumber, t, 10));
+								strcpy(ItEntr.id, lit);
+								LitNumber++;
+								IT::Add(idtable, ItEntr);
+								ItEntr.iddatatype = IT::UNDEF;
+								stroke++;
+								continue;
+							}
+						}
+						LtEntr.lexema = LEX_SEMICOLON;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						sn++;
+						continue;
+						
+						/*LtEntr.lexema = LEX_LITERAL;
 						LtEntr.sn = sn;
 						LtEntr.idxTI = idtable.size;
 						LT::Add(lextable, LtEntr);
@@ -594,15 +768,20 @@ namespace Lex {
 						ItEntr.idtype = IT::L;
 						ItEntr.value.vint = stoi(words[stroke]);
 						ItEntr.idxfirstLE = lextable.size;
-						char temporary[10] = "LINT";
+						/*char temporary[10] = "LINT";
 						char tmp[6];
 						itoa(LitNumber, tmp, 10);
 						strcat(temporary, tmp);
-						strcpy(ItEntr.id, temporary);
+						strcpy(ItEntr.id, temporary);*/
+
+						/*char t[10];
+						char lit[10] = "L";
+						strcat(lit, itoa(LitNumber, t, 10));
+						strcpy(ItEntr.id, lit);
 						LitNumber++;
 						IT::Add(idtable, ItEntr);
 						ItEntr.iddatatype = IT::UNDEF;
-						continue;
+						continue;*/
 					}
 					else {//z=x*(x+y); или = функция
 						int counter = 0;

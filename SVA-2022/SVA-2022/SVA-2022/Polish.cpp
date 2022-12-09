@@ -4,7 +4,7 @@
 #pragma warning(disable: 4996)
 namespace PN {
 	bool PolishStart(Lex::Tables& table) {
-		bool result;
+		bool result=true;
 		for (int i = 0; i < table.lextable.size; i++)
 		{
 			if (table.lextable.table[i].lexema == '=' || table.idtable.table[table.lextable.table[i].idxTI].idtype == IT::F && table.lextable.table[i - 1].lexema == LEX_PRINT) {

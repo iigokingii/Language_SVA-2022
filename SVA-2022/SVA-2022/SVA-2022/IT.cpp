@@ -54,6 +54,8 @@ namespace IT {
 				cout << "integer" << " | "; break;
 			case STR: cout << std::setw(10) << std::left;
 				cout << "string" << " | "; break;
+			case CHAR: cout << setw(10) << left;
+				cout << "Char" << " | "; break;
 			default: cout << std::setw(10) << std::left << "unknown" << " | "; break;
 			}
 			switch (idtable.table[i].idtype)
@@ -69,6 +71,12 @@ namespace IT {
 				cout << std::setw(18) << std::left << idtable.table[i].value.vint;
 			else if (idtable.table[i].iddatatype == STR && idtable.table[i].idtype != IT::F) {
 				if (idtable.table[i].value.vstr.str[0] != '\'')
+					cout << "\"" << idtable.table[i].value.vstr.str << "\"";
+				else
+					cout << idtable.table[i].value.vstr.str;
+			}
+			else if (idtable.table[i].iddatatype == CHAR && idtable.table[i].idtype != IT::F) {
+				if (idtable.table[i].value.vstr.str[0] != '\"')
 					cout << "\"" << idtable.table[i].value.vstr.str << "\"";
 				else
 					cout << idtable.table[i].value.vstr.str;

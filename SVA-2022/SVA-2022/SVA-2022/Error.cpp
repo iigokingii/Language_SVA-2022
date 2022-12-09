@@ -45,24 +45,28 @@ namespace Error
 		ERROR_ENTRY(307,"[SEM]# Необъявленный идентификатор"),
 		ERROR_ENTRY(308,"[SEM]# Обнаружено несколько точек входа в main"),
 		ERROR_ENTRY(309,"[SEM]# Обнаружен \' . Возможно, не закрыт строковый литерал"),
-		ERROR_ENTRY_NODEF10(310),ERROR_ENTRY_NODEF10(320),ERROR_ENTRY_NODEF10(330),ERROR_ENTRY_NODEF10(340),ERROR_ENTRY_NODEF10(350),
+		ERROR_ENTRY(310,"[SEM]# В Symbol типе не может быть более 1 символа"),
+		ERROR_ENTRY_NODEF10(320),ERROR_ENTRY_NODEF10(330),ERROR_ENTRY_NODEF10(340),ERROR_ENTRY_NODEF10(350),
 		ERROR_ENTRY_NODEF10(360),ERROR_ENTRY_NODEF10(370),ERROR_ENTRY_NODEF10(380),ERROR_ENTRY_NODEF10(390),ERROR_ENTRY_NODEF100(400),ERROR_ENTRY_NODEF100(500),
 		ERROR_ENTRY(600,"[SIN]# Неверная структура программы"),
-		ERROR_ENTRY(601,"[SIN]# Ошибочный оператор"),
+		ERROR_ENTRY(601,"[SIN]# Ошибка в объявлении переменной"),
 		ERROR_ENTRY(602,"[SIN]# Ошибка в выражении"),
 		ERROR_ENTRY(603,"[SIN]# Ошибка в параметрах функции"),
 		ERROR_ENTRY(604,"[SIN]# Ошибка в параметрах вызываемой функции"),
 		ERROR_ENTRY(606,"[SIN]# Ошибка в теле функции"),
 		ERROR_ENTRY(607,"[SIN]# Ошибка при констуировании условного выражения"),
-		ERROR_ENTRY(608,"[SYN]# Ошибка в теле условного выражения"),
+		ERROR_ENTRY(608,"[SIN]# Ошибка в теле условного выражения"),
 		ERROR_ENTRY(609,"[SIN]# Не найден список параметров функции"),
-
+		ERROR_ENTRY(610,"[SIN]# Ошибка в вызове функции"),
+		ERROR_ENTRY(611,"[SIN]# Ошибка в арифметической операции"),
+		ERROR_ENTRY(612,"[SIN]# Ожидаются только лексемы и идентификаторы"),
+		ERROR_ENTRY_NODEF(613),ERROR_ENTRY_NODEF(614),ERROR_ENTRY_NODEF(615),
+		ERROR_ENTRY_NODEF(616),ERROR_ENTRY_NODEF(617),ERROR_ENTRY_NODEF(618),ERROR_ENTRY_NODEF(619),
 		/*
 		ERROR_ENTRY(601, "[SYN]# Не найден список параметров функции"),
 		
 		ERROR_ENTRY(603, "[SYN]# Ошибка в теле процедуры"),
 		
-		ERROR_ENTRY(605, "[SYN]# Ошибка в вызове функции/выражении"),
 		ERROR_ENTRY(606, "[SYN]# Ошибка в списке фактических параметров функции"),
 
 		ERROR_ENTRY(608, "[SYN]# Ошибка в теле цикла/условного выражения"),
@@ -73,7 +77,7 @@ namespace Error
 		ERROR_ENTRY(613, "[SYN]# Ошибка в арифметическом выражении"),
 		ERROR_ENTRY(614, "[SYN]# Недопустимая синтаксическая конструкция"),
 		ERROR_ENTRY(615, "[SYN]# Недопустимая синтаксическая конструкция в теле цикла/условного выражения"),*/
-		ERROR_ENTRY_NODEF10(610),
+
 		ERROR_ENTRY_NODEF10(620),ERROR_ENTRY_NODEF10(630),ERROR_ENTRY_NODEF10(640),ERROR_ENTRY_NODEF10(650),
 		ERROR_ENTRY_NODEF10(660),ERROR_ENTRY_NODEF10(670),ERROR_ENTRY_NODEF10(680),ERROR_ENTRY_NODEF10(690),
 		ERROR_ENTRY_NODEF100(700),ERROR_ENTRY_NODEF100(800),ERROR_ENTRY_NODEF100(900),

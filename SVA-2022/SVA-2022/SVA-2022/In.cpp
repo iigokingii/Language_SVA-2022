@@ -56,7 +56,7 @@ namespace In
 				}
 				else if (f.code[int((unsigned char)ch)] == IN::F)
 				{
-					throw ERROR_THROW_IN(111, line + 1, position + 1);
+  					throw ERROR_THROW_IN(111, line + 1, position + 1);
 				}
 				else if (f.code[int((unsigned char)ch)] == IN::I)
 				{

@@ -52,6 +52,8 @@ int _tmain(int argc, TCHAR* argv[]) {
 		cout << "Пропущено: " << in.ignor << endl;*/
 
 		Log::Close(log);
+		//system("pause");
+		//system("start D:\\courseProject\\CompilationOfGenCode.bat");
 	}
 	catch (Error::ERROR e)
 	{
