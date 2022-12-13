@@ -5,29 +5,28 @@ includelib kernel32.lib
 includelib ../Debug/GenLib.lib
 ExitProcess		PROTO:DWORD
 
-Strlen			PROTO : DWORD
+Remainder		PROTO : DWORD, :DWORD
 Rand			PROTO : DWORD
 Input			PROTO : DWORD
-Printstroke	PROTO : DWORD
+Printstroke		PROTO : DWORD
 PrintNumb		PROTO : DWORD
 .stack 4096
-
 .const
-
-		L0 byte "q", 0
+		L0 SDWORD 100
 .data
-
-		mainS dword ?
+		maina sdword 0
 .code
-
 
 ;----------- MAIN ------------
 
 main PROC
-mov mainS, offset L0
+push L0
+call Rand
+mov maina,eax
 
-push mainS
-call PrintStroke
+
+push maina
+call PrintNumb
 
 
 

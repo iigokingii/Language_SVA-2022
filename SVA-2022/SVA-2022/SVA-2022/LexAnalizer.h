@@ -3,8 +3,6 @@
 #include<iostream>
 #define MaxNumberOfSeparators 13
 
-//char t[10];
-//itoa(LitNumber, t, 10);
 namespace Lex {
 	struct Tables {
 		IT::IdTable idtable;

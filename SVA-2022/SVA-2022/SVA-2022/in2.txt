@@ -9,10 +9,8 @@ numb func max(numb n, numb m)
 ];
 main
 [
- new numb w = 23;
- print 'После присвоения переменная равна :';
- print w;
- new symbol S = 'x';
+ new symbol S = "x";
+ print S;
  new numb z;
  new numb x;
  new numb y;
@@ -25,6 +23,9 @@ main
  j=x-y;
  print 'j=x-y,j=';
  print j;
+ j = (x+y)*x;
+ print'jmax = '
+ print j;
  j=x*y;
  print 'j=x*y,j=';
  print j;
@@ -33,24 +34,14 @@ main
  print j;
  new numb p; 
  z = max(x,y); 
+ print 'zmax =';
+ print z;
  new numb q;
  print 'Результат вызова функции max:';
- print z;
  print 'text';
  print 'текст';
- return 0;
-];
-main
-[
- new numb y=-15;
- print y;
- new numb x=10;
- new numb j;
- j=x-y;
- print j;
- j=x*y;
- print j;
- j=10*2;
- print j;
+ new stroke a = '1asdaxzczxc';
+ print S;
+ print a;
  return 0;
 ];

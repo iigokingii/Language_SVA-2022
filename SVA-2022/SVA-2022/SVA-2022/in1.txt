@@ -1,37 +1,55 @@
 numb func max(numb n, numb m)
 [
-  new numb result;
-  state:n > m $
-  correctly:[result=n;]
-  wrong:[result=m;]
-  $
-  return result;
-]; 
-stroke func fs (stroke a, stroke b)
-[
-  new stroke c;
-  new stroke func substr(stroke a, numb p, numb n);
-  c = substr(a, 1,3)+ b;
-  return c; 
-]; 
+ new numb result;
+ state:n < m $
+ correctly:[result=n;]
+ wrong:[result=m;]
+ $
+ return result;
+];
 main
 [
-  new numb x;
-  new numb y;
-  new numb z;
-  new stroke sa;
-  new stroke sb;
-  new stroke sc;
-  new numb strlen(stroke p);
-  x = 1;
-  y = 5;
-  sa = '1234567890';
-  sb = '1234567890'; 
-  z = fi(x,y);
-  sc = fs(sa,sb);
-  print 'контрольный пример';
-  print z;
-  print sc;
-  print strlen(sc);
-  return 0;
+ new symbol S = "x";
+ print S;
+ new numb z;
+ new numb x;
+ new numb y;
+ new numb j;
+ x = 10;
+ y = 15;
+ new numb q;
+ q=y%x;
+ print q;
+ j=x+y;
+ print 'j=x+y,j=';
+ print j;
+
+ j=x-y;
+ print 'j=x-y,j=';
+ print j;
+
+ j = (x+y)*x;
+ print '(x+y)*x=';
+ print j;
+
+ z = max(x,y);
+ print 'zmax =';
+ print z;
+
+ j=x*y;
+ print 'j=x*y,j=';
+ print j;
+ 
+
+ new numb q;
+ print 'Результат вызова функции max:';
+
+ print 'text';
+
+ print 'текст';
+
+ new stroke a = '1asdaxzczxc';
+ print a;
+
+ return 0;
 ];

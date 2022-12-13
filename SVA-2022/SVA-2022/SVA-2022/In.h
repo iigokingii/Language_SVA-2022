@@ -26,7 +26,7 @@
 #define IN_CODE_TABLE {\
 	IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::S, IN::F, IN::F, IN::F, IN::F, IN::F, \
 	IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, IN::F, \
-	IN::S, IN::F, IN::T, IN::F, IN::T, IN::F, IN::F, IN::T, IN::S, IN::S, IN::S, IN::S, IN::S, IN::S, IN::F, IN::S, \
+	IN::S, IN::F, IN::T, IN::F, IN::T, IN::S, IN::F, IN::T, IN::S, IN::S, IN::S, IN::S, IN::S, IN::S, IN::F, IN::S, \
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::S, IN::S, IN::T, IN::S, IN::T, IN::F, \
 	IN::F, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::F, IN::F, IN::I, IN::F, IN::F, IN::S, IN::F, IN::S, IN::F, IN::F, \
@@ -42,7 +42,6 @@
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \
 	IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, IN::T, \
 }
-//'=', ' ' , '\n' , ';' , '{' , '}' , '(' , ')' , ',' , '+' , '-' , '/' , '*'
 namespace In {
 	struct IN {			//исходные данные
 		enum { S = 512, T = 1024, F = 2048, I = 4096 };	// S(separator)-Разделитель ,Т-допустимый символ, F-недопустимый , I-игнорировать, иначе заменить

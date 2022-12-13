@@ -56,6 +56,8 @@ namespace IT {
 				cout << "string" << " | "; break;
 			case CHAR: cout << setw(10) << left;
 				cout << "Char" << " | "; break;
+			case BOOL:cout << setw(10) << left;
+				cout << "Boolean" << " | "; break;
 			default: cout << std::setw(10) << std::left << "unknown" << " | "; break;
 			}
 			switch (idtable.table[i].idtype)
@@ -80,6 +82,12 @@ namespace IT {
 					cout << "\"" << idtable.table[i].value.vstr.str << "\"";
 				else
 					cout << idtable.table[i].value.vstr.str;
+			}
+			else if (idtable.table[i].iddatatype == BOOL && idtable.table[i].idtype != IT::F) {
+				if (idtable.table[i].value.vstr.str[0] == 'f' || idtable.table[i].value.vstr.str[0] == 't')
+					cout << idtable.table[i].value.vstr.str;
+				else
+					cout << '-';
 			}
 			else
 				cout << "-";

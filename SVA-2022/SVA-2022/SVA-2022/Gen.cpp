@@ -21,11 +21,13 @@ void header(Lex::Tables& tables, vector<string>& v) {
 					break;
 				}
 				case IT::IDDATATYPE::STR: {
-					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0\n";
+					str = str + "\t\tLEN_" + temp.id + " = ($-" + temp.id + ")";
 					break;
 				}
 				case IT::IDDATATYPE::CHAR: {
-					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0\n";
+					str = str + "\t\tLEN_" + temp.id + " = ($-" + temp.id + ")";
 					break;
 				}
 			}
@@ -185,6 +187,8 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						str = str + "pop ebx\npop eax\nimul eax, ebx\npush eax\n"; break;
 					case LEX_DIRSLASH:
 						str = str + "pop ebx\npop eax\ncdq\nidiv ebx\npush eax\n"; break;
+					case LEX_REMAINDER:
+						return str = str + "call Remainder\nmov " + e.scope + e.id + ", eax\n";
 				}
 			}	//цикл для вычисления выражения
 			str = str + "pop ebx\nmov " + e.scope + e.id + ", ebx\n";	//результат в регистр ebx;
@@ -197,7 +201,7 @@ string generateEqual(Lex::Tables&tables,int pos) {
 				str = str + "mov " + e.scope + e.id + ", eax";
 			}
 			else if (LEXEMA(pos + 1) == LEX_LITERAL) {		//литерал
-				str = str + "mov " /*+ e.scope*/ + e.id + ", offset " + e1.scope + e1.id;
+				str = str + "mov " + e.scope + e.id + ", offset " +/* e1.scope*/ + e1.id;
 			}
 			else {	//идентификатор
 				str = str + "mov ecx, " + e1.scope + e1.id + "\nmov " + e.scope + e.id + ", ecx";
@@ -326,6 +330,27 @@ namespace Generator {
 						while (LEXEMA(++i) != LEX_SEMICOLON);
 					}
 					break;
+				}
+				case LEX_RAND: {
+					IT::Entry e = IT_ENTRY(i + 2);
+					buff = buff + "push " + e.id;
+					buff = buff + "\ncall " + "Rand";
+					buff = buff + "\nmov " + e.scope + e.id + ",eax\n";
+					break;
+				}
+				case LEX_INPUT: {
+					IT::Entry e = IT_ENTRY(i + 2);			//input(a); Для того чтобы начать с а
+					buff = buff + "push " + e.scope + e.id+"\n";
+					buff = buff + "call " + "Input\n";
+					buff = buff + "mov " + e.scope + e.id + ",eax\n";
+					break;
+				}
+				case LEX_STRLEN: {
+					IT::Entry e = IT_ENTRY(i + 2);			//strlen(a); Для того чтобы начать с а
+					LT::Entry e1 = LT::GetEntry(tables.lextable, e.idxfirstLE+2);
+					IT::Entry e2 = IT::GetEntry(tables.idtable, e1.idxTI);
+					buff = buff + "\npush LEN_"+e2.id+"-1\n";
+					buff = buff + "call PrintNumb";
 				}
 			}
 			if (!buff.empty()) {

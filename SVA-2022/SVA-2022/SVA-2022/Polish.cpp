@@ -116,7 +116,8 @@ namespace PN {
 			case LEX_PLUS:				//+-*/
 			case LEX_MINUS:
 			case LEX_DIRSLASH:
-			case LEX_STAR: {
+			case LEX_STAR:
+			case LEX_REMAINDER:	{
 				while (!st.empty() && lex.table[i].priority <= st.top().priority)	//пока приоритет текущего операторатора меньше или равен и стек не пуст;
 				{
 					q.push(st.top());

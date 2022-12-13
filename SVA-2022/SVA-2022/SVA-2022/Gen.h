@@ -8,18 +8,18 @@
 				"includelib ../Debug/GenLib.lib\n"\
 				"ExitProcess		PROTO:DWORD\n"\
 
-#define EXTRN	"Strlen			PROTO : DWORD\n"\
+#define EXTRN	"Remainder		PROTO : DWORD, :DWORD\n"\
 				"Rand			PROTO : DWORD\n"\
 				"Input			PROTO : DWORD\n"\
-				"Printstroke	PROTO : DWORD\n"\
+				"Printstroke\t\tPROTO : DWORD\n"\
 				"PrintNumb		PROTO : DWORD\n"\
-				".stack 4096\n"
+				".stack 4096"
 
-#define CONST	".const\n"
+#define CONST	".const"
 
-#define DATA	".data\n"
+#define DATA	".data"
 
-#define CODE	".code\n"
+#define CODE	".code"
 
 #define STR_SEPARATOR		"\n;------------------------------\n"
 #define FUNCTION_NAME(u)	"\n;----------- " + string(u) + " ------------\n\n"

@@ -7,6 +7,7 @@
 #define LEX_STROKE			't'				//string
 #define LEX_TYPE			't'
 #define LEX_SYMBOL			't'
+#define LEX_BOOL			't'
 #define LEX_ID				'i'				//идентификатор
 #define LEX_LITERAL			'l'				//литерал
 #define LEX_MAIN			'm'
@@ -34,6 +35,10 @@
 #define LEX_CORRECTLY		'c'
 #define LEX_WRONG			'w'
 #define LEX_DOL				'$'
+#define LEX_REMAINDER		'%'
+#define LEX_STRLEN			'S'
+#define LEX_INPUT			'U'
+#define LEX_RAND			'R'
 
 
 namespace LT {				//таблица лексем

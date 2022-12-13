@@ -1,7 +1,7 @@
 main
 [
- new symbol S; 
-S= "q";
- print S;
+ new numb a;
+ rand(100);
+ print a;
  return 0;
 ];

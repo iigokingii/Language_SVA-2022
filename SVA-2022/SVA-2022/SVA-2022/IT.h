@@ -1,12 +1,12 @@
 #pragma once
-#define ID_MAXSIZE		20
+#define ID_MAXSIZE		7
 #define TI_MAXSIZE		4096
 #define TI_INT_DEFAULT	0x00000000
 #define TI_STR_DEFAULT	0x00
 #define TI_NULLIDX		0xffffffff
 #define TI_STR_MAXSIZE	255
 namespace IT {
-	enum IDDATATYPE { INT = 1, STR = 2, UNDEF=3, CHAR=4};
+	enum IDDATATYPE { INT = 1, STR = 2, UNDEF=3, CHAR=4,BOOL};
 	enum IDTYPE { V = 1, F = 2, P = 3, L = 4 };
 
 	struct Entry
@@ -14,7 +14,7 @@ namespace IT {
 
 		int			idxfirstLE;
 		char		id[ID_MAXSIZE];
-		IDDATATYPE	iddatatype;
+		IDDATATYPE	iddatatype=UNDEF;
 		IDTYPE		idtype;
 		char		scope[10]="";
 		int			numberOfParam;

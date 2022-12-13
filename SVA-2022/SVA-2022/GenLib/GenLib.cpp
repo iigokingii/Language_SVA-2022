@@ -1,12 +1,7 @@
 ﻿#include<iostream>
 
 extern "C" {
-	
-	int _stdcall Strlen(char arr[]) {//gtht
-		return strlen(arr);
-	}
-
-	int _stdcall Rand(int range) {
+	int _stdcall Rand(int range=1000) {
 		srand((unsigned)time(NULL));
 		return rand() % range;
 	}
@@ -15,7 +10,6 @@ extern "C" {
 		std::cin >> i;
 		return i;
 	}
-
 	int _stdcall Printstroke(char* str) {
 		setlocale(LC_CTYPE, "ru");
 		if (str == NULL)
@@ -31,4 +25,8 @@ extern "C" {
 		std::cout << numb<<std::endl;
 		return 0;
 	}
+	int _stdcall Remainder(int numb1, int numb2) {
+		return numb2 % numb1;
+	}
+
 }

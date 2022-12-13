@@ -63,4 +63,4 @@ int _tmain(int argc, TCHAR* argv[]) {
 			<< " позиция " << e.inext.column << std::endl;
 		Log::WriteError(log, e);
 	}
-}
+	}
