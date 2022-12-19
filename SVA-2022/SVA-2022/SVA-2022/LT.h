@@ -2,6 +2,7 @@
 #define LEXEMA_FIXSIZE		1				//фиксированный размер лексемы
 #define LT_MAXSIZE			4096			//максимальное количество строк в “Ћ
 #define LT_TI_NULLIDX		0xffffffff		//нет элемента таблицы идентификаторов
+#define MAX_NUMBER_OF_PARAM	9
 #define MAX_SCOPE			10
 #define LEX_NUMB			't'				//integer
 #define LEX_STROKE			't'				//string
@@ -39,6 +40,7 @@
 #define LEX_STRLEN			'S'
 #define LEX_INPUT			'U'
 #define LEX_RAND			'R'
+#define LEX_CYCLE			'v'
 
 
 namespace LT {				//таблица лексем
@@ -70,5 +72,5 @@ namespace LT {				//таблица лексем
 	);
 	void Delete(LexTable& lextable);	//удалить таблицу лексем (освободить пам€ть)
 	void showTable(LexTable lextable);
-	void WriteTable(LexTable lextable, Out::OUT out);
+	void WriteTable(LexTable lextable,wchar_t *name);
 };

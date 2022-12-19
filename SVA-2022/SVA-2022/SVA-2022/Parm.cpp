@@ -26,7 +26,6 @@ namespace Parm
 			{
 				throw ERROR_THROW(104);
 			}
-
 			if (!wcsncmp(argv[i], PARM_IN, in_len))
 			{
 				wcscpy_s(result.in, argv[i] + in_len);

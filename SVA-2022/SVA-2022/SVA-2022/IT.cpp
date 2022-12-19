@@ -95,47 +95,72 @@ namespace IT {
 		}
 		cout << std::setfill('-') << std::setw(107) << '-' << std::endl;
 	}
-	void WriteTable(IdTable& idtable, Out::OUT out) {
-		*out.stream << std::setfill('-') << std::setw(87) << '-' << std::endl;
-		*out.stream << "   №" << " | " << setfill(' ') << setw(10) << left << "Scope" << " | " << "Идентификатор" << " | " << "Тип данных" << " | " << "Тип идентификатора" << " | " << "Индекс в ТЛ" << " | " << "Значение    " << std::endl;
-		*out.stream << std::setw(87) << '-' << std::endl;
-		*out.stream << endl;
+	void WriteTable(IdTable& idtable, wchar_t*name) {
+		ofstream fout;
+		fout.open(name);
+		
+		fout << std::setfill('-') << std::setw(107) << '-' << std::endl;
+		fout << "   №" << " | " << setfill(' ') << setw(10) << left << "Scope" << " | " << "Идентификатор" << " | " << "Тип данных" << " | " << "Тип идентификатора" << " | " << "Индекс в ТЛ" << " | " << "Значение    " << std::endl;
+		fout << setfill('-') << std::setw(107) << '-' << std::endl;
 		for (int i = 0, j = 0; i < idtable.size; i++, j++)
 		{
-			*out.stream << std::setfill('0') << std::setw(4) << std::right << j << " | ";
-			if (idtable.table[i].scope != idtable.table[i + 1].scope)
-				*out.stream << std::setfill(' ') << setw(10) << left << idtable.table[i].scope << " | ";
-			*out.stream << std::setfill(' ') << std::setw(13) << std::left << idtable.table[i].id << " | ";
+
+			fout << std::setfill('0') << std::setw(4) << std::right << j << " | ";
+			/*	if (!Lex::CMP(idtable.table[i-1].scope ,idtable.table[i].scope))
+					fout << std::setfill(' ') << setw(10) << left << idtable.table[i].scope << " | ";
+				else {
+					fout << std::setfill(' ') << setw(13) << right << " | ";
+				}*/
+			fout << std::setfill(' ') << setw(10) << left << idtable.table[i].scope << " | ";
+			fout << std::setfill(' ') << std::setw(13) << std::left << idtable.table[i].id << " | ";
+
 			switch (idtable.table[i].iddatatype)
 			{
-			case INT: *out.stream << std::setw(10) << std::left;
-				*out.stream << "integer" << " | "; break;
-			case STR: *out.stream << std::setw(10) << std::left;
-				*out.stream << "string" << " | "; break;
-			default: *out.stream << std::setw(10) << std::left << "unknown" << " | "; break;
+			case INT: fout << std::setw(10) << std::left;
+				fout << "integer" << " | "; break;
+			case STR: fout << std::setw(10) << std::left;
+				fout << "string" << " | "; break;
+			case CHAR: fout << setw(10) << left;
+				fout << "Char" << " | "; break;
+			case BOOL:fout << setw(10) << left;
+				fout << "Boolean" << " | "; break;
+			default: fout << std::setw(10) << std::left << "unknown" << " | "; break;
 			}
 			switch (idtable.table[i].idtype)
 			{
-			case V: *out.stream << std::setw(18) << std::left << "переменная" << " | "; break;
-			case F: *out.stream << std::setw(18) << std::left << "функция" << " | "; break;
-			case P: *out.stream << std::setw(18) << std::left << "параметр" << " | "; break;
-			case L: *out.stream << std::setw(18) << std::left << "литерал" << " | "; break;
-			default: *out.stream << std::setw(18) << std::left << "unknown" << " | "; break;
+			case V: fout << std::setw(18) << std::left << "переменная" << " | "; break;
+			case F: fout << std::setw(18) << std::left << "функция" << " | "; break;
+			case P: fout << std::setw(18) << std::left << "параметр" << " | "; break;
+			case L: fout << std::setw(18) << std::left << "литерал" << " | "; break;
+			default: fout << std::setw(18) << std::left << "unknown" << " | "; break;
 			}
-			*out.stream << std::setw(11) << std::left << idtable.table[i].idxfirstLE << " | ";
+			fout << std::setw(11) << std::left << idtable.table[i].idxfirstLE << " | ";
 			if (idtable.table[i].iddatatype == INT && idtable.table[i].idtype != IT::F)
-				*out.stream << std::setw(18) << std::left << idtable.table[i].value.vint;
+				fout << std::setw(18) << std::left << idtable.table[i].value.vint;
 			else if (idtable.table[i].iddatatype == STR && idtable.table[i].idtype != IT::F) {
 				if (idtable.table[i].value.vstr.str[0] != '\'')
-					*out.stream << "\"" << idtable.table[i].value.vstr.str << "\"";
+					fout << "\"" << idtable.table[i].value.vstr.str << "\"";
 				else
-					*out.stream << idtable.table[i].value.vstr.str;
+					fout << idtable.table[i].value.vstr.str;
+			}
+			else if (idtable.table[i].iddatatype == CHAR && idtable.table[i].idtype != IT::F) {
+				if (idtable.table[i].value.vstr.str[0] != '\"')
+					fout << "\"" << idtable.table[i].value.vstr.str << "\"";
+				else
+					fout << idtable.table[i].value.vstr.str;
+			}
+			else if (idtable.table[i].iddatatype == BOOL && idtable.table[i].idtype != IT::F) {
+				if (idtable.table[i].value.vstr.str[0] == 'f' || idtable.table[i].value.vstr.str[0] == 't')
+					fout << idtable.table[i].value.vstr.str;
+				else
+					fout << '-';
 			}
 			else
-				*out.stream << "-";
-			*out.stream << std::endl;
+				fout << "-";
+			fout << std::endl;
 		}
-		*out.stream << std::setfill('-') << std::setw(87) << '-' << std::endl;
+		fout << std::setfill('-') << std::setw(107) << '-' << std::endl;
+		fout.close();
 	}
 
 

@@ -22,63 +22,64 @@ namespace In
 					break;
 					amount = 0;
 				}
-				if (ch == ('\n'))
-				{
-					position = 0;
-					line++;
-					l[i] = '\n';
-					i++;
-				}
-				else if (f.code[int((unsigned char)ch)] == IN::T || f.code[int((unsigned char)ch)] == IN::S)
-				{
-					if (ch == '\'' && expres == true) {//если втрой раз встретим то true=>она закрыв 
-						expres = false;
-					}
-
-					if (ch == '\'') {
-						expres = true;
-					}
-					if (ch != (' ') || expres == true) {
-						amount = 0;
-						l[i] = ch;
-						position++;
+				switch (f.code[int((unsigned char)ch)]) {
+					case '\n': {
+						position = 0;
+						line++;
+						l[i] = '\n';
 						i++;
+						break;
 					}
-					else
-					{
-						amount++;
-						if (amount == 1) {
+					case IN::S:
+					case IN::T: {
+						if (ch == '\'') {//если втрой раз встретим то true=>она закрыв 
+							expres = false;
+						}
+						if (ch == '\'') {
+							expres = true;
+						}
+						if (ch != (' ') || expres == true) {
+							amount = 0;
 							l[i] = ch;
 							position++;
 							i++;
 						}
+						else
+						{
+							amount++;
+							if (amount == 1) {
+								l[i] = ch;
+								position++;
+								i++;
+							}
+						}
+						break;
 					}
-				}
-				else if (f.code[int((unsigned char)ch)] == IN::F)
-				{
-  					throw ERROR_THROW_IN(111, line + 1, position + 1);
-				}
-				else if (f.code[int((unsigned char)ch)] == IN::I)
-				{
-					amount = 0;
-					ignor++;
-					amount = 0;
-				}
-				else
-				{
-					l[i] = f.code[ch];
-					i++;
-					amount = 0;
+					case IN::F: {
+						throw ERROR_THROW_IN(111, line + 1, position + 1);
+						break;
+					}
+
+					case IN::I: {
+						amount = 0;
+						ignor++;
+						amount = 0;
+						break;
+					}
+					default: {
+						l[i] = f.code[ch];
+						i++;
+						amount = 0;
+					}
+
 				}
 				ch = in.get();
 			}
 			in.close();
-
 			f.size = i; //количесвто символов
 			f.text = l;
 			f.lines = line;
 			f.ignor = ignor;
-
 			std::ofstream in(infile);
 			in << l;
 			in.close();

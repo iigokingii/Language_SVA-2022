@@ -22,6 +22,7 @@ namespace PN {
 		temp.lexema = ' ';
 		temp.sn = -1;
 		temp.idxTI = -1;
+		int pos;
 		LT::Entry func;
 		func.lexema = '@';
 		int countOfLex = 0;
@@ -30,108 +31,127 @@ namespace PN {
 		int param = 0;
 		int hesises = 0;
 		int comma = 0;
+		bool findLibFunc = false;
 		for (i; lex.table[i-1].lexema != LEX_SEMICOLON; i++, countOfLex++)
 		{
 			switch (lex.table[i].lexema)
 			{
-			case LEX_ID: {				//i
-				if (funcFlag) {
-					param++;
-					q.push(lex.table[i]);
+				case LEX_STRLEN:
+				case LEX_RAND:
+				case LEX_INPUT: {
+					func.idxTI = lex.table[i].idxTI;
+					func.sn = lex.table[i].sn;
+					findLibFunc = true;
+					break;
 				}
-				else if (table.idtable.table[lex.table[i].idxTI].idtype != IT::F) {
-					q.push(lex.table[i]);
-				}
-				else if (table.lextable.table[i - 2].lexema == LEX_PRINT) {
-					countOfLex += 2;//так как начинаем с лексемы +2;
-					position -= 2;
-					q.push(lex.table[i - 2]);
-				}
-				continue;
-			}
-
-			case LEX_LITERAL: {			//l
-				if (funcFlag) {
-					param++;
-					q.push(lex.table[i]);
-				}
-				else if (table.idtable.table[lex.table[i].idxTI].idtype != IT::F) {
-					q.push(lex.table[i]);
-				}
-				else if (table.lextable.table[i - 2].lexema == LEX_PRINT) {
-					countOfLex += 2;//так как начинаем с лексемы +2;
-					position -= 2;
-					q.push(lex.table[i - 2]);
-				}
-				continue;
-			}
-			case LEX_COMMA: {			//,
-				comma++;
-				continue;
-			}
-			case LEX_LEFTHESIS: {		//(
-				hesises++;
-				if (lex.table[i - 1].lexema == LEX_ID) {
-					if (table.idtable.table[lex.table[i - 1].idxTI].idtype == IT::F) {
-						funcFlag = true;
+				case LEX_ID: {				//i
+					if (funcFlag) {
+						param++;
+						q.push(lex.table[i]);
 					}
-				}
-				if (funcFlag) {
-					func.idxTI = lex.table[i - 1].idxTI;
-					func.sn = lex.table[i - 1].sn;
-
-				}
-				else
-					st.push(lex.table[i]);
-				if (lex.table[i - 2].lexema == LEX_PRINT) {
-					countOfLex += 2;//так как начинаем с лексемы +2;
-					position -= 2;
-					q.push(lex.table[i - 2]);
+					else if (table.idtable.table[lex.table[i].idxTI].idtype != IT::F) {
+						q.push(lex.table[i]);
+					}
+					else if (table.lextable.table[i - 2].lexema == LEX_PRINT) {
+						countOfLex += 2;//так как начинаем с лексемы +2;
+						position -= 2;
+						q.push(lex.table[i - 2]);
+					}
 					continue;
 				}
-				continue;
-			}
-			case LEX_RIGHTHESIS: {		//)
-				hesises++;
-				if (funcFlag) {
-					q.push(func);
-					char buf[10];
-					itoa(comma + 1, buf, 10);
-					func.lexema = buf[0];
-					q.push(func);
-					funcFlag = false;
-				}
 
-				else {
-					while (st.top().lexema != LEX_LEFTHESIS) {			//пока не дойдем до (
+				case LEX_LITERAL: {			//l
+					if (funcFlag) {
+						param++;
+						q.push(lex.table[i]);
+					}
+					else if (table.idtable.table[lex.table[i].idxTI].idtype != IT::F) {
+						q.push(lex.table[i]);
+					}
+					else if (table.lextable.table[i - 2].lexema == LEX_PRINT) {
+						countOfLex += 2;//так как начинаем с лексемы +2;
+						position -= 2;
+						q.push(lex.table[i - 2]);
+					}
+					continue;
+				}
+				case LEX_COMMA: {			//,
+					comma++;
+					continue;
+				}
+				case LEX_LEFTHESIS: {		//(
+					hesises++;
+					if (lex.table[i - 1].lexema == LEX_ID) {
+						if (table.idtable.table[lex.table[i - 1].idxTI].idtype == IT::F) {
+							pos = i - 1;
+							funcFlag = true;
+						}
+					}
+					if (funcFlag) {
+						func.idxTI = lex.table[i - 1].idxTI;
+						func.sn = lex.table[i - 1].sn;
+
+					}
+					else
+						st.push(lex.table[i]);
+					if (lex.table[i - 2].lexema == LEX_PRINT) {
+						countOfLex += 2;//так как начинаем с лексемы +2;
+						position -= 2;
+						q.push(lex.table[i - 2]);
+						continue;
+					}
+					continue;
+				}
+				case LEX_RIGHTHESIS: {		//)
+					hesises++;
+					if (funcFlag) {
+						if (param > MAX_NUMBER_OF_PARAM) {
+							throw ERROR_THROW_IN(331, func.sn, pos);
+						}
+							
+						q.push(func);
+						char buf[10];
+						itoa(comma + 1, buf, 10);
+						func.lexema = buf[0];
+						q.push(func);
+						funcFlag = false;
+					}
+					else if (findLibFunc) {
+						q.push(func);
+						findLibFunc = false;
+						st.pop();
+						continue;
+					}
+					else {
+						while (st.top().lexema != LEX_LEFTHESIS) {			//пока не дойдем до (
+							q.push(st.top());
+							st.pop();
+							if (st.empty())
+								return false;
+						}
+						st.pop();										//удаление (
+					}
+					continue;
+				}
+				case LEX_PLUS:				//+-*/
+				case LEX_MINUS:
+				case LEX_DIRSLASH:
+				case LEX_STAR:
+				case LEX_REMAINDER:	{
+					while (!st.empty() && lex.table[i].priority <= st.top().priority)	//пока приоритет текущего операторатора меньше или равен и стек не пуст;
+					{
 						q.push(st.top());
 						st.pop();
-						if (st.empty())
-							return false;
 					}
-					st.pop();										//удаление (
+					st.push(lex.table[i]);
+					continue;
 				}
-				continue;
-			}
-			case LEX_PLUS:				//+-*/
-			case LEX_MINUS:
-			case LEX_DIRSLASH:
-			case LEX_STAR:
-			case LEX_REMAINDER:	{
-				while (!st.empty() && lex.table[i].priority <= st.top().priority)	//пока приоритет текущего операторатора меньше или равен и стек не пуст;
-				{
-					q.push(st.top());
-					st.pop();
+				case LEX_SEMICOLON: {
+					temp.lexema = lex.table[i].lexema;
+					temp.sn = lex.table[i].sn;
+					temp.idxTI = TI_NULLIDX;
+					continue;
 				}
-				st.push(lex.table[i]);
-				continue;
-			}
-			case LEX_SEMICOLON: {
-				temp.lexema = lex.table[i].lexema;
-				temp.sn = lex.table[i].sn;
-				temp.idxTI = TI_NULLIDX;
-				continue;
-			}
 			}
 		}
 		while (!st.empty()) {

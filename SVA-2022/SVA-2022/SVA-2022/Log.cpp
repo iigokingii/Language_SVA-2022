@@ -67,13 +67,13 @@ namespace Log
 				<< " позиция " << error.inext.column << endl;
 			Close(log);
 		}
-		else
+		/*else
 		{
 			cout << "\nОшибка " << error.id
 				<< ": " << error.message
 				<< "\nСтрока " << error.inext.line
 				<< " позиция " << error.inext.column << endl;
-		}
+		}*/
 	}
 	void Close(LOG log)
 	{

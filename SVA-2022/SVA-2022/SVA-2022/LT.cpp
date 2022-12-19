@@ -41,7 +41,7 @@ namespace LT {
 			if (lextable.table[i].sn > lextable.table[i - 1].sn) {
 				cout << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
 			}
-			if (/*lextable.table[i].lexema == LEX_SEMICOLON ||*/ lextable.table[i + 1].sn > lextable.table[i].sn)
+			if (lextable.table[i].lexema == LEX_SEMICOLON && lextable.table[i+1].lexema!=LEX_BRACELET || lextable.table[i + 1].sn > lextable.table[i].sn)
 			{
 				arr[j] = lextable.table[i].lexema;
 				flag = true;
@@ -51,7 +51,7 @@ namespace LT {
 			j++;
 			if (flag) {
 				arr[j] = '\0';
-				cout << std::setw(20) << std::setfill(' ') << std::left << arr << " | " << setfill('0') << setw(3) << right << From << " - " << setfill('0') << setw(3) << right << To << endl;
+				cout << std::setw(42) << std::setfill(' ') << std::left << arr << " | " << setfill('0') << setw(3) << right << From << " - " << setfill('0') << setw(3) << right << To<<" |" << endl;
 				j = 0;
 				From = To;
 				flag = !flag;
@@ -61,20 +61,22 @@ namespace LT {
 		}
 		cout << "---------------------------------------------------------------" << endl;
 	}
-	void WriteTable(LexTable lextable, Out::OUT out) {
-		*out.stream << "\n--------------------------Таблица лексем-----------------------" << endl;
+	void WriteTable(LexTable lextable, wchar_t *name) {
+		ofstream fout;
+		fout.open(name);
+		fout << "--------------------------Таблица лексем-----------------------" << endl;
 		int stroke = 0;
 		int From = 0;
 		int To = 0;
 		bool flag = false;
-		*out.stream << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
+		fout << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
 		char* arr = new char[TI_STR_MAXSIZE];
 		for (int i = 0, j = 0; i < lextable.size; i++)
 		{
 			if (lextable.table[i].sn > lextable.table[i - 1].sn) {
-				*out.stream << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
+				fout << std::setfill('0') << std::setw(4) << std::right << stroke++ << " | ";
 			}
-			if (lextable.table[i].lexema == LEX_SEMICOLON || lextable.table[i + 1].sn > lextable.table[i].sn)
+			if (lextable.table[i].lexema == LEX_SEMICOLON && lextable.table[i + 1].lexema != LEX_BRACELET || lextable.table[i + 1].sn > lextable.table[i].sn)
 			{
 				arr[j] = lextable.table[i].lexema;
 				flag = true;
@@ -84,7 +86,7 @@ namespace LT {
 			j++;
 			if (flag) {
 				arr[j] = '\0';
-				*out.stream << std::setw(20) << std::setfill(' ') << std::left << arr << " | " << setfill('0') << setw(3) << right << From << " - " << setfill('0') << setw(3) << right << To << endl;
+				fout << std::setw(42) << std::setfill(' ') << std::left << arr << " | " << setfill('0') << setw(3) << right << From << " - " << setfill('0') << setw(3) << right << To <<" |" << endl;
 				j = 0;
 				From = To;
 				flag = !flag;
@@ -92,7 +94,8 @@ namespace LT {
 			To++;
 
 		}
-		*out.stream << "---------------------------------------------------------------" << endl;
+		fout << "---------------------------------------------------------------" << endl;
+		fout.close();
 	}
 
 

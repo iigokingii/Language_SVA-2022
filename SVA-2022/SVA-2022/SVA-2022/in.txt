@@ -1,7 +1,52 @@
+numb func max (numb q, numb v, numb z)[
+  new numb result;
+  new numb k = 123;
+  new stroke str1 ;
+  state:q<v$
+   correctly:[
+    state:v<z$
+     correctly:[result = 45*2/3;
+     str1='some text';]
+     wrong:[result = k*q*z;]
+    $
+   ]  
+   wrong:[result = 13;]
+  $
+  new numb len;
+  print str1;
+  len = strlen(str1);
+  print 'Length of str1 is ';
+  print len;
+  return result;
+];
+
+numb func circuit(numb start , numb end)[
+ new numb a =2;
+ new numb iter = 0;
+ state: start<end$
+  cycle[
+   print start;
+   start = start+2;
+  ]$
+ return start;
+];
+
 main
 [
- new numb a;
- rand(100);
- print a;
+ new numb a =1;
+ new numb b =10;
+ new numb c =12;
+ new symbol S = "a";
+ print 'Вызвана функция max с вложенными states:';
+ new numb result = max(a,b,c);
+ print 'Result of function: ';
+ print result;
+ print 'Вызвана функция circuit с циклом';
+ new numb k = circuit(a,b);
+ print 'Result of function loo :';
+ print k;
+ new numb ran = rand(1000);
+ print 'Rand number :';
+ print ran;
  return 0;
 ];

@@ -1,0 +1,19 @@
+main
+[
+ new numb n1 =12;
+ new numb n2 =14;
+ new numb n3 =16;
+ new numb result;
+
+ state:n1 < n2 $
+   correctly:[
+     state:n2 < n3 $
+       correctly:[result=n3;]
+       wrong:[result=n2;] 
+     $
+   ]
+   wrong:[result=n1;]
+ $
+ print result;
+ return 0;
+];

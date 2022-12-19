@@ -16,8 +16,14 @@ int _tmain(int argc, TCHAR* argv[]) {
 		Log::WriteParm(log, parm);
 		Log::WriteIn(log, in);
 		cout << "Cтарт лексического анализа...\n";
-		Lex::Tables tables = Lex::LexAnalizer(in, out);
+		Lex::Tables tables = Lex::LexAnalizer(in, parm);
 		cout << "Лексический анализ завершен успешно.\n";
+		cout << "Старт семантического анализа...\n";
+		bool SemanticOk = Semantic::semanticsCheck(tables, log);
+		if (!SemanticOk) {
+			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
+		}
+		cout << "Семантический анализ завершен успешно.\n";
 		cout << "Старт синтаксического анализа...\n";
 		MFST::Mfst mfs();
 		MFST::Mfst mfst(tables.lextable, GRB::getGreibach(), parm.greibach);
@@ -29,12 +35,7 @@ int _tmain(int argc, TCHAR* argv[]) {
 			return 0;
 		}
 		cout << "Синтаксический анализ прошел успешно.\n";
-		cout << "Старт семантического анализа...\n";
-		bool SemanticOk = Semantic::semanticsCheck(tables, log);
-		if (!SemanticOk) {
-			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
-		}
-		cout << "Семантический анализ завершен успешно.\n";
+		
 		cout << "Генерация польской записи...\n";
 		PN::PolishStart(tables);
 		LT::showTable(tables.lextable);
@@ -52,8 +53,7 @@ int _tmain(int argc, TCHAR* argv[]) {
 		cout << "Пропущено: " << in.ignor << endl;*/
 
 		Log::Close(log);
-		//system("pause");
-		//system("start D:\\courseProject\\CompilationOfGenCode.bat");
+		system("start D:\\courseProject\\CompilationOfGenCode.bat");
 	}
 	catch (Error::ERROR e)
 	{
@@ -63,4 +63,4 @@ int _tmain(int argc, TCHAR* argv[]) {
 			<< " позиция " << e.inext.column << std::endl;
 		Log::WriteError(log, e);
 	}
-	}
+}

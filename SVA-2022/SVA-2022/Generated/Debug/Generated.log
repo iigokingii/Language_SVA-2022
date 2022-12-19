@@ -1,2 +1,3 @@
 ﻿  Assembling Generated.asm...
-  Generated.vcxproj -> D:\courseProject\SVA-2022\SVA-2022\Debug\Generated.exe
+Generated.asm(24): error A2006: undefined symbol : mainL0
+C:\Program Files (x86)\Microsoft Visual Studio\2019\Enterprise\MSBuild\Microsoft\VC\v160\BuildCustomizations\masm.targets(70,5): error MSB3721: выход из команды "ml.exe /c /nologo /Zi /Fo"Debug\Generated.obj" /W3 /errorReport:prompt  /TaGenerated.asm" с кодом "1".

@@ -13,6 +13,7 @@
 				"Input			PROTO : DWORD\n"\
 				"Printstroke\t\tPROTO : DWORD\n"\
 				"PrintNumb		PROTO : DWORD\n"\
+				"Strlen			PROTO : DWORD\n"\
 				".stack 4096"
 
 #define CONST	".const"

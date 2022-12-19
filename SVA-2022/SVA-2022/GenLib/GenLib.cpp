@@ -19,7 +19,10 @@ extern "C" {
 		std::cout<< std::endl;
 		return 0;
 	}
-
+	int _stdcall Strlen(char* str) {
+		setlocale(LC_CTYPE, "ru");
+		return strlen(str);
+	}
 	int _stdcall PrintNumb(int numb) {
 		setlocale(LC_CTYPE, "ru");
 		std::cout << numb<<std::endl;

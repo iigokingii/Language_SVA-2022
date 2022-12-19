@@ -21,13 +21,11 @@ void header(Lex::Tables& tables, vector<string>& v) {
 					break;
 				}
 				case IT::IDDATATYPE::STR: {
-					str = str + " byte " + string(temp.value.vstr.str) + ", 0\n";
-					str = str + "\t\tLEN_" + temp.id + " = ($-" + temp.id + ")";
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
 					break;
 				}
 				case IT::IDDATATYPE::CHAR: {
-					str = str + " byte " + string(temp.value.vstr.str) + ", 0\n";
-					str = str + "\t\tLEN_" + temp.id + " = ($-" + temp.id + ")";
+					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
 					break;
 				}
 			}
@@ -67,7 +65,7 @@ string headerOfFunc(Lex::Tables&tables,int i ,string name,int param) {
 
 	temp = temp + FUNCTION_NAME(name) + string(e.id) + string(" PROC,\n\t");
 	int number = e.numberOfParam;
-	int j = i + 3;	//tfi(ti,ti) для того чтобы начать с і;
+	int j = i+3; //для того чтобы начать с последнего параметра тк параметры передаются справа налево tfi(ti,ti,ti)
 	while (number > 0) {
 		temp = temp + string(IT_ENTRY(j).scope) + string(IT_ENTRY(j).id) +(IT_ENTRY(j).iddatatype == IT::INT ? " : sdword, " : " : dword, ");
 		number--;
@@ -82,18 +80,20 @@ string headerOfFunc(Lex::Tables&tables,int i ,string name,int param) {
 
 string callFunc(Lex::Tables& tables, int pos) {	//Подготовка и вызов функции
 	string str="";
-	IT::Entry e = IT_ENTRY(pos+3);
+	IT::Entry e = IT_ENTRY(pos+3); 
 	stack<IT::Entry> st;
+	int posOfFunc;
 	for (int j = pos; LEXEMA(j) != '@'; j++) {
 		if (LEXEMA(j) == LEX_ID || LEXEMA(j) == LEX_LITERAL)
 			st.push(IT_ENTRY(j));
+		posOfFunc = j;
 	}
 	while (!st.empty()) {
 		if (st.top().iddatatype == (IT::IDDATATYPE::STR||IT::IDDATATYPE::CHAR)&& st.top().idtype == IT::L) {
 			str = str + "push offset " /*+st.top().scope*/+st.top().id + "\n";
 		}
 		 else {
-			str= str + "push " +st.top().scope+ st.top().id + "\n";//заполнение строки литералами
+			str= str + "push " +"main"+ st.top().id + "\n";//заполнение строки литералами
 		 }
 		 
 		st.pop();
@@ -104,22 +104,38 @@ string callFunc(Lex::Tables& tables, int pos) {	//Подготовка и вызов функции
 
 string genStateCode(Lex::Tables& tables, int i, string& cyclecode) {
 	string str;
-	counterOfStates++;
-	cyclecode.clear();
-	IT::Entry left = IT_ENTRY(i + 2);	//левый операнд
-	IT::Entry right = IT_ENTRY(i + 4);	//правый операнд
-	bool correctly=false, wrong = false;
-	string correctlyStroke, WrongStroke;
-	for (int j = i+6; LEXEMA(j)!=LEX_DOL ; j++)	//для того чтобы начать с первого символоа в $ $
-	{
-		if (LEXEMA(j) == LEX_CORRECTLY)
-			correctly = true;
-		if (LEXEMA(j) == LEX_WRONG)
-			wrong = true;
+	bool inCycle=false;
+	if (!cyclecode.empty()) {
+		str = str + cyclecode;
+		inCycle = true;
 	}
-	str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
-	switch (LEXEMA(i+3))
-	{
+	if (!inCycle) {
+		counterOfStates++;
+		cyclecode.clear();
+		IT::Entry left = IT_ENTRY(i + 2);	//левый операнд
+		IT::Entry right = IT_ENTRY(i + 4);	//правый операнд
+		bool correctly = false, wrong = false, cycle = false;
+		string correctlyStroke, WrongStroke;
+		for (int j = i + 6; LEXEMA(j) != LEX_DOL; j++)	//для того чтобы начать с первого символоа в $ $
+		{
+			if (LEXEMA(j) == LEX_CORRECTLY)
+				correctly = true;
+			if (LEXEMA(j) == LEX_WRONG || LEXEMA(j) == LEX_STATE)
+				wrong = true;
+			if (LEXEMA(j) == LEX_CYCLE)
+				cycle = true;
+		}
+		if (left.idtype == IT::L && right.idtype == IT::L)
+			str = str + "mov edx, " + left.id + "\ncmp edx, " + right.id + "\n";
+		else if (left.idtype != IT::L && right.idtype == IT::L)
+			str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.id + "\n";
+		else if (right.idtype != IT::L && right.idtype == IT::L)
+			str = str + "mov edx, " + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
+		else {
+			str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
+		}
+		switch (LEXEMA(i + 3))
+		{
 		case LEX_GREATER: {
 			correctlyStroke = "jg";
 			WrongStroke = "jl";
@@ -140,14 +156,31 @@ string genStateCode(Lex::Tables& tables, int i, string& cyclecode) {
 			WrongStroke = "jae";
 			break;
 		}
+		}
+		if (correctly) {
+			str = str + "\n" + correctlyStroke + " right" + to_string(counterOfStates);
+		}
+		if (wrong) {
+			str = str + "\n" + WrongStroke + " wrong" + to_string(counterOfStates);
+		}
+		if (cycle && !inCycle) {			//генерация для начала цикла
+			str = str + "\n" + correctlyStroke + " repeat" + to_string(counterOfStates);
+			cyclecode = str;
+			str = str + "\njmp repeatnext" + to_string(counterOfStates);
+			str = str + "\nrepeat" + to_string(counterOfStates) + ":\n";
+		}
+		if (inCycle) {					//генерация окончания цикла
+			str = str + "\n" + correctlyStroke + " repeat" + to_string(counterOfStates);
+			str = str + "\nrepeatnext" + to_string(counterOfStates) + ":";
+			inCycle = false;
+		}
+
+		else if (!correctly&&!cycle || !wrong&&!cycle)  str = str + "\njmp next" + to_string(counterOfStates);
 	}
-	if (correctly) {
-		str = str + "\n" + correctlyStroke + " right" + to_string(counterOfStates);
+	else {
+		str = str + "\nrepeatnext" + to_string(counterOfStates) + ":";
 	}
-	if (wrong) {
-		str = str + "\n" + WrongStroke + " wrong" + to_string(counterOfStates);
-	}
-	else if (!correctly || !wrong)  str = str + "\njmp next" + to_string(counterOfStates);
+	
 
 	return str;
 }
@@ -158,24 +191,70 @@ string generateEqual(Lex::Tables&tables,int pos) {
 	IT::Entry e = IT_ENTRY(pos - 1);	//левый операнд в выражении;
 	switch (e.iddatatype) {
 		case IT::INT: {
+			bool findFunc = false;
 			for (int j = pos+1; LEXEMA(j)!=LEX_SEMICOLON; j++)	//начиная с первого правого операнда
 			{
+				
 				switch (LEXEMA(j))
 				{
+					/*case LEX_RAND: {
+						str = str + "push " + e.id;
+						str = str + "\ncall " + "Rand";
+						break;
+					}*/
+					case '@': {
+						str.clear();
+						findFunc = true;
+						IT::Entry e1 = IT_ENTRY(j-1); //-1 для обращения к параметру
+						IT::Entry en = IT_ENTRY(j);
+						if (Lex::CMP(en.id, "strlen")) {
+							str = str + "push " + e1.scope + e1.id+"\n";
+							str = str + "call Strlen\n";
+							str = str + "mov "+e.scope + e.id+", eax";
+							break;
+						}
+						else if (Lex::CMP(en.id,"rand")) {
+							if (e1.idtype == IT::L) {
+								str = str + "push " + e1.id + "\n";
+								str = str + "call Rand\n";
+								str = str + "mov " + e.scope + e.id + ", eax";
+							}
+							else{
+								str = str + "push " +e1.scope+ e1.id + "\n";
+								str = str + "call Rand\n";
+								str = str + "mov " + e.scope + e.id + ", eax";
+							}
+							break;
+						}
+						else {
+							int positionOfFunc = j-1;
+							IT::Entry entrOfFunc = IT_ENTRY(j);
+							while (LEXEMA(positionOfFunc) != LEX_EQUAL) {
+								IT::Entry entr = IT_ENTRY(positionOfFunc);			//для обращения к первому параметру iii@3
+								if (entr.idtype == IT::P||entr.idtype==IT::V) {
+									if (entr.iddatatype == IT::CHAR || entr.iddatatype == IT::STR)
+										str = str + "push offset " + "main" + entr.id + "\n";
+									if (entr.iddatatype == IT::INT)
+										str = str + "push " + "main" + entr.id + "\n";
+								}
+								positionOfFunc--;
+							}
+							str = str + "call " + entrOfFunc.id+ "\n";
+							str = str + "mov " + "main" + e.id + ", eax\n";
+						}
+						break;
+					}
 					case LEX_LITERAL: {
 						str = str + "push " /*+ IT_ENTRY(j).scope */+ IT_ENTRY(j).id + "\n";
 						break;
 					}
 					case LEX_ID: {
-						if (IT_ENTRY(j).iddatatype == IT::F) {
+						if (IT_ENTRY(j).idtype == IT::F) {
 							str = str + callFunc(tables, j);
 							str = str + "push eax\n";
-							while (LEXEMA(j) != LEX_RIGHTHESIS)
-								j++;
-							break;
 						}
-						else {
-							str = str + "push " +IT_ENTRY(j).scope+IT_ENTRY(j).id + "\n";
+						if (IT_ENTRY(j).idtype == IT::V || IT_ENTRY(j).idtype==IT::P ) {
+							str = str +"push " + IT_ENTRY(j).scope + IT_ENTRY(j).id + "\n";
 						}
 						break;
 					}
@@ -191,7 +270,8 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						return str = str + "call Remainder\nmov " + e.scope + e.id + ", eax\n";
 				}
 			}	//цикл для вычисления выражения
-			str = str + "pop ebx\nmov " + e.scope + e.id + ", ebx\n";	//результат в регистр ebx;
+			if(!findFunc)
+				str = str + "pop ebx\nmov " + e.scope + e.id + ", ebx\n";	//результат в регистр ebx;
 			break;
 		}
 		case IT::STR: {
@@ -230,17 +310,21 @@ namespace Generator {
 	void CodeGeneration(Lex::Tables& tables) {
 		ofstream asmFile("D:\\courseProject\\SVA-2022\\SVA-2022\\Generated\\Generated.asm");
 		vector<string> v;
+		stack<int>posCorrectly;				//расположение стейта
+		stack<int>posWrong;
 		header(tables, v);
 		string cyclecode;
-		string buff="";	//буфер для строк
+		string buff="";				//буфер для строк
 		string buffForFuncName="";	//буфер для имени функции
+		int nesting=0;				//вложенность state
+		int count = 0;				//есть 2 (corr и wrong) или 1
 		int numberOfParam;
 		bool findmain = false;
 		for (int i = 0; i < tables.lextable.size; i++) {
 			switch (LEXEMA(i))
 			{
 				case LEX_MAIN:{
-					buff = buff + FUNCTION_NAME("MAIN") + "main PROC";
+ 					buff = buff + FUNCTION_NAME("MAIN") + "main PROC";
 					buffForFuncName = "main";
 					numberOfParam = 0;
 					findmain = true;
@@ -258,16 +342,24 @@ namespace Generator {
 					break;
 				}
 				case LEX_CORRECTLY: {
-					buff = buff + "right" + to_string(counterOfStates) + ":";
+					buff = buff + "\tright" + to_string(counterOfStates) + ":";
+					posCorrectly.push(i);
 					break;
 				}
 				case LEX_WRONG: {
-					buff = buff + "wrong" + to_string(counterOfStates) + ":";
+					buff = buff + "\twrong" + to_string(counterOfStates-nesting) + ":";
+					posWrong.push(i);
+					if (posWrong.size() != posCorrectly.size()) {			//проверка на то является ли стейт вложенным
+						nesting++;
+					}
+					
 					break;
 				}
 				case LEX_BRACELET: {
-					if (LEXEMA(i + 1) == LEX_CORRECTLY || LEXEMA(i + 1) == LEX_WRONG)
-						buff = buff + "jmp next" + to_string(counterOfStates);
+					if (LEXEMA(i + 1) == LEX_CORRECTLY || LEXEMA(i + 1) == LEX_WRONG) {
+						buff = buff + "jmp next" + to_string(counterOfStates-nesting);	
+						
+					}
 					break;
 				}
 				case LEX_RETURN: {
@@ -300,16 +392,14 @@ namespace Generator {
 					switch (e.iddatatype)
 					{
 						case IT::IDDATATYPE::INT: {
-							buff = buff + "\npush " + e.scope + e.id + "\ncall PrintNumb\n";
+							if(e.idtype!=IT::L)
+								buff = buff + "\npush " + e.scope + e.id + "\ncall PrintNumb\n";
+							else 
+								buff = buff + "\npush "+ e.id + "\ncall PrintNumb\n";
 							break;
-							}
-							
+						}
+						case IT::IDDATATYPE::CHAR:
 						case IT::IDDATATYPE::STR: {
-							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " /*+ e.scope*/ + e.id + "\ncall PrintStroke\n";
-							else  buff = buff + "\npush " + e.scope + e.id + "\ncall PrintStroke\n";
-							break;
-							}
-						case IT::IDDATATYPE::CHAR: {
 							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " /*+ e.scope*/ + e.id + "\ncall PrintStroke\n";
 							else  buff = buff + "\npush " + e.scope + e.id + "\ncall PrintStroke\n";
 							break;
@@ -320,7 +410,18 @@ namespace Generator {
 				}
 				case LEX_DOL: {
 					if (LEXEMA(i - 1) == LEX_BRACELET) {
-						buff += "next" + to_string(counterOfStates)+":";
+						if (!cyclecode.empty()) {
+							buff = genStateCode(tables, i, cyclecode);
+							break;
+						}
+						if (posCorrectly.size() == posWrong.size()) {		//если стейт вышел из вложенности
+							buff += "next" + to_string(counterOfStates - nesting) + ":";
+							nesting = 0;
+						}
+						else if (posCorrectly.size() != posWrong.size()) {
+							buff += "next" + to_string(counterOfStates) + ":";
+						}
+						break;
 					}
 				}
 				case LEX_ID: {
@@ -335,7 +436,6 @@ namespace Generator {
 					IT::Entry e = IT_ENTRY(i + 2);
 					buff = buff + "push " + e.id;
 					buff = buff + "\ncall " + "Rand";
-					buff = buff + "\nmov " + e.scope + e.id + ",eax\n";
 					break;
 				}
 				case LEX_INPUT: {
@@ -345,13 +445,15 @@ namespace Generator {
 					buff = buff + "mov " + e.scope + e.id + ",eax\n";
 					break;
 				}
-				case LEX_STRLEN: {
-					IT::Entry e = IT_ENTRY(i + 2);			//strlen(a); Для того чтобы начать с а
-					LT::Entry e1 = LT::GetEntry(tables.lextable, e.idxfirstLE+2);
-					IT::Entry e2 = IT::GetEntry(tables.idtable, e1.idxTI);
-					buff = buff + "\npush LEN_"+e2.id+"-1\n";
-					buff = buff + "call PrintNumb";
-				}
+				//case LEX_SEMICOLON: {
+				//	if (LEXEMA(i + 1) == ']') {
+				//		if ((!posCorrectly.empty()&&!posCorrectly.empty())&&posCorrectly.top() > posWrong.top()) {			//проверка на то где находимся(corrently / wrong)
+				//			
+
+				//		}
+				//	}
+				//	break;
+				//}
 			}
 			if (!buff.empty()) {
 				v.push_back(buff);

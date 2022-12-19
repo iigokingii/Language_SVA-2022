@@ -4,14 +4,16 @@ namespace Semantic {
 	bool semanticsCheck(Lex::Tables& tables, Log::LOG& log) {
 		bool sem_ok = true;
 		char temp [7];
+		IT::Entry e;
 		for (int i = 0; i <tables.idtable.size; i++)
 		{
-			strcpy(temp, tables.idtable.table[i].id);
-			for (int  j = i+1; j < tables.idtable.size; j++)
+			e=tables.idtable.table[i];
+			for (int  j = 0; j < tables.idtable.size; j++)
 			{
-				if (Lex::CMP(temp, tables.idtable.table[j].id)) {
+				if(j!=i)
+				if (Lex::CMP(e.id, tables.idtable.table[j].id) &&/* tables.idtable.table[j].idtype!=IT::L &&*/ Lex::CMP(e.scope,tables.idtable.table[j].scope)) {
 					sem_ok = false;
-					throw ERROR_THROW_IN(311, tables.lextable.table[tables.idtable.table[j].idxfirstLE].sn, -1);
+					throw ERROR_THROW_IN(311, tables.lextable.table[tables.idtable.table[j].idxfirstLE].sn+1, e.idxfirstLE+1);
 				}
 			}
 		}
@@ -33,14 +35,14 @@ namespace Semantic {
 					break;
 				}
 				case LEX_ID: {
-					if (tables.lextable.table[i].lexema == LEX_FUNCTION) {
-						IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype;
+					if (tables.lextable.table[i-1].lexema == LEX_FUNCTION) {
+						IT::IDDATATYPE temp = tables.idtable.table[tables.lextable.table[i].idxTI].iddatatype;
 						int j = i;
 						while (tables.lextable.table[j].lexema != LEX_RETURN)
 							j++;
-						if (temp != tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype) {
+						if (temp != tables.idtable.table[tables.lextable.table[i].idxTI].iddatatype) {
 							sem_ok = false;
-							throw ERROR_THROW_IN(303, tables.lextable.table[i + 1].sn, -1);
+							throw ERROR_THROW_IN(303, tables.lextable.table[i].sn, -1);
 						}
 					}
 					break;
@@ -74,7 +76,9 @@ namespace Semantic {
 							while (tables.lextable.table[j].lexema != LEX_RIGHTHESIS)
 								j++;
 						}
-						if (tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL) {
+						if ((tables.lextable.table[j].lexema == LEX_ID || tables.lextable.table[j].lexema == LEX_LITERAL)
+							&&
+							(tables.lextable.table[j].lexema!=LEX_STRLEN|| tables.lextable.table[j].lexema!=LEX_RAND || tables.lextable.table[j].lexema!=LEX_INPUT)){
 							if (tables.lextable.table[i - 1].idxTI == TI_NULLIDX) {
 								sem_ok = false;
 								throw ERROR_THROW_IN(307,tables.lextable.table[i - 1].sn+1,i-1);
@@ -106,6 +110,32 @@ namespace Semantic {
 						sem_ok = false;
 						throw ERROR_THROW(313);
 					}
+					break;
+				}
+				
+				case LEX_STRLEN: {
+					IT::Entry e = tables.idtable.table[tables.lextable.table[i + 2].idxTI];
+					int p = tables.lextable.table[i + 2].idxTI;
+					LT::Entry e1 = tables.lextable.table[i];
+					if (p == TI_NULLIDX) {
+						throw ERROR_THROW_IN(314, e1.sn+1, i+1);
+					}
+					else if (e.iddatatype == IT::BOOL) {
+						throw ERROR_THROW_IN(315, e1.sn+1, i+1);
+					}
+					else if (e.iddatatype == IT::INT) {
+						throw ERROR_THROW_IN(315, e1.sn+1, i+1);
+					}
+					else if (tables.idtable.table[tables.lextable.table[i - 2].idxTI].iddatatype != IT::INT) {
+						throw ERROR_THROW_IN(316, tables.lextable.table[i - 2].sn, i - 1);
+					}
+					break;
+				}
+				case LEX_RAND: {
+					IT::Entry e = tables.idtable.table[tables.lextable.table[i + 2].idxTI];
+					if (e.iddatatype != IT::INT)
+						throw ERROR_THROW_IN(312,tables.lextable.table[i].sn+1,i+1);
+					break;
 				}
 			}
 		}

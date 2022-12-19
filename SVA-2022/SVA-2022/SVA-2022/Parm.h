@@ -20,9 +20,9 @@ namespace Parm// обработка входных параметров
 		wchar_t in[PARM_MAX_SIZE];	// -in: им€ файла исходного кода
 		wchar_t out[PARM_MAX_SIZE];	// -out: им€ файла объектного кода
 		wchar_t log[PARM_MAX_SIZE];	// -log: им€ файла протокола
-		wchar_t IT[PARM_MAX_SIZE];//-IT:им€файлаиндентификаторов
-		wchar_t LT[PARM_MAX_SIZE];//-LT:им€файлалексем
-		wchar_t greibach[PARM_MAX_SIZE];//-greibach:им€файлалексем
+		wchar_t IT[PARM_MAX_SIZE];//-IT:им€ файла индентификаторов
+		wchar_t LT[PARM_MAX_SIZE];//-LT:им€ файла лексем
+		wchar_t greibach[PARM_MAX_SIZE];//-greibach:им€ файла лексем
 	};
 	//(int argc, _TCHAR* argv[])
 	PARM getparm(int argc, wchar_t* argv[]); //int argc, _TCHAR* argv[] 
