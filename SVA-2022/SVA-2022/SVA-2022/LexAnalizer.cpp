@@ -76,7 +76,30 @@ namespace Lex {
 				st.push(findState);
 				continue;
 			}
-			
+			FST::FST fstand(words[stroke], FST_AND);
+			if (FST::execute(fstand)) {
+				LtEntr.lexema = LEX_AND;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
+			FST::FST fstor(words[stroke], FST_OR);
+			if (FST::execute(fstor)) {
+				LtEntr.lexema = LEX_OR;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
+			FST::FST fstinver(words[stroke],FST_INVERSION);
+			if (FST::execute(fstinver)) {
+				LtEntr.lexema = LEX_INVERSION;
+				LtEntr.sn = sn;
+				LtEntr.idxTI = LT_TI_NULLIDX;
+				LT::Add(lextable, LtEntr);
+				continue;
+			}
 			FST::FST fstCycle(words[stroke], FST_CYCLE);
 			if(FST::execute(fstCycle)){
 				LtEntr.lexema = LEX_CYCLE;
@@ -590,32 +613,6 @@ namespace Lex {
 							continue;
 						}
 					}
-
-
-
-					/*FST::FST fstLit(words[stroke], FST_STRLIT);
-					if (FST::execute(fstLit)) {
-						LtEntr.lexema = LEX_LITERAL;
-						LtEntr.sn = sn;
-						LtEntr.idxTI = idtable.size;
-
-						ItEntr.idtype = IT::L;
-						ItEntr.iddatatype = IT::STR;
-						ItEntr.idxfirstLE = lextable.size;
-						ItEntr.value.vstr.len = strlen(words[stroke]);
-						char t[10];
-						char lit[10] = "L";
-						strcat(lit, itoa(LitNumber, t, 10));
-						strcpy(ItEntr.id, lit);
-
-						strcpy_s(ItEntr.value.vstr.str, words[stroke]);
-						ItEntr.value.vstr.len = strlen(words[stroke]);
-						LT::Add(lextable, LtEntr);
-						IT::Add(idtable, ItEntr);
-						ItEntr.iddatatype = IT::UNDEF;
-						LitNumber++;
-						continue;
-					}*/
 					getid(stroke, id, words, 0);
 					int position = IT::IsId(idtable, id);
 					LtEntr.idxTI = position;
@@ -640,7 +637,6 @@ namespace Lex {
 				else {
 					strcpy(ItEntr.id, words[stroke]);
 				}
-					/*throw ERROR_THROW_IN(162, sn, stroke);*/
 				if (CMP(words[stroke - 2], "stroke")) {
 					ItEntr.iddatatype = IT::STR;
 				}
@@ -708,7 +704,7 @@ namespace Lex {
 				{
 					strcpy_s(ItEntr.value.vstr.str, "");
 					ItEntr.value.vstr.len = 0;
-				}
+				}	
 
 				LT::Add(lextable, LtEntr);
 				IT::Add(idtable, ItEntr);
@@ -759,6 +755,10 @@ namespace Lex {
 				ItEntr.iddatatype = IT::UNDEF;
 				continue;
 			}
+			FST::FST fstEqua(words[stroke+1], FST_EQUAL);
+			FST::FST fstword(words[stroke], FST_ID);
+			if (FST::execute(fstEqua) && FST::execute(fstword))
+				continue;
 			FST::FST fstEq(words[stroke], FST_EQUAL);
 			if (FST::execute(fstEq)) {
 				FST::FST FSTID(words[stroke - 1], FST_ID);
@@ -783,6 +783,33 @@ namespace Lex {
 				stroke++;
 				//проверка?
 				while (!CMP(words[stroke], ";")) {
+					FST::FST fstand1(words[stroke], FST_AND);
+					if (FST::execute(fstand1)) {
+						LtEntr.lexema = LEX_AND;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = LT_TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+					FST::FST fstor1(words[stroke], FST_OR);
+					if (FST::execute(fstor1)) {
+						LtEntr.lexema = LEX_OR;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = LT_TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
+					FST::FST fstinver1(words[stroke], FST_INVERSION);
+					if (FST::execute(fstinver1)) {
+						LtEntr.lexema = LEX_INVERSION;
+						LtEntr.sn = sn;
+						LtEntr.idxTI = LT_TI_NULLIDX;
+						LT::Add(lextable, LtEntr);
+						stroke++;
+						continue;
+					}
 					FST::FST fstLH2(words[stroke], FST_LEFTTHESIS);
 					if (FST::execute(fstLH2)) {
 						LtEntr.priority = 1;
@@ -871,9 +898,10 @@ namespace Lex {
 					}
 					FST::FST FSTSTRL(words[stroke], FST_STRLEN);
 					FST::FST FSTRAND(words[stroke], FST_RAND);
-					if (FST::execute(FSTSTRL) || FST::execute(FSTRAND)) {
+					FST::FST FSTINP(words[stroke], FST_INPUT);
+					if (FST::execute(FSTSTRL) || FST::execute(FSTRAND)||FST::execute(FSTINP)) {
 						LtEntr.idxTI = idtable.size;
-						bool findRand = false, findStrlen = false;
+						bool findRand = false, findStrlen = false , findinput = false;
 						if (CMP(words[stroke], "strlen")) {
 							LtEntr.lexema = LEX_STRLEN;
 							findStrlen = true;
@@ -881,6 +909,10 @@ namespace Lex {
 						else if (CMP(words[stroke], "rand")) {
 							findRand = true;
 							LtEntr.lexema = LEX_RAND;
+						}
+						else if (CMP(words[stroke], "input")) {
+							findinput = true;
+							LtEntr.lexema = LEX_INPUT;
 						}
 						LtEntr.sn = sn;
 						LtEntr.priority = 0;
@@ -1143,15 +1175,11 @@ namespace Lex {
 
 				}
 			}
-			FST::FST cxid(words[stroke], FST_ID);
-			if (FST::execute(cxid)) {
-				continue;
-			}
 			throw ERROR_THROW_IN(163, sn + 1, stroke + 1);
 		}
 		
-		if (!FindMain)
-			ERROR_THROW(300);
+		if (FindMain==false)
+			throw ERROR_THROW(165);
 		for (int j = 0; j < idtable.size; j++)
 		{
 			if (idtable.table[j].iddatatype == IT::UNDEF && (idtable.table[j].idtype == IT::V || idtable.table[j].idtype == IT::P || idtable.table[j].idtype == IT::F)) {

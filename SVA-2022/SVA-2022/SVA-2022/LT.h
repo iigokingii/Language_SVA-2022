@@ -9,7 +9,7 @@
 #define LEX_TYPE			't'
 #define LEX_SYMBOL			't'
 #define LEX_BOOL			't'
-#define LEX_ID				'i'				//идентификатор
+#define LEX_ID				'i'					//идентификатор
 #define LEX_LITERAL			'l'				//литерал
 #define LEX_MAIN			'm'
 #define LEX_FUNCTION		'f'				//function
@@ -41,6 +41,9 @@
 #define LEX_INPUT			'U'
 #define LEX_RAND			'R'
 #define LEX_CYCLE			'v'
+#define LEX_OR				'|'
+#define LEX_AND				'&'
+#define LEX_INVERSION		'!'
 
 
 namespace LT {				//таблица лексем

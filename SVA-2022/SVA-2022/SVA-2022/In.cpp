@@ -23,15 +23,15 @@ namespace In
 					amount = 0;
 				}
 				switch (f.code[int((unsigned char)ch)]) {
-					case '\n': {
-						position = 0;
-						line++;
-						l[i] = '\n';
-						i++;
-						break;
-					}
 					case IN::S:
 					case IN::T: {
+						if (ch == '\n') {
+							position = 0;
+							line++;
+							l[i] = '\n';
+							i++;
+							break;
+						}
 						if (ch == '\'') {//если втрой раз встретим то true=>она закрыв 
 							expres = false;
 						}

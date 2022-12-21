@@ -28,18 +28,19 @@ namespace Error
 		ERROR_ENTRY_NODEF(129),  ERROR_ENTRY_NODEF10(130), ERROR_ENTRY_NODEF10(140), ERROR_ENTRY_NODEF10(150),
 		ERROR_ENTRY(160,"[LEX]# Превышено максимальное количество строк в таблице идентификаторов"),
 		ERROR_ENTRY(161,"[LEX]# Таблица идентификаторов переполнена"),
-		ERROR_ENTRY(162,"[LEX]# Размер идентификатора больше максимально допустимого"),//TODO
+		ERROR_ENTRY_NODEF(162),
 		ERROR_ENTRY(163,"[LEX]# Не удалось распознать цепочку"),
 		ERROR_ENTRY(164,"[LEX]# Размер литерала больше максимально допустимого"),
-		ERROR_ENTRY_NODEF(165),ERROR_ENTRY_NODEF(166),
+		ERROR_ENTRY(165,"[LEX]# Отсутствует точка входа main"),
+		ERROR_ENTRY_NODEF(166),
 		ERROR_ENTRY_NODEF(167), ERROR_ENTRY_NODEF(168),ERROR_ENTRY_NODEF(169),
 		ERROR_ENTRY_NODEF10(170),ERROR_ENTRY_NODEF10(180),ERROR_ENTRY_NODEF10(190),
 		ERROR_ENTRY_NODEF100(200),
-		ERROR_ENTRY(300,"[SEM]# Отсутствует точка входа main"),
+		ERROR_ENTRY_NODEF(300),
 		ERROR_ENTRY(301,"[SEM]# В объявлении не указан тип идентификатора"),
 		ERROR_ENTRY(302,"[SEM]# В объявлении отсутствует ключевое слово new"),
 		ERROR_ENTRY(303,"[SEM]# Возвращаемый функцией тип не соответствует типу функции"),
-		ERROR_ENTRY(304,"[SEM]# Неверное условное выражение"),
+		ERROR_ENTRY(304,"[SEM]# Ошибка в условии условного выражения"),
 		ERROR_ENTRY(305,"[SEM]# Типы данных в выражении не совпадают"),
 		ERROR_ENTRY(306,"[SEM]# Деление на ноль"),
 		ERROR_ENTRY(307,"[SEM]# Необъявленный идентификатор"),
@@ -74,22 +75,6 @@ namespace Error
 		ERROR_ENTRY(612,"[SIN]# Ожидаются только лексемы и идентификаторы"),
 		ERROR_ENTRY_NODEF(613),ERROR_ENTRY_NODEF(614),ERROR_ENTRY_NODEF(615),
 		ERROR_ENTRY_NODEF(616),ERROR_ENTRY_NODEF(617),ERROR_ENTRY_NODEF(618),ERROR_ENTRY_NODEF(619),
-		/*
-		ERROR_ENTRY(601, "[SYN]# Не найден список параметров функции"),
-		
-		ERROR_ENTRY(603, "[SYN]# Ошибка в теле процедуры"),
-		
-		ERROR_ENTRY(606, "[SYN]# Ошибка в списке фактических параметров функции"),
-
-		ERROR_ENTRY(608, "[SYN]# Ошибка в теле цикла/условного выражения"),
-		ERROR_ENTRY(609, "[SYN]# Ошибка в условии цикла/условного выражения"),
-		ERROR_ENTRY(610, "[SYN]# Неверный условный оператор"),
-		ERROR_ENTRY(611, "[SYN]# Неверный арифметический оператор"),
-		ERROR_ENTRY(612, "[SYN]# Неверное выражение. Ожидаются только идентификаторы/литералы"),
-		ERROR_ENTRY(613, "[SYN]# Ошибка в арифметическом выражении"),
-		ERROR_ENTRY(614, "[SYN]# Недопустимая синтаксическая конструкция"),
-		ERROR_ENTRY(615, "[SYN]# Недопустимая синтаксическая конструкция в теле цикла/условного выражения"),*/
-
 		ERROR_ENTRY_NODEF10(620),ERROR_ENTRY_NODEF10(630),ERROR_ENTRY_NODEF10(640),ERROR_ENTRY_NODEF10(650),
 		ERROR_ENTRY_NODEF10(660),ERROR_ENTRY_NODEF10(670),ERROR_ENTRY_NODEF10(680),ERROR_ENTRY_NODEF10(690),
 		ERROR_ENTRY_NODEF100(700),ERROR_ENTRY_NODEF100(800),ERROR_ENTRY_NODEF100(900),

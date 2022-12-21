@@ -2,12 +2,12 @@
 
 
 ------------ПРОТОКОЛ------------
- ----19.12.22 03:23:57----
+ ----21.12.22 12:29:32----
  
  ---- Параметры ---- 
 
 -in: in.txt
--out: in.txt.out
+-out: out.txt
 -log: in.txt.log
 
 ---- Исходные данные ----
@@ -18,7 +18,7 @@ numb func max (numb q, numb v, numb z)[
  state:q<v$
  correctly:[
  state:v<z$
- correctly:[result = 45*2/3;
+ correctly:[result = 45/15*2;
  str1='some text';]
      wrong:[result = k*q*z;]
     $
@@ -35,40 +35,44 @@ numb func max (numb q, numb v, numb z)[
 
 numb func circuit(numb start , numb end)[
  new numb a =2;
- new numb iter = 0;
+ new numb iter = 1;
  state: start<end$
   cycle[
    print start;
    start = start+2;
+   iter=iter*2;
   ]$
- return start;
+ return iter;
 ];
 
 main
 [
- 
  new numb a =1;
  new numb b =10;
  new numb c =12;
-
  new symbol S = "a";
- print 'Вызвана функция max с вложенными states:';
- new numb result = max(a,b,c);
- print 'Result of function: ';
+ new boolean b1 =false;
+ new numb result = max(a,b,c)+22;
+ print 'Result of function max: ';
  print result;
- print 'Вызвана функция circuit с циклом';
- new numb k = circuit(a,b);
+ print 'нижний и верхний пределы:';
+ new numb start = input(start);
+ new numb end = input(end);
+ new numb k = circuit(start,end);
  print 'Result of function loo :';
  print k;
  new numb ran = rand(1000);
  print 'Rand number :';
  print ran;
+ new numb x = 12/2;
+ print x;
  return 0;
 ];
 
-Всего символов: 936
 
-Всего строк: 0
+Всего символов: 1019
+
+Всего строк: 57
 
 Пропущено: 0
 -------------------------------------

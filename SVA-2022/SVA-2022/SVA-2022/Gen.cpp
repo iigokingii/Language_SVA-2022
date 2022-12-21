@@ -2,6 +2,7 @@
 #include<string>
 #include<string.h>
 static int counterOfStates = 0;
+static bool booleanLit=true;
 void header(Lex::Tables& tables, vector<string>& v) {
 	v.push_back(BEGIN);
 	v.push_back(EXTRN);
@@ -12,7 +13,8 @@ void header(Lex::Tables& tables, vector<string>& v) {
 	for (int i = 0; i < tables.idtable.size; i++)
 	{
 		IT::Entry temp = tables.idtable.table[i];
-		string str = "\t\t" +/*string(temp.scope)+*/ string(temp.id);
+		string str = "\t\t" + string(temp.id);
+
 		if (tables.idtable.table[i].idtype == IT::IDTYPE::L) {
 			switch (temp.iddatatype)
 			{
@@ -28,6 +30,26 @@ void header(Lex::Tables& tables, vector<string>& v) {
 					str = str + " byte " + string(temp.value.vstr.str) + ", 0";
 					break;
 				}
+				case IT::IDDATATYPE::BOOL: {
+					if (Lex::CMP(temp.value.vstr.str, "false")) {
+						if (booleanLit) {
+							vConst.push_back("\t\tTRUE equ 1");
+							vConst.push_back("\t\tFALSE equ 0");
+							booleanLit = false;
+						}
+						str = str + " word 0";
+					}
+						
+					if (Lex::CMP(temp.value.vstr.str, "true")) {
+						if (booleanLit) {
+							vConst.push_back("TRUE equ 1");
+							vConst.push_back("FALSE equ 0");
+							booleanLit = false;
+						}
+						str = str + " word 1";
+					}
+						
+				}
 			}
 			vConst.push_back(str);
 		}
@@ -39,6 +61,7 @@ void header(Lex::Tables& tables, vector<string>& v) {
 				case IT::IDDATATYPE::INT: str = str + " sdword 0";  break;				//Если целочисл
 				case IT::IDDATATYPE::STR: str = str + " dword ?";  break;				//Если строка
 				case IT::IDDATATYPE::CHAR:str = str + " dword ?"; break;				//Если символ
+				case IT::IDDATATYPE::BOOL:str = str + " word ?"; break;
 			}
 			vData.push_back(str);
 		}
@@ -90,7 +113,7 @@ string callFunc(Lex::Tables& tables, int pos) {	//Подготовка и вызов функции
 	}
 	while (!st.empty()) {
 		if (st.top().iddatatype == (IT::IDDATATYPE::STR||IT::IDDATATYPE::CHAR)&& st.top().idtype == IT::L) {
-			str = str + "push offset " /*+st.top().scope*/+st.top().id + "\n";
+			str = str + "push offset " +st.top().id + "\n";
 		}
 		 else {
 			str= str + "push " +"main"+ st.top().id + "\n";//заполнение строки литералами
@@ -125,37 +148,58 @@ string genStateCode(Lex::Tables& tables, int i, string& cyclecode) {
 			if (LEXEMA(j) == LEX_CYCLE)
 				cycle = true;
 		}
-		if (left.idtype == IT::L && right.idtype == IT::L)
+		bool b = false;
+		if (left.iddatatype == IT::BOOL && right.iddatatype == IT::BOOL) {
+			str = str + "push " + "main" + left.id+"\n";
+			str = str + "pop bx\n";
+			b = true;
+		}
+		if (!b&&left.idtype == IT::L && right.idtype == IT::L)
 			str = str + "mov edx, " + left.id + "\ncmp edx, " + right.id + "\n";
-		else if (left.idtype != IT::L && right.idtype == IT::L)
+		else if (!b && left.idtype != IT::L && right.idtype == IT::L)
 			str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.id + "\n";
-		else if (right.idtype != IT::L && right.idtype == IT::L)
+		else if (!b && right.idtype != IT::L && right.idtype == IT::L)
 			str = str + "mov edx, " + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
 		else {
-			str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
+			if(!b)
+				str = str + "mov edx, " + left.scope + left.id + "\ncmp edx, " + right.scope + right.id + "\n";
 		}
 		switch (LEXEMA(i + 3))
 		{
-		case LEX_GREATER: {
-			correctlyStroke = "jg";
-			WrongStroke = "jl";
-			break;
-		}
-		case LEX_SMALLER: {
-			correctlyStroke = "jl";
-			WrongStroke = "jg";
-			break;
-		}
-		case LEX_GREATEROREQUAL: {
-			correctlyStroke = "jae";
-			WrongStroke = "jbe";
-			break;
-		}
-		case LEX_SMALLEROREQUAL: {
-			correctlyStroke = "jbe";
-			WrongStroke = "jae";
-			break;
-		}
+			case LEX_GREATER: {
+				correctlyStroke = "jg";
+				WrongStroke = "jl";
+				break;
+			}
+			case LEX_SMALLER: {
+				correctlyStroke = "jl";
+				WrongStroke = "jg";
+				break;
+			}
+			case LEX_GREATEROREQUAL: {
+				correctlyStroke = "jae";
+				WrongStroke = "jbe";
+				break;
+			}
+			case LEX_SMALLEROREQUAL: {
+				correctlyStroke = "jbe";
+				WrongStroke = "jae";
+				break;
+			}
+			case LEX_OR: {
+				str = str + "or bx, cx\n\n";
+				str = str + "cmp bx, TRUE\n";
+				correctlyStroke = "jz";
+				WrongStroke = "jnz";
+				break;
+			}
+			case LEX_AND: {
+				str = str + "and bx, cx\n\n";
+				str = str + "cmp bx, TRUE\n";
+				correctlyStroke = "jz";
+				WrongStroke = "jnz";
+				break;
+			}
 		}
 		if (correctly) {
 			str = str + "\n" + correctlyStroke + " right" + to_string(counterOfStates);
@@ -197,11 +241,6 @@ string generateEqual(Lex::Tables&tables,int pos) {
 				
 				switch (LEXEMA(j))
 				{
-					/*case LEX_RAND: {
-						str = str + "push " + e.id;
-						str = str + "\ncall " + "Rand";
-						break;
-					}*/
 					case '@': {
 						str.clear();
 						findFunc = true;
@@ -226,6 +265,10 @@ string generateEqual(Lex::Tables&tables,int pos) {
 							}
 							break;
 						}
+						else if (Lex::CMP(en.id, "input")) {
+							str = str + "call Input\n";
+							str = str + "mov " + e.scope + e.id + ", eax";
+						}
 						else {
 							int positionOfFunc = j-1;
 							IT::Entry entrOfFunc = IT_ENTRY(j);
@@ -245,7 +288,7 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						break;
 					}
 					case LEX_LITERAL: {
-						str = str + "push " /*+ IT_ENTRY(j).scope */+ IT_ENTRY(j).id + "\n";
+						str = str + "push "+ IT_ENTRY(j).id + "\n";
 						break;
 					}
 					case LEX_ID: {
@@ -259,15 +302,44 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						break;
 					}
 					case LEX_PLUS:
-						str = str + "pop ebx\npop eax\nadd eax, ebx\npush eax\n"; break;
+						if (!findFunc) {
+							str = str + "pop ebx\npop eax\nadd eax, ebx\npush eax\n"; break;
+						}
+						else {
+							str = str + "pop ebx\nadd eax, ebx\npush eax\n";
+							str = str + "mov " + "main" + e.id + ", eax\n";
+							break;
+						}
 					case LEX_MINUS:
-						str = str + "pop ebx\npop eax\nsub eax, ebx\npush eax\n"; break;
+						if (!findFunc) {
+							str = str + "pop ebx\npop eax\nsub eax, ebx\npush eax\n"; break;
+						}
+						else {
+							str = str + "pop ebx\nsub eax, ebx\npush eax\n";
+							str = str + "mov " + "main" + e.id + ", eax\n";
+							break;
+						}
 					case LEX_STAR:
-						str = str + "pop ebx\npop eax\nimul eax, ebx\npush eax\n"; break;
+						if (!findFunc) {
+							str = str + "pop ebx\npop eax\nimul eax, ebx\npush eax\n"; break;
+						}
+						else {
+							str = str + "pop ebx\nimul eax, ebx\npush eax\n";
+							str = str + "mov " + "main" + e.id + ", eax\n";
+							break;
+						}
 					case LEX_DIRSLASH:
-						str = str + "pop ebx\npop eax\ncdq\nidiv ebx\npush eax\n"; break;
+						if (!findFunc) {
+							str = str + "pop ebx\npop eax\ncdq\nidiv ebx\npush eax\n"; break;
+						}
+						else {
+							str = str + "pop ebx\ncdq eax, ebx\npush eax\n";
+							str = str + "mov " + "main" + e.id + ", eax\n";
+							break;
+						}
 					case LEX_REMAINDER:
 						return str = str + "call Remainder\nmov " + e.scope + e.id + ", eax\n";
+						break;
 				}
 			}	//цикл для вычисления выражения
 			if(!findFunc)
@@ -295,11 +367,19 @@ string generateEqual(Lex::Tables&tables,int pos) {
 				str = str + "mov " + e.scope + e.id + ", eax";
 			}
 			else if (LEXEMA(pos + 1) == LEX_LITERAL) {		//литерал
-				str = str + "mov " + e.scope + e.id + ", offset " +/*e1.scope*/ + e1.id;
+				str = str + "mov " + e.scope + e.id + ", offset " + e1.id;
 			}
 			else {	//идентификатор
 				str = str + "mov ecx, " + e1.scope + e1.id + "\nmov " + e.scope + e.id + ", ecx";
 			}
+			break;
+		}
+		case IT::BOOL: {
+			IT::Entry e1 = IT_ENTRY(pos + 1);
+			if(e1.idtype==IT::V)
+				str = str + "mov cx, " + "main" + e1.id + "\nmov " + e.scope + e.id + ", cx\n";
+			if(e1.idtype==IT::L)
+				str = str + "mov cx, " + e1.id + "\nmov " + e.scope + e.id + ", cx\n";
 			break;
 		}
 	}
@@ -400,7 +480,7 @@ namespace Generator {
 						}
 						case IT::IDDATATYPE::CHAR:
 						case IT::IDDATATYPE::STR: {
-							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " /*+ e.scope*/ + e.id + "\ncall PrintStroke\n";
+							if (e.idtype == IT::IDTYPE::L)  buff = buff + "\npush offset " + e.id + "\ncall PrintStroke\n";
 							else  buff = buff + "\npush " + e.scope + e.id + "\ncall PrintStroke\n";
 							break;
 						}
@@ -445,15 +525,6 @@ namespace Generator {
 					buff = buff + "mov " + e.scope + e.id + ",eax\n";
 					break;
 				}
-				//case LEX_SEMICOLON: {
-				//	if (LEXEMA(i + 1) == ']') {
-				//		if ((!posCorrectly.empty()&&!posCorrectly.empty())&&posCorrectly.top() > posWrong.top()) {			//проверка на то где находимся(corrently / wrong)
-				//			
-
-				//		}
-				//	}
-				//	break;
-				//}
 			}
 			if (!buff.empty()) {
 				v.push_back(buff);

@@ -4,7 +4,6 @@
 #pragma warning(disable : 4996)
 
 using namespace std;
-
 namespace Log
 {
 	LOG getlog(wchar_t logfile[])
@@ -67,13 +66,6 @@ namespace Log
 				<< " позиция " << error.inext.column << endl;
 			Close(log);
 		}
-		/*else
-		{
-			cout << "\nОшибка " << error.id
-				<< ": " << error.message
-				<< "\nСтрока " << error.inext.line
-				<< " позиция " << error.inext.column << endl;
-		}*/
 	}
 	void Close(LOG log)
 	{

@@ -20,7 +20,7 @@ namespace Parm
 		int LT_len = wcslen(PARM_LT);
 		int greibach_len = wcslen(PARM_GREIBACH);
 
-		for (int i = 1; i < argc; ++i)
+		for (int i = 0; i < argc; i++)
 		{
 			if (wcslen(argv[i]) > PARM_MAX_SIZE)
 			{

@@ -11,7 +11,7 @@ namespace Semantic {
 			for (int  j = 0; j < tables.idtable.size; j++)
 			{
 				if(j!=i)
-				if (Lex::CMP(e.id, tables.idtable.table[j].id) &&/* tables.idtable.table[j].idtype!=IT::L &&*/ Lex::CMP(e.scope,tables.idtable.table[j].scope)) {
+				if (Lex::CMP(e.id, tables.idtable.table[j].id) && tables.idtable.table[j].idtype!=IT::F && Lex::CMP(e.scope,tables.idtable.table[j].scope)) {
 					sem_ok = false;
 					throw ERROR_THROW_IN(311, tables.lextable.table[tables.idtable.table[j].idxfirstLE].sn+1, e.idxfirstLE+1);
 				}
@@ -51,19 +51,22 @@ namespace Semantic {
 				case LEX_SMALLER:
 				case LEX_GREATEROREQUAL:
 				case LEX_SMALLEROREQUAL: {
+					int pos = 0;
 					bool flag = true;
 					if (i > 1 && tables.lextable.table[i - 1].idxTI != LT_TI_NULLIDX) {
 						if (tables.idtable.table[tables.lextable.table[i - 1].idxTI].iddatatype != IT::INT) {
+							pos = tables.idtable.table[tables.lextable.table[i - 1].idxTI].idxfirstLE;
 							flag = false;
 						}
 					}
 					if (i > 1 && tables.lextable.table[i + 1].idxTI != LT_TI_NULLIDX) {
 						if (tables.idtable.table[tables.lextable.table[i + 1].idxTI].iddatatype != IT::INT) {
+							pos = tables.idtable.table[tables.lextable.table[i + 1].idxTI].idxfirstLE;
 							flag = false;
 						}
 					}
 					if (!flag) {
-						throw ERROR_THROW_IN(304, tables.lextable.table[i].sn, -1);
+						throw ERROR_THROW_IN(304, tables.lextable.table[i].sn, pos);
 						sem_ok = false;
 					}
 					break;

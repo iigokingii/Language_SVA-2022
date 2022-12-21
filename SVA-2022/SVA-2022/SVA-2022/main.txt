@@ -1,8 +1,0 @@
-main
-[
- new numb a = strlen('asdasd');
- print a;
- print 'asdaszxcnzxbcmxbhjasdgjhd';
- print a;
- return 0;
-];

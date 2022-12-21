@@ -18,12 +18,6 @@ int _tmain(int argc, TCHAR* argv[]) {
 		cout << "Cтарт лексического анализа...\n";
 		Lex::Tables tables = Lex::LexAnalizer(in, parm);
 		cout << "Лексический анализ завершен успешно.\n";
-		cout << "Старт семантического анализа...\n";
-		bool SemanticOk = Semantic::semanticsCheck(tables, log);
-		if (!SemanticOk) {
-			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
-		}
-		cout << "Семантический анализ завершен успешно.\n";
 		cout << "Старт синтаксического анализа...\n";
 		MFST::Mfst mfs();
 		MFST::Mfst mfst(tables.lextable, GRB::getGreibach(), parm.greibach);
@@ -35,7 +29,12 @@ int _tmain(int argc, TCHAR* argv[]) {
 			return 0;
 		}
 		cout << "Синтаксический анализ прошел успешно.\n";
-		
+		cout << "Старт семантического анализа...\n";
+		bool SemanticOk = Semantic::semanticsCheck(tables, log);
+		if (!SemanticOk) {
+			cout << "Ошибка в ходе семантического анализа.Подробную информацию можно увидеть в log файле.\n";
+		}
+		cout << "Семантический анализ завершен успешно.\n";
 		cout << "Генерация польской записи...\n";
 		PN::PolishStart(tables);
 		LT::showTable(tables.lextable);
@@ -44,16 +43,9 @@ int _tmain(int argc, TCHAR* argv[]) {
 		cout << "Старт генерации кода..." << endl;
 		Generator::CodeGeneration(tables);
 		cout << "Генерация кода завершена.\n";
-
-
 		Out::Close(out);
-		/*cout << in.text << endl;
-		cout << "Всего символов: " << in.size << endl;
-		cout << "Всего строк: " << in.lines << endl;
-		cout << "Пропущено: " << in.ignor << endl;*/
-
 		Log::Close(log);
-		system("start D:\\courseProject\\CompilationOfGenCode.bat");
+		system("start D:\\courseProject\\SVA-2022\\CompilationOfGenCode.bat");
 	}
 	catch (Error::ERROR e)
 	{
