@@ -101,7 +101,7 @@ string headerOfFunc(Lex::Tables&tables,int i ,string name,int param) {
 	return temp;
 }
 
-string callFunc(Lex::Tables& tables, int pos) {	//Подготовка и вызов функции
+string callFunc(Lex::Tables& tables, int pos) {	// вызов функции
 	string str="";
 	IT::Entry e = IT_ENTRY(pos+3); 
 	stack<IT::Entry> st;
@@ -139,7 +139,7 @@ string genStateCode(Lex::Tables& tables, int i, string& cyclecode) {
 		IT::Entry right = IT_ENTRY(i + 4);	//правый операнд
 		bool correctly = false, wrong = false, cycle = false;
 		string correctlyStroke, WrongStroke;
-		for (int j = i + 6; LEXEMA(j) != LEX_DOL; j++)	//для того чтобы начать с первого символоа в $ $
+		for (int j = i + 6; LEXEMA(j) != LEX_DOL; j++)	//для того чтобы начать с первого символоа в $ $ state:n>m$correctly:[]wrong[]$
 		{
 			if (LEXEMA(j) == LEX_CORRECTLY)
 				correctly = true;
@@ -249,25 +249,25 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						if (Lex::CMP(en.id, "strlen")) {
 							str = str + "push " + e1.scope + e1.id+"\n";
 							str = str + "call Strlen\n";
-							str = str + "mov "+e.scope + e.id+", eax";
+							str = str + "mov "+e.scope + e.id+", eax\n";
 							break;
 						}
 						else if (Lex::CMP(en.id,"rand")) {
 							if (e1.idtype == IT::L) {
 								str = str + "push " + e1.id + "\n";
 								str = str + "call Rand\n";
-								str = str + "mov " + e.scope + e.id + ", eax";
+								str = str + "mov " + e.scope + e.id + ", eax\n";
 							}
 							else{
 								str = str + "push " +e1.scope+ e1.id + "\n";
 								str = str + "call Rand\n";
-								str = str + "mov " + e.scope + e.id + ", eax";
+								str = str + "mov " + e.scope + e.id + ", eax\n";
 							}
 							break;
 						}
 						else if (Lex::CMP(en.id, "input")) {
 							str = str + "call Input\n";
-							str = str + "mov " + e.scope + e.id + ", eax";
+							str = str + "mov " + e.scope + e.id + ", eax\n";
 						}
 						else {
 							int positionOfFunc = j-1;
@@ -307,7 +307,7 @@ string generateEqual(Lex::Tables&tables,int pos) {
 						}
 						else {
 							str = str + "pop ebx\nadd eax, ebx\npush eax\n";
-							str = str + "mov " + "main" + e.id + ", eax\n";
+							str = str + "mov " + e.scope + e.id + ", eax\n";
 							break;
 						}
 					case LEX_MINUS:
@@ -333,7 +333,7 @@ string generateEqual(Lex::Tables&tables,int pos) {
 							str = str + "pop ebx\npop eax\ncdq\nidiv ebx\npush eax\n"; break;
 						}
 						else {
-							str = str + "pop ebx\ncdq eax, ebx\npush eax\n";
+							str = str + "pop ebx\ncdq\n idiv ebx\npush eax\n";
 							str = str + "mov " + "main" + e.id + ", eax\n";
 							break;
 						}
@@ -504,27 +504,27 @@ namespace Generator {
 						break;
 					}
 				}
-				case LEX_ID: {
-					if (LEXEMA(i + 4) == '@' && tables.idtable.table[tables.lextable.table[i + 4].idxTI].idtype == IT::F) {   //вызов функции i = ii@2;
-						buff = callFunc(tables, i + 2); //первый параметр
-						buff = buff + "\nmov " + IT_ENTRY(i).scope + IT_ENTRY(i).id + ",eax\n";
-						while (LEXEMA(++i) != LEX_SEMICOLON);
-					}
-					break;
-				}
-				case LEX_RAND: {
-					IT::Entry e = IT_ENTRY(i + 2);
-					buff = buff + "push " + e.id;
-					buff = buff + "\ncall " + "Rand";
-					break;
-				}
-				case LEX_INPUT: {
-					IT::Entry e = IT_ENTRY(i + 2);			//input(a); Для того чтобы начать с а
-					buff = buff + "push " + e.scope + e.id+"\n";
-					buff = buff + "call " + "Input\n";
-					buff = buff + "mov " + e.scope + e.id + ",eax\n";
-					break;
-				}
+				//case LEX_ID: {
+				//	if (LEXEMA(i + 4) == '@' && tables.idtable.table[tables.lextable.table[i + 4].idxTI].idtype == IT::F) {   //вызов функции i = ii@2;
+				//		buff = callFunc(tables, i + 2); //первый параметр
+				//		buff = buff + "\nmov " + IT_ENTRY(i).scope + IT_ENTRY(i).id + ",eax\n";
+				//		while (LEXEMA(++i) != LEX_SEMICOLON);
+				//	}
+				//	break;
+				//}
+				//case LEX_RAND: {
+				//	IT::Entry e = IT_ENTRY(i + 2);
+				//	buff = buff + "push " + e.id;
+				//	buff = buff + "\ncall " + "Rand";
+				//	break;
+				//}
+				//case LEX_INPUT: {
+				//	IT::Entry e = IT_ENTRY(i + 2);			//input(a); Для того чтобы начать с а
+				//	buff = buff + "push " + e.scope + e.id+"\n";
+				//	buff = buff + "call " + "Input\n";
+				//	buff = buff + "mov " + e.scope + e.id + ",eax\n";
+				//	break;
+				//}
 			}
 			if (!buff.empty()) {
 				v.push_back(buff);

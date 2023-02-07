@@ -434,6 +434,8 @@ namespace Lex {
 				LtEntr.sn = sn;
 				LtEntr.idxTI = LT_TI_NULLIDX;
 				LT::Add(lextable, LtEntr);
+				if (CMP(words[stroke + 1], ";"))
+					throw ERROR_THROW_IN(319, sn + 1, stroke + 1);
 				continue;
 
 			}
@@ -565,6 +567,9 @@ namespace Lex {
 							ItEntr.idtype = IT::L;
 							if (words[stroke][0] == '\'') {
 								if (ItEntr.iddatatype = IT::STR) {
+									if (strlen(words[stroke]) > 40) {
+										throw ERROR_THROW_IN(316, sn + 1, stroke + 1);
+									}
 									strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 									ItEntr.value.vstr.len = strlen(words[stroke]);
 								}
@@ -587,6 +592,8 @@ namespace Lex {
 							}
 							else {
 								ItEntr.iddatatype = IT::INT;
+								if (stoi(words[stroke]) > 65536)
+									throw ERROR_THROW_IN(300, sn + 1, stroke + 1);
 								if (!minus)
 									ItEntr.value.vint = stoi(words[stroke]);
 								else
@@ -980,6 +987,9 @@ namespace Lex {
 									ItEntr.idtype = IT::L;
 									if (words[stroke][0] == '\'') {
 										if (ItEntr.iddatatype = IT::STR) {
+											if (strlen(words[stroke]) > 255) {
+												throw ERROR_THROW_IN(316, sn + 1, stroke + 1);
+											}
 											strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 											ItEntr.value.vstr.len = strlen(words[stroke]);
 										}
@@ -1002,6 +1012,8 @@ namespace Lex {
 									}
 									else {
 										ItEntr.iddatatype = IT::INT;
+										if (stoi(words[stroke]) > 65536)
+											throw ERROR_THROW_IN(300, sn + 1, stroke + 1);
 										if (!minus)
 											ItEntr.value.vint = stoi(words[stroke]);
 										else
@@ -1104,6 +1116,9 @@ namespace Lex {
 							ItEntr.idtype = IT::L;
 							if (words[stroke][0] == '\'') {
 								if (ItEntr.iddatatype = IT::STR) {
+									if (strlen(words[stroke]) > 40) {
+										throw ERROR_THROW_IN(316, sn + 1, stroke + 1);
+									}
 									strcpy_s(ItEntr.value.vstr.str, words[stroke]);
 									ItEntr.value.vstr.len = strlen(words[stroke]);
 								}
@@ -1126,12 +1141,13 @@ namespace Lex {
 							}
 							else {
 								ItEntr.iddatatype = IT::INT;
+								if (stoi(words[stroke]) > 65536)
+									throw ERROR_THROW_IN(300, sn + 1, stroke + 1);
 								if (!minus)
 									ItEntr.value.vint = stoi(words[stroke]);
 								else
 									ItEntr.value.vint = stoi(tem);
 							}
-
 							ItEntr.idxfirstLE = lextable.size;
 
 							char t[10];
@@ -1171,6 +1187,8 @@ namespace Lex {
 					LtEntr.sn = sn;
 					LtEntr.idxTI = LT_TI_NULLIDX;
 					LT::Add(lextable, LtEntr);
+					if (CMP(words[stroke + 1], ";"))
+						throw ERROR_THROW_IN(319, sn + 1, stroke + 1);
 					continue;
 
 				}

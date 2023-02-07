@@ -7,5 +7,5 @@ ml /c /coff /Zi Generated.asm
 link /OPT:NOREF /DEBUG /SUBSYSTEM:CONSOLE libucrt.lib Generated.obj 
 call Generated.exe
 timeout 5
-/pause
+pause
 exit

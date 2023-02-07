@@ -40,9 +40,9 @@ namespace Semantic {
 						int j = i;
 						while (tables.lextable.table[j].lexema != LEX_RETURN)
 							j++;
-						if (temp != tables.idtable.table[tables.lextable.table[i].idxTI].iddatatype) {
+						if (temp != tables.idtable.table[tables.lextable.table[j+1].idxTI].iddatatype) {
 							sem_ok = false;
-							throw ERROR_THROW_IN(303, tables.lextable.table[i].sn, -1);
+							throw ERROR_THROW_IN(303, tables.lextable.table[j].sn, j);
 						}
 					}
 					break;
@@ -130,7 +130,7 @@ namespace Semantic {
 						throw ERROR_THROW_IN(315, e1.sn+1, i+1);
 					}
 					else if (tables.idtable.table[tables.lextable.table[i - 2].idxTI].iddatatype != IT::INT) {
-						throw ERROR_THROW_IN(316, tables.lextable.table[i - 2].sn, i - 1);
+						throw ERROR_THROW_IN(303, tables.lextable.table[i - 2].sn, i - 1);
 					}
 					break;
 				}

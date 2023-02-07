@@ -1,50 +1,11 @@
 -----------------------------------------------------------------------------------------------------------
    № | Scope      | Идентификатор | Тип данных | Тип идентификатора | Индекс в ТЛ | Значение    
 -----------------------------------------------------------------------------------------------------------
-0000 | max        | max           | integer    | функция            | 2           | -
-0001 | max        | q             | integer    | параметр           | 5           | 0                 
-0002 | max        | v             | integer    | параметр           | 8           | 0                 
-0003 | max        | z             | integer    | параметр           | 11          | 0                 
-0004 | max        | result        | integer    | переменная         | 16          | 0                 
-0005 | max        | k             | integer    | переменная         | 20          | 0                 
-0006 | max        | L0            | integer    | литерал            | 23          | 123               
-0007 | max        | str1          | string     | переменная         | 26          | ""
-0008 | max        | L1            | integer    | литерал            | 49          | 45                
-0009 | max        | L2            | integer    | литерал            | 51          | 15                
-0010 | max        | L3            | integer    | литерал            | 53          | 2                 
-0011 | max        | L4            | string     | литерал            | 57          | 'some text'
-0012 | max        | L5            | integer    | литерал            | 79          | 13                
-0013 | max        | len           | integer    | переменная         | 84          | 0                 
-0014 | max        | strlen        | integer    | функция            | 92          | -
-0015 | max        | L6            | string     | литерал            | 98          | 'Length of str1 is '
-0016 | circuit    | circuit       | integer    | функция            | 109         | -
-0017 | circuit    | start         | integer    | параметр           | 112         | 0                 
-0018 | circuit    | end           | integer    | параметр           | 115         | 0                 
-0019 | circuit    | a             | integer    | переменная         | 120         | 0                 
-0020 | circuit    | iter          | integer    | переменная         | 126         | 0                 
-0021 | circuit    | L7            | integer    | литерал            | 129         | 1                 
-0022 | main       | a             | integer    | переменная         | 164         | 0                 
-0023 | main       | b             | integer    | переменная         | 170         | 0                 
-0024 | main       | L8            | integer    | литерал            | 173         | 10                
-0025 | main       | c             | integer    | переменная         | 176         | 0                 
-0026 | main       | L9            | integer    | литерал            | 179         | 12                
-0027 | main       | S             | Char       | переменная         | 182         | ""
-0028 | main       | L10           | Char       | литерал            | 185         | "a"
-0029 | main       | b1            | Boolean    | переменная         | 188         | -
-0030 | main       | L11           | Boolean    | литерал            | 191         | false
-0031 | main       | result        | integer    | переменная         | 194         | 0                 
-0032 | main       | L12           | integer    | литерал            | 206         | 22                
-0033 | main       | L13           | string     | литерал            | 209         | 'Result of function max: '
-0034 | main       | L14           | string     | литерал            | 215         | 'нижний и верхний пределы:'
-0035 | main       | start         | integer    | переменная         | 218         | 0                 
-0036 | main       | input         | integer    | функция            | 221         | -
-0037 | main       | end           | integer    | переменная         | 227         | 0                 
-0038 | main       | input         | integer    | функция            | 230         | -
-0039 | main       | k             | integer    | переменная         | 236         | 0                 
-0040 | main       | L15           | string     | литерал            | 247         | 'Result of function loo :'
-0041 | main       | ran           | integer    | переменная         | 253         | 0                 
-0042 | main       | rand          | integer    | функция            | 256         | -
-0043 | main       | L16           | integer    | литерал            | 258         | 1000              
-0044 | main       | L17           | string     | литерал            | 262         | 'Rand number :'
-0045 | main       | x             | integer    | переменная         | 268         | 0                 
+0000 | main       | b1            | Boolean    | переменная         | 4           | -
+0001 | main       | L0            | Boolean    | литерал            | 7           | false
+0002 | main       | b2            | Boolean    | переменная         | 10          | -
+0003 | main       | L1            | Boolean    | литерал            | 13          | true
+0004 | main       | res           | integer    | переменная         | 16          | 0                 
+0005 | main       | L2            | integer    | литерал            | 30          | 20                
+0006 | main       | L3            | integer    | литерал            | 38          | 132               
 -----------------------------------------------------------------------------------------------------------
